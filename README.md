@@ -70,8 +70,8 @@ We would like to acknowledge the contributions of our team members:
 
 - Al Anoud Al Khulaifi
 - Ghalya Al-Eshaq
-- Ruba Al Mahmoud
 - Haya Al-Kaabi
+- Ruba Al Mahmoud
 - Zeina Halawa
 
 
