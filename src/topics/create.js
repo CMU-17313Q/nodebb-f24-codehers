@@ -109,15 +109,15 @@ module.exports = function (Topics) {
 		// Check if the category exists
 		if (!categoryExists) {
 			throw new Error('[[error:no-category]]');
-        }
+		}
 
 		// Check if the user has the necessary privileges to create or tag
 		const cannotCreate = !canCreate;
 		const cannotTag = !canTag && data.tags.length;
-	
+
 		if (cannotCreate || cannotTag) {
-            throw new Error('[[error:no-privileges]]');
-        }
+			throw new Error('[[error:no-privileges]]');
+		}
 
 		console.log('Al Anoud: Refactored code executed');
 
