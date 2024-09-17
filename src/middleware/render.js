@@ -26,6 +26,14 @@ const controllersHelpers = require('../controllers/helpers');
 
 const relative_path = nconf.get('relative_path');
 
+async function checkAPI(req, options, res) {
+	if (req.route && req.route.path === '/api/') {
+		options.title = '[[pages:home]]';
+	}
+	req.app.set('json spaces', global.env === 'development' || req.query.pretty ? 4 : 0);
+	return res.json(options);
+}
+
 module.exports = function (middleware) {
 	middleware.processRender = function processRender(req, res, next) {
 		// res.render post-processing, modified from here: https://gist.github.com/mrlannigan/5051687
@@ -85,12 +93,9 @@ module.exports = function (middleware) {
 				options._locals = undefined;
 
 				if (res.locals.isAPI) {
-					if (req.route && req.route.path === '/api/') {
-						options.title = '[[pages:home]]';
-					}
-					req.app.set('json spaces', global.env === 'development' || req.query.pretty ? 4 : 0);
-					return res.json(options);
+					checkAPI(req, options, res);
 				}
+
 				const optionsString = JSON.stringify(options).replace(/<\//g, '<\\/');
 				const headerFooterData = await loadHeaderFooterData(req, res, options);
 				const results = await utils.promiseParallel({
@@ -126,6 +131,7 @@ module.exports = function (middleware) {
 	};
 
 	async function getLoggedInUser(req) {
+		// console.log('ZEINA HALAWA');
 		if (req.user) {
 			return await user.getUserData(req.uid);
 		}
@@ -147,10 +153,8 @@ module.exports = function (middleware) {
 		return null;
 	}
 
-	async function loadClientHeaderFooterData(req, res, options) {
-		const registrationType = meta.config.registrationType || 'normal';
-		res.locals.config = res.locals.config || {};
-		const templateValues = {
+	function initializeTemplateValues(req, res, options, registrationType) {
+		return {
 			title: meta.config.title || '',
 			'title:url': meta.config['title:url'] || '',
 			description: meta.config.description || '',
@@ -162,52 +166,61 @@ module.exports = function (middleware) {
 			allowRegistration: registrationType === 'normal',
 			searchEnabled: plugins.hooks.hasListeners('filter:search.query'),
 			postQueueEnabled: !!meta.config.postQueue,
-			registrationQueueEnabled: meta.config.registrationApprovalType !== 'normal' || (meta.config.registrationType === 'invite-only' || meta.config.registrationType === 'admin-invite-only'),
+			registrationQueueEnabled: meta.config.registrationApprovalType !== 'normal' || ['invite-only', 'admin-invite-only'].includes(meta.config.registrationType),
 			config: res.locals.config,
 			relative_path,
 			bodyClass: options.bodyClass,
 			widgets: options.widgets,
+			configJSON: jsesc(JSON.stringify(res.locals.config), { isScriptContext: true }),
+			browserTitle: '',
 		};
+	}
 
-		templateValues.configJSON = jsesc(JSON.stringify(res.locals.config), { isScriptContext: true });
+	function populateUserDetails(unreadData, results, uid, user) {
+		user.unreadData = unreadData;
+		user.isAdmin = results.isAdmin;
+		user.isGlobalMod = results.isGlobalMod;
+		user.isMod = !!results.isModerator;
+		user.privileges = results.privileges;
+		user.blocks = results.blocks;
+		user.timeagoCode = results.timeagoCode;
+		user[results.user.status] = true;
+		user.lastRoomId = results.roomIds.length ? results.roomIds[0] : null;
+		user.email = String(user.email);
+		user['email:confirmed'] = user['email:confirmed'] === 1;
+		user.isEmailConfirmSent = !!results.isEmailConfirmSent;
+	}
 
-		const title = translator.unescape(utils.stripHTMLTags(options.title || ''));
-		const results = await utils.promiseParallel({
-			isAdmin: user.isAdministrator(req.uid),
-			isGlobalMod: user.isGlobalModerator(req.uid),
-			isModerator: user.isModeratorOfAnyCategory(req.uid),
-			privileges: privileges.global.get(req.uid),
-			blocks: user.blocks.list(req.uid),
-			user: user.getUserData(req.uid),
-			isEmailConfirmSent: req.uid <= 0 ? false : await user.email.isValidationPending(req.uid),
-			languageDirection: translator.translate('[[language:dir]]', res.locals.config.userLang),
-			timeagoCode: languages.userTimeagoCode(res.locals.config.userLang),
+	async function fetchData(uid, title, userLang) {
+		return await utils.promiseParallel({
+			isAdmin: user.isAdministrator(uid),
+			isGlobalMod: user.isGlobalModerator(uid),
+			isModerator: user.isModeratorOfAnyCategory(uid),
+			privileges: privileges.global.get(uid),
+			blocks: user.blocks.list(uid),
+			user: user.getUserData(uid),
+			isEmailConfirmSent: uid <= 0 ? false : await user.email.isValidationPending(uid),
+			languageDirection: translator.translate('[[language:dir]]', userLang),
+			timeagoCode: languages.userTimeagoCode(userLang),
 			browserTitle: translator.translate(controllersHelpers.buildTitle(title)),
-			navigation: navigation.get(req.uid),
-			roomIds: req.uid > 0 ? db.getSortedSetRevRange(`uid:${req.uid}:chat:rooms`, 0, 0) : [],
+			navigation: navigation.get(uid),
+			roomIds: uid > 0 ? db.getSortedSetRevRange(`uid:${uid}:chat:rooms`, 0, 0) : [],
 		});
+	}
 
+	async function loadClientHeaderFooterData(req, res, options) {
+		const registrationType = meta.config.registrationType || 'normal';
+		res.locals.config = res.locals.config || {};
+		const templateValues = initializeTemplateValues(req, res, options, registrationType);
+		const title = translator.unescape(utils.stripHTMLTags(options.title || ''));
+		const results = await fetchData(req.uid, title, res.locals.config.userLang);
 		const unreadData = {
 			'': {},
 			new: {},
 			watched: {},
 			unreplied: {},
 		};
-
-		results.user.unreadData = unreadData;
-		results.user.isAdmin = results.isAdmin;
-		results.user.isGlobalMod = results.isGlobalMod;
-		results.user.isMod = !!results.isModerator;
-		results.user.privileges = results.privileges;
-		results.user.blocks = results.blocks;
-		results.user.timeagoCode = results.timeagoCode;
-		results.user[results.user.status] = true;
-		results.user.lastRoomId = results.roomIds.length ? results.roomIds[0] : null;
-
-		results.user.email = String(results.user.email);
-		results.user['email:confirmed'] = results.user['email:confirmed'] === 1;
-		results.user.isEmailConfirmSent = !!results.isEmailConfirmSent;
-
+		populateUserDetails(unreadData, results, req.uid, results.user);
 		templateValues.bootswatchSkin = res.locals.config.bootswatchSkin || '';
 		templateValues.browserTitle = results.browserTitle;
 		({
@@ -219,36 +232,37 @@ module.exports = function (middleware) {
 			navigation: results.navigation,
 			unreadData,
 		}));
-		templateValues.isAdmin = results.user.isAdmin;
-		templateValues.isGlobalMod = results.user.isGlobalMod;
-		templateValues.showModMenu = results.user.isAdmin || results.user.isGlobalMod || results.user.isMod;
-		templateValues.canChat = (results.privileges.chat || results.privileges['chat:privileged']) && meta.config.disableChat !== 1;
-		templateValues.user = results.user;
-		templateValues.userJSON = jsesc(JSON.stringify(results.user), { isScriptContext: true });
-		templateValues.useCustomCSS = meta.config.useCustomCSS && meta.config.customCSS;
-		templateValues.customCSS = templateValues.useCustomCSS ? (meta.config.renderedCustomCSS || '') : '';
-		templateValues.useCustomHTML = meta.config.useCustomHTML;
-		templateValues.customHTML = templateValues.useCustomHTML ? meta.config.customHTML : '';
-		templateValues.maintenanceHeader = meta.config.maintenanceMode && !results.isAdmin;
-		templateValues.defaultLang = meta.config.defaultLang || 'en-GB';
-		templateValues.userLang = res.locals.config.userLang;
-		templateValues.languageDirection = results.languageDirection;
+		populateTemplateValues(templateValues, results, res.locals.config);
 		if (req.query.noScriptMessage) {
 			templateValues.noScriptMessage = validator.escape(String(req.query.noScriptMessage));
 		}
-
 		templateValues.template = { name: res.locals.template };
 		templateValues.template[res.locals.template] = true;
-
 		if (options.hasOwnProperty('_header')) {
 			templateValues.metaTags = options._header.tags.meta;
 			templateValues.linkTags = options._header.tags.link;
 		}
-
 		if (req.route && req.route.path === '/') {
 			modifyTitle(templateValues);
 		}
 		return templateValues;
+	}
+
+	async function populateTemplateValues(templateValues, results, config) {
+		templateValues.isAdmin = results.user.isAdmin;
+		templateValues.isGlobalMod = results.user.isGlobalMod;
+		templateValues.showModMenu = results.user.isAdmin || results.user.isGlobalMod || results.user.isMod;
+		templateValues.canChat = (results.privileges.chat || results.privileges['chat:privileged']) && config.disableChat !== 1;
+		templateValues.user = results.user;
+		templateValues.userJSON = jsesc(JSON.stringify(results.user), { isScriptContext: true });
+		templateValues.useCustomCSS = config.useCustomCSS && config.customCSS;
+		templateValues.customCSS = templateValues.useCustomCSS ? (config.renderedCustomCSS || '') : '';
+		templateValues.useCustomHTML = config.useCustomHTML;
+		templateValues.customHTML = templateValues.useCustomHTML ? config.customHTML : '';
+		templateValues.maintenanceHeader = config.maintenanceMode && !results.isAdmin;
+		templateValues.defaultLang = config.defaultLang || 'en-GB';
+		templateValues.userLang = config.userLang;
+		templateValues.languageDirection = results.languageDirection;
 	}
 
 	async function loadAdminHeaderFooterData(req, res, options) {
