@@ -10,7 +10,6 @@ const categories = require('../categories');
 const meta = require('../meta');
 const plugins = require('../plugins');
 
-console.log("Ruba Almahmoud");
 
 async function filterTids(tids, Topics, params) {
 	const { filter } = params;
