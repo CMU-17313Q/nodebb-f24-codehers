@@ -66,13 +66,13 @@
 		"text": "[[global:header.admin]]",
 		"groups": ["administrators"]
 	},
-	{
-		"route": "#",
-		"title": "Submit Bug/Feedback",
-		"enabled": true,
-		"iconClass": "fa-bug",
-		"textClass": "d-lg-none",
-		"text": "Submit Bug/Feedback",
-		"onclick": "openBugFeedbackModal()"
-	}
+    {
+        "route": "#",
+        "title": "Submit Bug/Feedback",
+        "enabled": true,
+        "iconClass": "fa-bug",
+        "textClass": "d-lg-none",
+        "text": "Submit Bug/Feedback",
+        "id": "submit-bug-feedback"
+    }
 ]
