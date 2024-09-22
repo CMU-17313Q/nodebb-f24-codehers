@@ -158,13 +158,13 @@
 		{{{ end }}}
 	</div>
 
-<!-- Add a button to open the bug feedback modal -->
-<button onclick="openBugFeedbackModal()">Report a Bug</button>
+	<!-- Add a button to open the bug feedback modal -->
+	<button onclick="openBugFeedbackModal()">Report a Bug</button>
 
-<!-- Include the bug feedback modal -->
-<!-- IMPORT partials/bug-feedback-modal.tpl -->
+	<!-- Include the bug feedback modal -->
+	<!-- IMPORT partials/bug-feedback-modal.tpl -->
 
-<!-- Include the JavaScript file for handling the form -->
-<script src="/scripts/bug-feedback.js"></script>
+	<!-- Include the JavaScript file for handling the form -->
+	<script src="/scripts/navigation.js"></script>
 </body>
 </html>
