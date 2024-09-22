@@ -157,6 +157,10 @@
 		</div>
 		{{{ end }}}
 	</div>
+
+<!-- Add a button to open the bug feedback modal -->
+<button onclick="openBugFeedbackModal()">Report a Bug</button>
+
 <!-- Include the bug feedback modal -->
 <!-- IMPORT partials/bug-feedback-modal.tpl -->
 
