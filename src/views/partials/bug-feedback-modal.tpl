@@ -7,4 +7,4 @@
     <textarea id="description" name="description" required></textarea>
     <button type="submit">Submit</button>
   </form>
-</div>                                                                                                       
+</div>
