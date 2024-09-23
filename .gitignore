@@ -1,6 +1,8 @@
 dist/
 yarn.lock
 npm-debug.log
+node_module/*
+!node_module/nodebb-plugin-composer-default
 sftp-config.json
 config.json
 jsconfig.json
