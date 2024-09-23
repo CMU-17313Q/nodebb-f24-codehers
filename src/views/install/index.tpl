@@ -158,6 +158,10 @@
 		{{{ end }}}
 	</div>
 
+    <!-- Add the Submit Bug/Feedback button -->
+    <div class="m-2">
+        <button id="submit-bug-feedback" class="btn btn-primary w-100">Submit Bug/Feedback</button>
+    </div>
 
 	<!-- Include the bug feedback modal -->
 	<!-- IMPORT partials/bug-feedback-modal.tpl -->
