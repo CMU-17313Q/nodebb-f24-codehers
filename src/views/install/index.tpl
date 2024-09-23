@@ -177,7 +177,6 @@
 	</div>
 	{{{ end }}}
 
-	<!-- Include the bug feedback modal -->
     <!-- IMPORT partials/bug-feedback-modal.tpl -->
 
 	<div class="hide">
