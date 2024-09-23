@@ -3,6 +3,7 @@ yarn.lock
 npm-debug.log
 node_modules/*
 !node_modules/nodebb-theme-harmony/templates/category.tpl
+dump.rdb
 sftp-config.json
 config.json
 jsconfig.json
