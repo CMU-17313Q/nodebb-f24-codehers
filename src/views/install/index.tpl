@@ -35,9 +35,6 @@
         <button id="submit-bug-feedback" class="btn btn-primary w-100">Submit Bug/Feedback</button>
     </div>
 
-	<!-- Include the bug feedback modal -->
-    <!-- IMPORT partials/bug-feedback-modal.tpl -->
-
 	{{{ if !installing }}}
 	<div class="container {{{ if success }}}hide{{{ end }}}">
 		<p>
@@ -152,6 +149,9 @@
 		</div>
 	</div>
 	{{{ end }}}
+
+	<!-- Include the bug feedback modal -->
+    <!-- IMPORT partials/bug-feedback-modal.tpl -->
 
 	<div class="hide">
 		{{{ each databases }}}
