@@ -29,7 +29,6 @@
 		</div>
 	</nav>
 
-
   	<!-- Add the Submit Bug/Feedback button -->
     <div class="m-2">
         <button id="submit-bug-feedback" class="btn btn-primary w-100">Submit Bug/Feedback</button>
@@ -93,8 +92,6 @@
 					<div class="col-sm-5 form-text" data-help="Please confirm your password."></div>
 				</div>
 			</div>
-
-
 
 			{{{ if !skipDatabaseSetup }}}
 			<div class="database mb-3">
