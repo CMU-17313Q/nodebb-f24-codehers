@@ -26,7 +26,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   feedbackButton.addEventListener('click', function () {
     console.log('Feedback button clicked');
+    console.log('Attempting to display modal');
     feedbackModal.style.display = 'block';
+    console.log('Modal display style set to block');
   });
 
   feedbackForm.addEventListener('submit', async function (event) {
@@ -38,19 +40,25 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('Title:', title);
     console.log('Description:', description);
 
-    const response = await fetch('/api/bugs', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ title, description }),
-    });
+    try {
+      const response = await fetch('/api/bugs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, description }),
+      });
 
-    if (response.ok) {
-      alert('Thank you for your feedback!');
-      feedbackModal.style.display = 'none';
-    } else {
-      alert('Failed to submit feedback. Please try again.');
+      if (response.ok) {
+        alert('Thank you for your feedback!');
+        feedbackModal.style.display = 'none';
+        console.log('Modal display style set to none');
+      } else {
+        alert('Failed to submit feedback. Please try again.');
+        console.error('Failed to submit feedback:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
     }
   });
 
@@ -58,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('click', function (event) {
     if (event.target === feedbackModal) {
       feedbackModal.style.display = 'none';
+      console.log('Modal display style set to none (clicked outside)');
     }
   });
 });
