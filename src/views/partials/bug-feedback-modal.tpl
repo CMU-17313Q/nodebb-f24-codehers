@@ -4,6 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Submit Bug/Feedback</h5>
+        <button id="openModalButton" class="btn btn-primary">Open Bug/Feedback Form</button>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -78,3 +79,5 @@
     this.reset();
   });
 </script>
+
+<script src="/path/to/bug-feedback.js"></script>

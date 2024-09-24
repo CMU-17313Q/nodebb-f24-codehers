@@ -6,11 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Show the modal when the button is clicked
   openModalButton.addEventListener('click', function() {
+    console.log('Open button clicked');  // Add this to debug
     feedbackModal.style.display = 'block';
   });
 
   // Hide the modal when the close button is clicked
   closeModalButton.addEventListener('click', function() {
+    console.log('Close button clicked');  // Add this to debug
     feedbackModal.style.display = 'none';
   });
 
