@@ -1,9 +1,11 @@
+alert('JavaScript file loaded');
+console.log('JavaScript file loaded');
+
 // Ensure the DOM is fully loaded before attaching event listeners
 document.addEventListener('DOMContentLoaded', function() {
   const feedbackModal = document.getElementById('bug-feedback-modal');
   const openModalButton = document.getElementById('openModalButton');
   const closeModalButton = document.querySelector('.close');
-
 
   if (!openModalButton) {
     console.error('Open Modal Button not found');
@@ -13,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (!feedbackModal) {
     console.error('Feedback Modal not found');
     return;
-  }
+  
 
   // Show the modal when the button is clicked
   openModalButton.addEventListener('click', function() {
