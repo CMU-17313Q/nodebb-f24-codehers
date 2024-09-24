@@ -29,7 +29,7 @@
 <button id="openModalButton" class="btn btn-primary">Open Bug/Feedback Form</button>
 
 <!-- Include JavaScript file -->
-<script src="/path/to/bug-feedback.js"></script>
+<script src="/public/scripts/bug-feedback.js"></script>
 
 <!-- JavaScript Code for opening and closing the modal -->
 <script>
