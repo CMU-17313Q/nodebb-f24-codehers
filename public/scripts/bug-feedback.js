@@ -1,44 +1,33 @@
-// public/scripts/bug-feedback.js
-document.addEventListener('DOMContentLoaded', function () {
-  console.log('DOM fully loaded and parsed');
-
-  const feedbackButton = document.getElementById('submit-bug-feedback');
+// Ensure the DOM is fully loaded before attaching event listeners
+document.addEventListener('DOMContentLoaded', function() {
   const feedbackModal = document.getElementById('bug-feedback-modal');
-  const feedbackForm = document.getElementById('bug-feedback-form');
+  const openModalButton = document.getElementById('openModalButton');
+  const closeModalButton = document.querySelector('.close');
 
-  if (!feedbackButton) {
-    console.error('Feedback button not found');
-  } else {
-    console.log('Feedback button found');
-  }
-
-  if (!feedbackModal) {
-    console.error('Feedback modal not found');
-  } else {
-    console.log('Feedback modal found');
-  }
-
-  if (!feedbackForm) {
-    console.error('Feedback form not found');
-  } else {
-    console.log('Feedback form found');
-  }
-
-  feedbackButton.addEventListener('click', function () {
-    console.log('Feedback button clicked');
-    console.log('Attempting to display modal');
+  // Show the modal when the button is clicked
+  openModalButton.addEventListener('click', function() {
     feedbackModal.style.display = 'block';
-    console.log('Modal display style set to block');
   });
 
-  feedbackForm.addEventListener('submit', async function (event) {
+  // Hide the modal when the close button is clicked
+  closeModalButton.addEventListener('click', function() {
+    feedbackModal.style.display = 'none';
+  });
+
+  // Hide the modal when clicking outside of it
+  window.addEventListener('click', function(event) {
+    if (event.target === feedbackModal) {
+      feedbackModal.style.display = 'none';
+      console.log('Modal display style set to none (clicked outside)');
+    }
+  });
+
+  // Existing code for form submission
+  document.getElementById('bug-feedback-form').addEventListener('submit', async function(event) {
     event.preventDefault();
-    console.log('Feedback form submitted');
+
     const title = document.getElementById('title').value;
     const description = document.getElementById('description').value;
-
-    console.log('Title:', title);
-    console.log('Description:', description);
 
     try {
       const response = await fetch('/api/bugs', {
@@ -59,14 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     } catch (error) {
       console.error('Error submitting feedback:', error);
-    }
-  });
-
-  // Close modal when clicking outside of it
-  window.addEventListener('click', function (event) {
-    if (event.target === feedbackModal) {
-      feedbackModal.style.display = 'none';
-      console.log('Modal display style set to none (clicked outside)');
     }
   });
 });
