@@ -4,7 +4,6 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Submit Bug/Feedback</h5>
-        <button id="openModalButton" class="btn btn-primary">Open Bug/Feedback Form</button>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -26,40 +25,56 @@
   </div>
 </div>
 
-
 <!-- Trigger Button -->
 <button id="openModalButton" class="btn btn-primary">Open Bug/Feedback Form</button>
+
 <!-- Include JavaScript file -->
 <script src="/path/to/bug-feedback.js"></script>
-
 
 <!-- JavaScript Code for opening and closing the modal -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded and parsed');
+
     // Get elements
     var modal = document.getElementById('bug-feedback-modal');
     var openButton = document.getElementById('openModalButton');
     var closeButton = modal.querySelector('.close');
 
+    if (!openButton) {
+      console.error('Open Modal Button not found');
+      return;
+    }
+
+    if (!modal) {
+      console.error('Feedback Modal not found');
+      return;
+    }
+
     // Open modal when button is clicked
     openButton.addEventListener('click', function() {
+      console.log('Open button clicked');
       modal.style.display = 'block';
+      openButton.style.backgroundColor = 'green';  // Change button color to green
     });
 
     // Close modal when 'x' button is clicked
     closeButton.addEventListener('click', function() {
+      console.log('Close button clicked');
       modal.style.display = 'none';
+      openButton.style.backgroundColor = '';  // Reset button color
     });
 
     // Close modal when clicking outside of the modal content
     window.addEventListener('click', function(event) {
       if (event.target == modal) {
+        console.log('Clicked outside the modal');
         modal.style.display = 'none';
+        openButton.style.backgroundColor = '';  // Reset button color
       }
     });
   });
 </script>
-
 
 <!-- JavaScript Code for handling form submission -->
 <script>
@@ -81,5 +96,3 @@
     this.reset();
   });
 </script>
-
-<script src="/path/to/bug-feedback.js"></script>
