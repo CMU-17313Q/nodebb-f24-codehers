@@ -25,3 +25,7 @@
   </div>
 </div>
 
+
+<!-- Trigger Button -->
+<button id="openModalButton" class="btn btn-primary">Open Bug/Feedback Form</button>
+
