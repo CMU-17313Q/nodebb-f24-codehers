@@ -8,12 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
   openModalButton.addEventListener('click', function() {
     console.log('Open button clicked');  // Add this to debug
     feedbackModal.style.display = 'block';
+    openModalButton.style.backgroundColor = 'green';  // Change button color to green
   });
 
   // Hide the modal when the close button is clicked
   closeModalButton.addEventListener('click', function() {
     console.log('Close button clicked');  // Add this to debug
     feedbackModal.style.display = 'none';
+    openModalButton.style.backgroundColor = '';  // Reset button color
   });
 
   // Hide the modal when clicking outside of it
@@ -21,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (event.target === feedbackModal) {
       feedbackModal.style.display = 'none';
       console.log('Modal display style set to none (clicked outside)');
+      openModalButton.style.backgroundColor = '';  // Reset button color
     }
   });
 
@@ -44,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Thank you for your feedback!');
         feedbackModal.style.display = 'none';
         console.log('Modal display style set to none');
+        openModalButton.style.backgroundColor = '';  // Reset button color
       } else {
         alert('Failed to submit feedback. Please try again.');
         console.error('Failed to submit feedback:', response.statusText);
