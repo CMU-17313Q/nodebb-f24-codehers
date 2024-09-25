@@ -16,11 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Form closed');
   }
 
-  // Attach event listener to the submit button
-  document.getElementById('submit-bug-feedback').addEventListener('click', function() {
-    openForm();
-  });
-
   // Existing code for form submission
   document.getElementById('bug-feedback-form').addEventListener('submit', async function(event) {
     event.preventDefault();
