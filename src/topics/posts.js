@@ -141,6 +141,16 @@ module.exports = function (Topics) {
 				postObj.replies = replies[i];
 				postObj.selfPost = parseInt(uid, 10) > 0 && parseInt(uid, 10) === postObj.uid;
 
+
+				if (postObj.isAnonymous === 'Anonymous'){
+					postObj.uid = 0;
+					postObj.user = {
+						username: 'Anonymous',
+						displayname: 'Anonymous',
+						isAnonymous: true,
+					};
+				}
+
 				// Username override for guests, if enabled
 				if (meta.config.allowGuestHandles && postObj.uid === 0 && postObj.handle) {
 					postObj.user.username = validator.escape(String(postObj.handle));

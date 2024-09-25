@@ -21,6 +21,8 @@ module.exports = function (Posts) {
 		const timestamp = data.timestamp || Date.now();
 		const isMain = data.isMain || false;
 
+		log.console("this is where drafts are formulated")
+
 		if (!uid && parseInt(uid, 10) !== 0) {
 			throw new Error('[[error:invalid-uid]]');
 		}
