@@ -2,7 +2,7 @@ dist/
 yarn.lock
 npm-debug.log
 node_modules/*
-!node_modules/nodebb-theme-harmony/templatessftp-config.json
+!node_modules/nodebb-theme-harmony/
 config.json
 jsconfig.json
 public/src/nodebb.min.js
