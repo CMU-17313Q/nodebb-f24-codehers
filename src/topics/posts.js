@@ -16,6 +16,10 @@ const backlinkRegex = new RegExp(`(?:${nconf.get('url').replace('/', '\\/')}|\b|
 
 module.exports = function (Topics) {
 	Topics.onNewPostMade = async function (postData) {
+		if (postData.anonymous) {
+			post.authorName = 'Anonymous';
+		  }
+		console.log('this is where new post code is')		  
 		await Topics.updateLastPostTime(postData.tid, postData.timestamp);
 		await Topics.addPostToTopic(postData.tid, postData);
 	};
