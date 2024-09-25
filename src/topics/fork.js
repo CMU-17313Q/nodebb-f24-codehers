@@ -8,8 +8,11 @@ const privileges = require('../privileges');
 const plugins = require('../plugins');
 const meta = require('../meta');
 
+//so my feature is to add an anonymus option to users when they first 'create' a post
+//my logic: since author assigned to post 
+
 module.exports = function (Topics) {
-	Topics.createTopicFromPosts = async function (uid, title, pids, fromTid, cid, isAnonymous) {
+	Topics.createTopicFromPosts = async function (uid, title, pids, fromTid, cid) {
 		if (title) {
 			title = title.trim();
 		}
