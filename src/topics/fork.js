@@ -9,7 +9,7 @@ const plugins = require('../plugins');
 const meta = require('../meta');
 
 module.exports = function (Topics) {
-	Topics.createTopicFromPosts = async function (uid, title, pids, fromTid, cid) {
+	Topics.createTopicFromPosts = async function (uid, title, pids, fromTid, cid, isAnonymous) {
 		if (title) {
 			title = title.trim();
 		}
