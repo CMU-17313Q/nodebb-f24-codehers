@@ -1,27 +1,34 @@
-<!-- A button to open the popup form -->
+<!-- Trigger Button in Sidebar -->
+<div class="m-2">
+  <button id="submit-bug-feedback" class="btn btn-primary w-100" onclick="openForm()">Submit Bug/Feedback</button>
+</div>
+
+<!-- A button to open the popup form (alternative button outside sidebar) -->
 <button class="m-2" onclick="openForm()">Open Form</button>
 
-<!-- The form -->
+<!-- The Form Modal -->
 <div class="form-popup" id="bug-feedback-modal" style="display:none;">
   <form id="bug-feedback-form" class="form-container">
     <h1>Bug/Feedback</h1>
 
     <label for="title"><b>Title</b></label>
-    <input type="text" placeholder="Enter Title" name="title" required>
+    <input type="text" placeholder="Enter Title" name="title" class="form-control" required>
 
     <label for="description"><b>Description</b></label>
-    <textarea placeholder="Enter Description" name="description" required></textarea>
+    <textarea placeholder="Enter Description" name="description" class="form-control" required></textarea>
 
-    <button type="submit" class="btn">Submit</button>
-    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-danger cancel" onclick="closeForm()">Close</button>
   </form>
 </div>
 
+<!-- CSS Styles -->
 <style>
+  * {
+    box-sizing: border-box;
+  }
 
-  {box-sizing: border-box;}
-
-  /* Button used to open the contact form - fixed at the bottom of the page */
+  /* The button used to open the form */
   .open-button {
     background-color: #555;
     color: white;
@@ -45,7 +52,7 @@
     z-index: 9;
   }
 
-  /* Add styles to the form container */
+  /* Form container styles */
   .form-container {
     max-width: 300px;
     padding: 10px;
@@ -53,7 +60,7 @@
   }
 
   /* Full-width input fields */
-  .form-container input[type=text], .form-container input[type=description] {
+  .form-container input[type=text], .form-container textarea {
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -61,39 +68,35 @@
     background: #f1f1f1;
   }
 
-  /* When the inputs get focus, do something */
-  .form-container input[type=text]:focus, .form-container input[type=description]:focus {
+  /* When the inputs get focus */
+  .form-container input[type=text]:focus, .form-container textarea:focus {
     background-color: #ddd;
     outline: none;
   }
 
-  /* Set a style for the buttons */
+  /* Submit and Cancel button styling */
   .form-container .btn {
-    background-color: #04AA6D;
-    color: white;
     padding: 16px 20px;
     border: none;
     cursor: pointer;
     width: 100%;
-    margin-bottom:10px;
+    margin-bottom: 10px;
     opacity: 0.8;
   }
 
-  /* Add a red background color to the cancel button */
-  .form-container .cancel {
-    background-color: red;
-  }
-
-  /* Add some hover effects to buttons */
+  /* Hover effect for buttons */
   .form-container .btn:hover, .open-button:hover {
     opacity: 1;
   }
 </style>
 
+<!-- JavaScript for Form Opening and Closing -->
+<script>
 function openForm() {
-  document.getElementById("myForm").style.display = "block";
+  document.getElementById("bug-feedback-modal").style.display = "block";
 }
 
 function closeForm() {
-  document.getElementById("myForm").style.display = "none";
+  document.getElementById("bug-feedback-modal").style.display = "none";
 }
+</script>
