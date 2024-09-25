@@ -19,7 +19,7 @@ module.exports = function (Topics) {
 		if (postData.anonymous) {
 			post.authorName = 'Anonymous';
 		  }
-		console.log('this is where new post code is')		  
+		console.log('this is where new post code is!!!')		  
 		await Topics.updateLastPostTime(postData.tid, postData.timestamp);
 		await Topics.addPostToTopic(postData.tid, postData);
 	};
