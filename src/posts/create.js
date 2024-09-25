@@ -21,7 +21,7 @@ module.exports = function (Posts) {
 		const timestamp = data.timestamp || Date.now();
 		const isMain = data.isMain || false;
 
-		console.log("this is where drafts are formulated")
+		console.log('this is where drafts are formulated');
 
 		if (!uid && parseInt(uid, 10) !== 0) {
 			throw new Error('[[error:invalid-uid]]');
@@ -51,7 +51,7 @@ module.exports = function (Posts) {
 			postData.handle = data.handle;
 		}
 
-		console.log("this is where drafts are formulated")
+		console.log('this is where drafts are formulated');
 
 		let result = await plugins.hooks.fire('filter:post.create', { post: postData, data: data });
 		postData = result.post;
