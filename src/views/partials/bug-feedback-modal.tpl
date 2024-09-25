@@ -1,8 +1,8 @@
 <!-- A button to open the popup form -->
-<button class="open-button" onclick="openForm()">Open Form</button>
+<button class="m-2" onclick="openForm()">Open Form</button>
 
 <!-- The form -->
-<div class="form-popup" id="myForm">
+<div class="form-popup" id="bug-feedback-modal" style="display:none;">
   <form id="bug-feedback-form" class="form-container">
     <h1>Bug/Feedback</h1>
 
@@ -10,7 +10,7 @@
     <input type="text" placeholder="Enter Title" name="title" required>
 
     <label for="description"><b>Description</b></label>
-    <input type="text" placeholder="Enter Description" name="description" required>
+    <textarea placeholder="Enter Description" name="description" required></textarea>
 
     <button type="submit" class="btn">Submit</button>
     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
