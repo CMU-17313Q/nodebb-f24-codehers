@@ -1,7 +1,7 @@
-<!-- Trigger Button in Sidebar -->
-<div class="m-2">
-  <button id="submit-bug-feedback" class="btn btn-primary w-100" onclick="openForm()">Submit Bug/Feedback</button>
-</div>
+//<!-- Trigger Button in Sidebar -->
+//<div class="m-2">
+//  <button id="submit-bug-feedback" class="btn btn-primary w-100" onclick="openForm()">Submit Bug/Feedback</button>
+//</div>
 
 <!-- A button to open the popup form (alternative button outside sidebar) -->
 <button class="m-2" onclick="openForm()">Open Form</button>
