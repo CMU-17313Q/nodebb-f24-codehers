@@ -149,6 +149,8 @@ module.exports = function (Topics) {
 						displayname: 'Anonymous',
 						isAnonymous: true,
 					};
+				} else {
+					postObj.uid = postObj.uid || 0;
 				}
 
 				// Username override for guests, if enabled
