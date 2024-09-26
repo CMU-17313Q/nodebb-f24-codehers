@@ -10,12 +10,23 @@ const DEFAULT_BATCH_SIZE = 100;
 
 const sleep = util.promisify(setTimeout);
 
-exports.processSortedSet = async function (setKey, process, options) {
-	options = options || {};
+// I will reduce the complexity of the code by making helper functions outside the main function
+// where the errors show
 
+// helper functions:
+// fixing error 1:
+function processIsFunction(process) {
 	if (typeof process !== 'function') {
 		throw new Error('[[error:process-not-a-function]]');
 	}
+}
+
+
+exports.processSortedSet = async function (setKey, process, options) {
+	console.log('Hakaabi: Refactored code is running!');
+	options = options || {};
+
+	processIsFunction(process);
 
 	// Progress bar handling (upgrade scripts)
 	if (options.progress) {
@@ -68,6 +79,7 @@ exports.processSortedSet = async function (setKey, process, options) {
 		stop = start + options.batch - 1;
 	}
 };
+console.log('Hakaabi: Refactored code stopped running!');
 
 exports.processArray = async function (array, process, options) {
 	options = options || {};
