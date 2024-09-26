@@ -626,9 +626,11 @@ describe('API', async () => {
 				assert(response[prop] !== null, `"${prop}" was null, but schema does not specify it to be a nullable property (path: ${method} ${path}, context: ${context})`);
 
 				//I got a nodebb error, so I'm adding a custom uid checking here for anonymous cases
-				if (prop === 'uid' && response[prop] === 0) {
-					// basicaly if uid is 0 (meaning anonymous) it's ok 
-					return;
+				if (prop === 'uid') {
+					// If uid is 0 (meaning anonymous), it's ok
+					if (response[prop] === 0) {
+						return; // Skip the remaining checks for this property
+					}
 				}
 
 				switch (schema[prop].type) {
