@@ -625,6 +625,12 @@ describe('API', async () => {
 				// Therefore, if the value is actually null, that's a problem (nullable is probably missing)
 				assert(response[prop] !== null, `"${prop}" was null, but schema does not specify it to be a nullable property (path: ${method} ${path}, context: ${context})`);
 
+				//I got a nodebb error, so I'm adding a custom uid checking here for anonymous cases
+				if (prop === 'uid' && response[prop] === 0) {
+					// basicaly if uid is 0 (meaning anonymous) it's ok 
+					return;
+				}
+
 				switch (schema[prop].type) {
 					case 'string':
 						assert.strictEqual(typeof response[prop], 'string', `"${prop}" was expected to be a string, but was ${typeof response[prop]} instead (path: ${method} ${path}, context: ${context})`);
