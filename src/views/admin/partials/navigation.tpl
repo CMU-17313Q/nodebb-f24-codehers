@@ -16,7 +16,7 @@
 				<a class="btn-ghost-sm justify-content-start text-decoration-none" href="{relative_path}/admin/dashboard/users">[[admin/menu:dashboard/users]]</a>
 				<a class="btn-ghost-sm justify-content-start text-decoration-none" href="{relative_path}/admin/dashboard/topics">[[admin/menu:dashboard/topics]]</a>
 				<a class="btn-ghost-sm justify-content-start text-decoration-none" href="{relative_path}/admin/dashboard/searches">[[admin/menu:dashboard/searches]]</a>
-				<a class="btn-ghost-sm justify-content-start text-decoration-none" href="{relative_path}/admin/dashboard/bug-archive"> bug archive </a>
+				<a class="btn-ghost-sm justify-content-start text-decoration-none" href="{relative_path}/admin/dashboard/bug-archive"> Bug Archive </a>
 			</div>
 		</div>
 	</div>
