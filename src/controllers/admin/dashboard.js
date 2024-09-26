@@ -388,4 +388,25 @@ dashboardController.getSearches = async (req, res) => {
 		startDate: req.query.start ? validator.escape(String(req.query.start)) : null,
 		endDate: req.query.end ? validator.escape(String(req.query.end)) : null,
 	});
+
+
+dashboardController.getBugArchive = async (req, res) => {
+	try {
+		// Retrieve all submitted bugs from the 'bug:archive' sorted set
+		const archive = await db.getSortedSetRevRange('bug:archive', 0, -1);
+		const bugData = await Promise.all(archive.map(async (key) => {
+			const data = await db.getObject(key);
+			data.key = key;
+			return data;
+		}));
+	
+		// Render the 'bug-archive' template with the retrieved bug data
+		res.render('admin/dashboard/bug-archive', {
+			archive: bugData,
+		});
+	} catch (err) {
+		// Handle any errors that occur during the retrieval process
+		res.status(500).send(err.message);
+	}
 };
+
