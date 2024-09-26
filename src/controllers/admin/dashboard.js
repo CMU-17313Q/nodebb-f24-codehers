@@ -408,4 +408,8 @@ dashboardController.getBugArchive = async (req, res) => {
 		// Handle any errors that occur during the retrieval process
 		res.status(500).send(err.message);
 	}
-};س
+	
+	res.render('admin/dashboard/bug-archive', {
+		archive: bugData,
+	});
+};
