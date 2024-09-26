@@ -16,6 +16,7 @@ SocketRooms.getTotalGuestCount = async function () {
 };
 
 SocketRooms.getAll = async function () {
+	console.log('GhalyaRefactoredCode');
 	const sockets = await io.server.fetchSockets();
 
 	totals.onlineGuestCount = 0;
@@ -31,37 +32,14 @@ SocketRooms.getAll = async function () {
 	};
 	const userRooms = {};
 	const topicData = {};
+
 	for (const s of sockets) {
-		for (const key of s.rooms) {
-			if (key === 'online_guests') {
-				totals.onlineGuestCount += 1;
-			} else if (key === 'categories') {
-				totals.users.categories += 1;
-			} else if (key === 'recent_topics') {
-				totals.users.recent += 1;
-			} else if (key === 'unread_topics') {
-				totals.users.unread += 1;
-			} else if (key.startsWith('uid_')) {
-				userRooms[key] = 1;
-			} else if (key.startsWith('category_')) {
-				totals.users.category += 1;
-			} else {
-				const tid = key.match(/^topic_(\d+)/);
-				if (tid) {
-					totals.users.topics += 1;
-					topicData[tid[1]] = topicData[tid[1]] || { count: 0 };
-					topicData[tid[1]].count += 1;
-				}
-			}
-		}
+		processSocket(s, totals, userRooms, topicData);
 	}
+
 	totals.onlineRegisteredCount = Object.keys(userRooms).length;
 
-	let topTenTopics = [];
-	Object.keys(topicData).forEach((tid) => {
-		topTenTopics.push({ tid: tid, count: topicData[tid].count });
-	});
-	topTenTopics = topTenTopics.sort((a, b) => b.count - a.count).slice(0, 10);
+	const topTenTopics = getTopTenTopics(topicData);
 	const topTenTids = topTenTopics.map(topic => topic.tid);
 
 	const titles = await topics.getTopicsFields(topTenTids, ['title']);
@@ -72,6 +50,48 @@ SocketRooms.getAll = async function () {
 
 	return totals;
 };
+
+function processSocket(s, totals, userRooms, topicData) {
+	console.log('GhalyaRefactoredCode1');
+	for (const key of s.rooms) {
+		if (key === 'online_guests') {
+			totals.onlineGuestCount += 1;
+		} else if (key === 'categories') {
+			totals.users.categories += 1;
+		} else if (key === 'recent_topics') {
+			totals.users.recent += 1;
+		} else if (key === 'unread_topics') {
+			totals.users.unread += 1;
+		} else if (key.startsWith('uid_')) {
+			userRooms[key] = 1;
+		} else if (key.startsWith('category_')) {
+			totals.users.category += 1;
+		} else {
+			processTopicKey(key, totals, topicData);
+		}
+	}
+}
+
+function processTopicKey(key, totals, topicData) {
+	console.log('GhalyaRefactoredCode2');
+	const tid = key.match(/^topic_(\d+)/);
+	if (tid) {
+		totals.users.topics += 1;
+		topicData[tid[1]] = topicData[tid[1]] || { count: 0 };
+		topicData[tid[1]].count += 1;
+	}
+}
+
+function getTopTenTopics(topicData) {
+	console.log('GhalyaRefactoredCode3');
+	const topTenTopics = [];
+	Object.keys(topicData).forEach((tid) => {
+		topTenTopics.push({ tid: tid, count: topicData[tid].count });
+	});
+	const sortedTopTenTopics = [...topTenTopics].sort((a, b) => b.count - a.count);
+	return sortedTopTenTopics.slice(0, 10);
+}
+
 
 SocketRooms.getOnlineUserCount = function (io) {
 	let count = 0;
