@@ -625,7 +625,7 @@ describe('API', async () => {
 				// Therefore, if the value is actually null, that's a problem (nullable is probably missing)
 				assert(response[prop] !== null, `"${prop}" was null, but schema does not specify it to be a nullable property (path: ${method} ${path}, context: ${context})`);
 
-				//I got a nodebb error, so I'm adding a custom uid checking here for anonymous cases
+				// I got a nodebb error, so I'm adding a custom uid checking here for anonymous cases
 				if (prop === 'uid') {
 					// If uid is 0 (meaning anonymous), it's ok
 					if (response[prop] === 0) {
