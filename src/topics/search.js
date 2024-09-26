@@ -3,7 +3,7 @@
 const db = require('../database');
 
 module.exports = function (Topics) {
-	Topic.search = async function (query, options) {
+	Topics.search = async function (query, options) {
 		console.log('entered topic search');
 		console.log(query);
 		if (!query) {
@@ -18,7 +18,7 @@ module.exports = function (Topics) {
 		return Topics.sort(options.sort, topicTitles);
 	};
 
-	Topics.sort = function (strategy, groups) {
+	Topics.sort = function (strategy, topics) {
 		switch (strategy) {
 			case 'count':
 				topics.sort((a, b) => a.slug > b.slug)
@@ -33,7 +33,6 @@ module.exports = function (Topics) {
 			default:
 				topics.sort((a, b) => (a.slug > b.slug ? 1 : -1));
 		}
-
-		return groups;
+		return topics;
 	};
-}
+};
