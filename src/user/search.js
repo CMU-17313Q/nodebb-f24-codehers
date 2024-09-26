@@ -26,6 +26,7 @@ module.exports = function (User) {
 
 
 	User.search = async function (data) {
+		console.log('entered user.search in src/user/search');
 		const query = data.query || '';
 		const searchBy = data.searchBy || 'username';
 		const page = data.page || 1;
