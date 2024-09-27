@@ -7,6 +7,11 @@ define('admin/dashboard/bug-archive', ['hooks'], (hooks) => {
         // Fetch the bug data and update the table
         ACP.updateTable();
         hooks.onPage('action:admin.dashboard.updateGraph', ACP.updateTable);
+
+        // Add event listener for the button click
+        document.getElementById('submit-bug-feedback').addEventListener('click', () => {
+            ACP.updateTable();
+        });
     };
 
     ACP.updateTable = () => {
