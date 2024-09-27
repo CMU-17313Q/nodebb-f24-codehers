@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Bug Archive</h1>
-    <table class="bugs-list">
+    <table>
         <thead>
             <tr>
                 <th>Key</th>
@@ -30,3 +30,5 @@
     </table>
 </body>
 </html>
+
+

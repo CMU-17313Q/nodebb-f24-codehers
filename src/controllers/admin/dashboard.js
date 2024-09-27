@@ -400,7 +400,7 @@ dashboardController.getBugArchive = async (req, res) => {
 			data.key = key;
 			return data;
 		}));
-
+	
 		// Render the 'bug-archive' template with the retrieved bug data
 		res.render('admin/dashboard/bug-archive', {
 			archive: bugData,
@@ -410,7 +410,4 @@ dashboardController.getBugArchive = async (req, res) => {
 		res.status(500).send(err.message);
 	}
 
-	res.render('admin/dashboard/bug-archive', {
-		archive: bugData,
-	});
 };
