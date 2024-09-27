@@ -388,6 +388,7 @@ dashboardController.getSearches = async (req, res) => {
 		startDate: req.query.start ? validator.escape(String(req.query.start)) : null,
 		endDate: req.query.end ? validator.escape(String(req.query.end)) : null,
 	});
+};
 
 
 dashboardController.getBugArchive = async (req, res) => {
@@ -399,7 +400,7 @@ dashboardController.getBugArchive = async (req, res) => {
 			data.key = key;
 			return data;
 		}));
-	
+
 		// Render the 'bug-archive' template with the retrieved bug data
 		res.render('admin/dashboard/bug-archive', {
 			archive: bugData,
@@ -412,4 +413,4 @@ dashboardController.getBugArchive = async (req, res) => {
 	res.render('admin/dashboard/bug-archive', {
 		archive: bugData,
 	});
-}
+};

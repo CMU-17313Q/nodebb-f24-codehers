@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Bug Archive</h1>
-    <table>
+    <table class="bugs-list">
         <thead>
             <tr>
                 <th>Key</th>
