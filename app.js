@@ -56,8 +56,8 @@ if (!process.send) {
 }
 
 //use bug routes
-const bugRoutes = require('./routes/bug-routes'); // Correctly import the bug routes
-app.use('/api', bugRoutes);
+//const bugRoutes = require('./routes/bug-routes'); // Correctly import the bug routes
+//app.use('/api', bugRoutes);
 
 
 if (nconf.get('setup') || nconf.get('install')) {

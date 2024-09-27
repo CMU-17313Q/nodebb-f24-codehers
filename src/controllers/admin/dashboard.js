@@ -26,6 +26,9 @@ dashboardController.get = async function (req, res) {
 		getLastRestart(),
 		user.isAdministrator(req.uid),
 		getPopularSearches(),
+		//getBugArchive()
+		//bug method
+		//this.submitBug(req, res)
 	]);
 	const version = nconf.get('version');
 
@@ -392,22 +395,24 @@ dashboardController.getSearches = async (req, res) => {
 
 
 dashboardController.getBugArchive = async (req, res) => {
-	try {
-		// Retrieve all submitted bugs from the 'bug:archive' sorted set
-		const archive = await db.getSortedSetRevRange('bug:archive', 0, -1);
-		const bugData = await Promise.all(archive.map(async (key) => {
-			const data = await db.getObject(key);
-			data.key = key;
-			return data;
-		}));
-	
-		// Render the 'bug-archive' template with the retrieved bug data
-		res.render('admin/dashboard/bug-archive', {
-			archive: bugData,
-		});
-	} catch (err) {
-		// Handle any errors that occur during the retrieval process
-		res.status(500).send(err.message);
-	}
+    try {
+        // Retrieve all submitted bugs from the 'bug:archive' sorted set
+        const archive = await db.getSortedSetRevRange('bug:archive', 0, -1);
+        const bugData = await Promise.all(archive.map(async (key) => {
+            const data = await db.getObject(key);
+            data.key = key;
+            return data;
+        }));
+    
+        // Render the 'bug-archive' template with the retrieved bug data
+        res.render('admin/dashboard/bug-archive', {
+            archive: bugData,
+        });
+    } catch (err) {
+        // Handle any errors that occur during the retrieval process
+        res.status(500).send(err.message);
+    }
 
 };
+
+
