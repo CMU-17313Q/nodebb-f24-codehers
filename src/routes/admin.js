@@ -69,6 +69,7 @@ function apiRoutes(router, name, middleware, controllers) {
 	router.get(`/api/${name}/analytics`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.dashboard.getAnalytics));
 	router.get(`/api/${name}/advanced/cache/dump`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.cache.dump));
 
+
 	const multipart = require('connect-multiparty');
 	const multipartMiddleware = multipart();
 
@@ -83,5 +84,10 @@ function apiRoutes(router, name, middleware, controllers) {
 	router.post(`/api/${name}/upload/file`, middlewares, helpers.tryRoute(controllers.admin.uploads.uploadFile));
 	router.post(`/api/${name}/uploadDefaultAvatar`, middlewares, helpers.tryRoute(controllers.admin.uploads.uploadDefaultAvatar));
 
+	// Define the endpoint for submitting bugs
+	router.post(`/api/${name}/submit-bug`, middlewares, helpers.tryRoute(controllers.admin.dashboard.submitBug));
+
+	// Define the endpoint for fetching the bug archive
+	router.get(`/api/${name}/get-bug-archive`, middlewares, helpers.tryRoute(controllers.admin.dashboard.getBugArchive));
 }
 
