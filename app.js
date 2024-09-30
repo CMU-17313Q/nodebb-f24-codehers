@@ -55,11 +55,6 @@ if (!process.send) {
 	winston.info('');
 }
 
-//use bug routes
-//const bugRoutes = require('./routes/bug-routes'); // Correctly import the bug routes
-//app.use('/api', bugRoutes);
-
-
 if (nconf.get('setup') || nconf.get('install')) {
 	require('./src/cli/setup').setup();
 } else if (!configExists) {

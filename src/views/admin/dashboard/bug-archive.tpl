@@ -11,9 +11,9 @@
     <table>
         <thead>
             <tr>
-                <th>Key</th>
-                <th>Bug Description</th>
-                <th>Submitted By</th>
+                <th>Key &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th>Bug Description &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th>Submitted By &nbsp;&nbsp;&nbsp;&nbsp;</th>
                 <th>Date Submitted</th>
             </tr>
         </thead>
