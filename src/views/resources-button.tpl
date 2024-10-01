@@ -1,17 +1,25 @@
-<div id="resources-page" style="display: none; padding: 20px;">
-    <h1>Resources Page</h1>
-    <p>This is an empty page.</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources</title>
+    <link rel="stylesheet" href="/path/to/your/styles.css"> <!-- Adjust the path as necessary -->
+</head>
+<body>
+    <div class="container">
+        <h1>Resources</h1>
+        <p>Welcome to the resources page! Here you can find various links and materials.</p>
+        
+        <!-- Example section for links -->
+        <h2>Useful Links</h2>
+        <ul>
+            <li><a href="https://example.com" target="_blank">Example Link 1</a></li>
+            <li><a href="https://example.com" target="_blank">Example Link 2</a></li>
+            <li><a href="https://example.com" target="_blank">Example Link 3</a></li>
+        </ul>
 
-<script>
-    $(document).ready(function () {
-        $('#custom-button').on('click', function (e) {
-            e.preventDefault(); // Prevent default anchor behavior
-            
-            // Hide other content (if any) and show the resources page
-            $('#resources-page').show(); // Show the resources page
-            // Optionally hide other elements if needed
-            // $('.other-content').hide(); // Hide any other content you want
-        });
-    });
-</script>
+        <!-- Add more sections as needed -->
+    </div>
+</body>
+</html>
