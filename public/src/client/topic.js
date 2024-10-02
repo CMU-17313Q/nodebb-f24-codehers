@@ -38,6 +38,7 @@ define('forum/topic', [
 	});
 
 	Topic.init = async function () {
+		console.log('public src client topic');
 		const tidChanged = !tid || parseInt(tid, 10) !== parseInt(ajaxify.data.tid, 10);
 		tid = ajaxify.data.tid;
 		currentUrl = ajaxify.currentPage;
@@ -77,50 +78,6 @@ define('forum/topic', [
 
 		hooks.fire('action:topic.loaded', ajaxify.data);
 	};
-
-	Topic.handleSearch = function (params) {
-		console.log('entered public/src/client/topics handleSearch');
-		searchResultCount = params && params.resultCount;
-		$('#search-topic').on('keyup', utils.debounce(doSearch, 250));
-		$('.search select, .search input[type="checkbox"]').on('change', doSearch);
-	};
-
-	function doSearch() {
-		console.log('entered public/src/client/topics doSearch');
-		if (!ajaxify.data.template.users) {
-			return;
-		}
-		$('[component="topic/search/icon"]').removeClass('fa-search').addClass('fa-spinner fa-spin');
-		const title = $('#search-topic').val();
-		const activeSection = getActiveSection();
-
-		const query = {
-			section: activeSection,
-			page: 1,
-		};
-
-		if (!title) {
-			return loadPage(query);
-		}
-
-		query.query = title;
-		query.sortBy = getSortBy();
-		// const filters = [];
-		// if ($('.search .online-only').is(':checked') || (activeSection === 'online')) {
-		// 	filters.push('online');
-		// }
-		// if (activeSection === 'banned') {
-		// 	filters.push('banned');
-		// }
-		// if (activeSection === 'flagged') {
-		// 	filters.push('flagged');
-		// }
-		// if (filters.length) {
-		// 	query.filters = filters;
-		// }
-
-		loadPage(query);
-	}
 
 	function handleTopicSearch() {
 		require(['mousetrap'], (mousetrap) => {
