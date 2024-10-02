@@ -82,7 +82,7 @@ _mounts.categories = (app, name, middleware, controllers) => {
 	setupPageRoute(app, '/recent', [], controllers.recent.get);
 	setupPageRoute(app, '/top', [], controllers.top.get);
 	setupPageRoute(app, '/unread', [middleware.ensureLoggedIn], controllers.unread.get);
-	setupPageRoute(app, '/resources-button', [], resourcesButtonController.getResourcesPage);
+	setupPageRoute(app, '/resources-button', [], controllers.resourcesButton.getResourcesButtonPage);
 };
 
 _mounts.category = (app, name, middleware, controllers) => {
