@@ -598,6 +598,9 @@ async function canDeleteUids(uids) {
 }
 
 usersAPI.search = async function (caller, data) {
+	console.log('entered src/api/users.js');
+	// console.log(caller);
+	// console.log(data);
 	if (!data) {
 		throw new Error('[[error:invalid-data]]');
 	}

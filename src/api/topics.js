@@ -299,4 +299,21 @@ topicsAPI.bump = async (caller, { tid }) => {
 	topics.pushUnreadCount(caller.uid);
 };
 
+topicsAPI.search = async function (caller, data) {
+	console.log('entered src/api/topics.js');
+	// console.log(caller);
+	// console.log(data);
+	if (!data) {
+		throw new Error('[[error:invalid-data]]');
+	}
+	let filters = data.filters || [];
 
+	return await topic.search({
+		tid: caller.tid,
+		query: data.query,
+		searchBy: data.searchBy || 'title',
+		page: data.page || 1,
+		sortBy: data.sortBy || 'lastposttime',
+		filters: filters,
+	});
+};
