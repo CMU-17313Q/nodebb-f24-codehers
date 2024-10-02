@@ -19,6 +19,8 @@ define('forum/category', [
 		}
 	});
 
+	let searchResultCount = 0;
+
 	Category.init = function () {
 		console.log('entered category public client');
 		const cid = ajaxify.data.cid;
@@ -42,6 +44,7 @@ define('forum/category', [
 		handleIgnoreWatch(cid);
 
 		handleLoadMoreSubcategories();
+
 		Category.handleSearch();
 
 		categorySelector.init($('[component="category-selector"]'), {
@@ -123,11 +126,12 @@ define('forum/category', [
 
 	function doSearch() {
 		console.log('entered public/src/client/category doSearch');
-		if (!ajaxify.data.template.users) {
+		if (!ajaxify.data.template.category) {
 			return;
 		}
 		$('[component="topic/search/icon"]').removeClass('fa-search').addClass('fa-spinner fa-spin');
 		const title = $('#search-topic').val();
+		console.log(title);
 		const activeSection = getActiveSection();
 
 		const query = {
@@ -158,6 +162,26 @@ define('forum/category', [
 		loadPage(query);
 	}
 
+	function getSortBy() {
+		let sortBy;
+		const activeSection = getActiveSection();
+		if (activeSection === 'sort-posts') {
+			sortBy = 'postcount';
+		} else if (activeSection === 'sort-reputation') {
+			sortBy = 'reputation';
+		} else if (activeSection === 'users') {
+			sortBy = 'joindate';
+		}
+		return sortBy;
+	}
+
+	function loadPage(query) {
+		console.log('entered load page');
+		api.get('/api/topics', query)
+			.then(renderSearchResults)
+			.catch(alerts.error);
+	}
+
 	Category.toTop = function () {
 		navigator.scrollTop(0);
 	};
@@ -180,6 +204,27 @@ define('forum/category', [
 		}, function (data, done) {
 			hooks.fire('action:topics.loaded', { topics: data.topics });
 			callback(data, done);
+		});
+	}
+
+	function getActiveSection() {
+		return utils.param('section') || '';
+	}
+
+	function renderSearchResults(data) {
+		Benchpress.render('partials/paginator', { pagination: data.pagination }).then(function (html) {
+			$('.pagination-container').replaceWith(html);
+		});
+
+		if (searchResultCount) {
+			data.users = data.users.slice(0, searchResultCount);
+		}
+
+		data.isAdminOrGlobalMod = app.user.isAdmin || app.user.isGlobalMod;
+		app.parseAndTranslate('topics', 'topics', data, function (html) {
+			$('#users-container').html(html);
+			html.find('.timeago').timeago();
+			$('[component="topic/search/icon"]').addClass('fa-search').removeClass('fa-spinner fa-spin');
 		});
 	}
 
