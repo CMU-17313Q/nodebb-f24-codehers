@@ -9,26 +9,12 @@ const db = require('../database');
 const groups = require('../groups');
 const utils = require('../utils');
 
-module.exports = function (User) {
-	const filterFnMap = {
-		online: user => user.status !== 'offline' && (Date.now() - user.lastonline < 300000),
-		flagged: user => parseInt(user.flags, 10) > 0,
-		verified: user => !!user['email:confirmed'],
-		unverified: user => !user['email:confirmed'],
-	};
-
-	const filterFieldMap = {
-		online: ['status', 'lastonline'],
-		flagged: ['flags'],
-		verified: ['email:confirmed'],
-		unverified: ['email:confirmed'],
-	};
-
-
-	User.search = async function (data) {
-		console.log('entered user.search in src/user/search');
+console.log('this was called');
+module.exports = function (Topic) {
+	Topic.search = async function (data) {
+		console.log('entered user.search in src/topics/search');
 		const query = data.query || '';
-		const searchBy = data.searchBy || 'username';
+		const searchBy = data.searchBy || 'title';
 		const page = data.page || 1;
 		const uid = data.uid || 0;
 		const paginate = data.hasOwnProperty('paginate') ? data.paginate : true;
@@ -164,9 +150,4 @@ module.exports = function (User) {
 		}
 	}
 
-	async function searchByIP(ip) {
-		const ipKeys = await db.scan({ match: `ip:${ip}*` });
-		const uids = await db.getSortedSetRevRange(ipKeys, 0, -1);
-		return _.uniq(uids);
-	}
 };

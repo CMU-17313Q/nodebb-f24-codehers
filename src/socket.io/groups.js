@@ -23,6 +23,7 @@ SocketGroups.before = async (socket, method, data) => {
 };
 
 SocketGroups.search = async (socket, data) => {
+	console.log('entered socket search');
 	data.options = data.options || {};
 
 	if (!data.query) {
@@ -46,6 +47,7 @@ SocketGroups.loadMore = async (socket, data) => {
 };
 
 SocketGroups.searchMembers = async (socket, data) => {
+	console.log('entered socket search');
 	sockets.warnDeprecated(socket, 'GET /api/v3/groups/:groupName/members');
 
 	if (!data.groupName) {

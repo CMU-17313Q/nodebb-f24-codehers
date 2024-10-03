@@ -405,3 +405,16 @@ topicsController.pagination = async function (req, res, next) {
 
 	res.json({ pagination: paginationData });
 };
+
+topicsController.search = async function (req, res) {
+	console.log('entered src/controllers/topics.js');
+	// console.log(req);
+	const searchData = await api.topics.search(req, req.query);
+
+	const section = req.query.section || 'joindate';
+
+	searchData.pagination = pagination.create(req.query.page, searchData.pageCount, req.query);
+	searchData[`section_${section}`] = true;
+	searchData.displayUserSearch = true;
+	await render(req, res, searchData);
+};

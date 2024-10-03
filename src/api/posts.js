@@ -20,6 +20,8 @@ const socketHelpers = require('../socket.io/helpers');
 
 const postsAPI = module.exports;
 
+console.log('posts api gets called');
+
 postsAPI.get = async function (caller, data) {
 	const [userPrivileges, post, voted] = await Promise.all([
 		privileges.posts.get([data.pid], caller.uid),

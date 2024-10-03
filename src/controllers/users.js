@@ -33,6 +33,8 @@ usersController.index = async function (req, res, next) {
 };
 
 usersController.search = async function (req, res) {
+	console.log('entered src/controllers/users.js');
+	// console.log(req);
 	const searchData = await api.users.search(req, req.query);
 
 	const section = req.query.section || 'joindate';

@@ -82,6 +82,8 @@ define('admin/manage/groups', [
 
 	function handleSearch() {
 		const queryEl = $('#group-search');
+		console.log('public/src/admin/manage/groups handleSearch');
+		console.log(queryEl);
 
 		function doSearch() {
 			if (!queryEl.val()) {

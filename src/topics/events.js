@@ -27,6 +27,7 @@ const Events = module.exports;
  * the user avatar/username will be rendered as part of the event text
  * see https://github.com/NodeBB/nodebb-plugin-question-and-answer/blob/master/library.js#L288-L306
  */
+console.log('entered topic events');
 Events._types = {
 	pin: {
 		icon: 'fa-thumb-tack',
@@ -68,6 +69,11 @@ Events._types = {
 		icon: 'fa-code-fork',
 		translation: async (event, language) => translateEventArgs(event, language, 'topic:user-forked-topic', renderUser(event), `${relative_path}${event.href}`, renderTimeago(event)),
 	},
+	search: {
+		search: 'fa-fa-search',
+		translation: async (event, language) => translateEventArgs(event, language, 'topic:user-forked-topic', renderUser(event), `${relative_path}${event.href}`, renderTimeago(event)),
+	},
+
 };
 
 Events.init = async () => {

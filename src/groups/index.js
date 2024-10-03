@@ -103,6 +103,10 @@ Groups.getNonPrivilegeGroups = async function (set, start, stop, flags) {
 };
 
 Groups.getGroups = async function (set, start, stop) {
+	console.log('entered src/groups/index getGroups');
+	console.log(set);
+	console.log(start);
+	console.log(stop);
 	return await db.getSortedSetRevRange(set, start, stop);
 };
 
@@ -121,6 +125,8 @@ Groups.getGroupsAndMembers = async function (groupNames) {
 };
 
 Groups.get = async function (groupName, options) {
+	console.log('hi');
+	console.log(options);
 	if (!groupName) {
 		throw new Error('[[error:invalid-group]]');
 	}
