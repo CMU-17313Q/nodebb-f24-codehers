@@ -84,6 +84,7 @@ define('forum/users', [
 
 
 	function loadPage(query) {
+		console.log('user load page then api?');
 		api.get('/api/users', query)
 			.then(renderSearchResults)
 			.catch(alerts.error);

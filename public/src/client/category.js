@@ -177,7 +177,7 @@ define('forum/category', [
 
 	function loadPage(query) {
 		console.log('entered load page');
-		api.get('/api/topics', query)
+		api.get('/categories', query)
 			.then(renderSearchResults)
 			.catch(alerts.error);
 	}
@@ -221,8 +221,8 @@ define('forum/category', [
 		}
 
 		data.isAdminOrGlobalMod = app.user.isAdmin || app.user.isGlobalMod;
-		app.parseAndTranslate('topics', 'topics', data, function (html) {
-			$('#users-container').html(html);
+		app.parseAndTranslate('posts_list', 'topics', data, function (html) {
+			$('#category-container').html(html);
 			html.find('.timeago').timeago();
 			$('[component="topic/search/icon"]').addClass('fa-search').removeClass('fa-spinner fa-spin');
 		});

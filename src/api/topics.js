@@ -17,6 +17,8 @@ const socketHelpers = require('../socket.io/helpers');
 
 const topicsAPI = module.exports;
 
+
+console.log('trying ot gr here');
 topicsAPI._checkThumbPrivileges = async function ({ tid, uid }) {
 	// req.params.tid could be either a tid (pushing a new thumb to an existing topic)
 	// or a post UUID (a new topic being composed)
