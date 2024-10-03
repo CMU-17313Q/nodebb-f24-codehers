@@ -8,6 +8,7 @@ const db = require('../database');
 
 module.exports = function (Categories) {
 	Categories.search = async function (data) {
+		console.log('it called categories search');
 		const query = data.query || '';
 		const page = data.page || 1;
 		const uid = data.uid || 0;

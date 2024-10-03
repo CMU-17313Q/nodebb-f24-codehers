@@ -10,7 +10,8 @@ define('forum/category', [
 	'hooks',
 	'alerts',
 	'api',
-], function (infinitescroll, share, navigator, topicList, sort, categorySelector, hooks, alerts, api) {
+	'benchpress',
+], function (infinitescroll, share, navigator, topicList, sort, categorySelector, hooks, alerts, api, Benchpress) {
 	const Category = {};
 
 	$(window).on('action:ajaxify.start', function (ev, data) {
@@ -211,7 +212,7 @@ define('forum/category', [
 		return utils.param('section') || '';
 	}
 
-	function renderSearchResults(data) {
+	function renderSearchResults(data, options) {
 		Benchpress.render('partials/paginator', { pagination: data.pagination }).then(function (html) {
 			$('.pagination-container').replaceWith(html);
 		});
@@ -221,7 +222,10 @@ define('forum/category', [
 		}
 
 		data.isAdminOrGlobalMod = app.user.isAdmin || app.user.isGlobalMod;
-		app.parseAndTranslate('posts_list', 'topics', data, function (html) {
+		app.parseAndTranslate(options.template, {
+			categoryItems: categories.slice(0, 200),
+			selectedCategory: ajaxify.data.selectedCategory,
+			allCategoriesUrl: ajaxify.data.allCategoriesUrl}, function (html) {
 			$('#category-container').html(html);
 			html.find('.timeago').timeago();
 			$('[component="topic/search/icon"]').addClass('fa-search').removeClass('fa-spinner fa-spin');
