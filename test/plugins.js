@@ -181,6 +181,7 @@ describe('Plugins', () => {
 				assert(data.hasOwnProperty(key));
 			});
 			done();
+			
 		});
 	});
 
