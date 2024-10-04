@@ -4,6 +4,8 @@ const nconf = require('nconf');
 const winston = require('winston');
 const path = require('path');
 const express = require('express');
+const resourcesButtonController = require('../controllers/resources-button');
+
 
 const meta = require('../meta');
 const controllers = require('../controllers');
@@ -80,6 +82,7 @@ _mounts.categories = (app, name, middleware, controllers) => {
 	setupPageRoute(app, '/recent', [], controllers.recent.get);
 	setupPageRoute(app, '/top', [], controllers.top.get);
 	setupPageRoute(app, '/unread', [middleware.ensureLoggedIn], controllers.unread.get);
+	setupPageRoute(app, '/resources-button', [], resourcesButtonController.getResourcesPage);
 };
 
 _mounts.category = (app, name, middleware, controllers) => {
