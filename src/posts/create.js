@@ -54,6 +54,12 @@ module.exports = function (Posts) {
 		const topicData = await topics.getTopicFields(tid, ['cid', 'pinned']);
 		postData.cid = topicData.cid;
 
+		// Extract links from post content
+		const links = postData.content.match(urlRegex);
+		if (links) {
+    		await db.setAdd('resources:links', links);
+		}
+
 		await Promise.all([
 			db.sortedSetAdd('posts:pid', timestamp, postData.pid),
 			db.incrObjectField('global', 'postCount'),
