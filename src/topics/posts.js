@@ -152,6 +152,8 @@ module.exports = function (Topics) {
 				} else {
 					postObj.uid = postObj.uid !== undefined ? postObj.uid : postObj.uid || 0;
 				}
+				console.log("Final postObj UID:", postObj.uid);
+				console.log("Final postObj User:", postObj.user);
 
 				// Username override for guests, if enabled
 				if (meta.config.allowGuestHandles && postObj.uid === 0 && postObj.handle) {
