@@ -12,9 +12,9 @@
 
         <h2>Useful Links</h2>
         <ul>
-            <li><a href="https://example.com" target="_blank">Example Link 1</a></li>
-            <li><a href="https://example.com" target="_blank">Example Link 2</a></li>
-            <li><a href="https://example.com" target="_blank">Example Link 3</a></li>
+            {{#each links}}
+                <li><a href="{{this}}" target="_blank">{{this}}</a></li>
+            {{/each}}            
         </ul>
         <!-- Add more sections as needed -->
     </div>
