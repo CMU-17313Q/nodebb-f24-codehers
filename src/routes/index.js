@@ -7,6 +7,7 @@ const express = require('express');
 
 const meta = require('../meta');
 const controllers = require('../controllers');
+const resourcesButtonController = require('../controllers/resources-button');
 const controllerHelpers = require('../controllers/helpers');
 const plugins = require('../plugins');
 
@@ -80,6 +81,7 @@ _mounts.categories = (app, name, middleware, controllers) => {
 	setupPageRoute(app, '/recent', [], controllers.recent.get);
 	setupPageRoute(app, '/top', [], controllers.top.get);
 	setupPageRoute(app, '/unread', [middleware.ensureLoggedIn], controllers.unread.get);
+	setupPageRoute(app, '/resources-button', [], resourcesButtonController.getResourcesButtonPage);
 };
 
 _mounts.category = (app, name, middleware, controllers) => {
