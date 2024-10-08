@@ -141,7 +141,7 @@ module.exports = function (Topics) {
 				postObj.replies = replies[i];
 				postObj.selfPost = parseInt(uid, 10) > 0 && parseInt(uid, 10) === postObj.uid;
 
-
+				console.log("postObj.isAnonymous:", postObj.isAnonymous);
 				if (postObj.isAnonymous) {
 					postObj.uid = 0;
 					postObj.user = {
