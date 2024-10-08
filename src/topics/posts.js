@@ -148,7 +148,8 @@ module.exports = function (Topics) {
 					postObj.user = {
 						username: 'Anonymous',
 						displayname: 'Anonymous',
-						isAnonymous: true,
+						isAnonymous: true
+						,
 					};
 				} else {
 					//attempting at not having uid overwritten as 0
@@ -156,7 +157,7 @@ module.exports = function (Topics) {
 					postObj.user = postObj.user || {};
 				}
 				console.log("Final postObj.uid:", postObj.uid);
-				//console.log("Final postObj User:", postObj.user);
+				console.log("Final postObj.user:", postObj.user);
 
 				// Username override for guests, if enabled
 				if (meta.config.allowGuestHandles && postObj.uid === 0 && postObj.handle) {
