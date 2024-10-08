@@ -150,7 +150,8 @@ module.exports = function (Topics) {
 						isAnonymous: true,
 					};
 				} else {
-					postObj.uid = postObj.uid !== undefined ? postObj.uid : postObj.uid || 0;
+					//attempting at not having uid overwritten as 0
+					postObj.uid = postObj.uid !== undefined ? postObj.uid : postObj.uid;
 				}
 				console.log("Final postObj UID:", postObj.uid);
 				console.log("Final postObj User:", postObj.user);
