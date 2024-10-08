@@ -148,8 +148,8 @@ module.exports = function (Topics) {
 					postObj.user = {
 						username: 'Anonymous',
 						displayname: 'Anonymous',
-						isAnonymous: true
-						,
+						isAnonymous: true,
+						postObj: 0
 					};
 				} else {
 					//attempting at not having uid overwritten as 0
