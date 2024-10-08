@@ -1,0 +1,7 @@
+{
+    "id": "nodebb-theme-testing",
+    "name": "Testing",
+    "description": "Clone of CMU Quickstart Theme",
+    "url": "https://github.com/nodebb/nodebb-theme-testing",
+    "baseTheme": "nodebb-theme-harmony"
+}
