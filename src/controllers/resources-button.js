@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 const controllers = {};
 
@@ -10,3 +10,15 @@ controllers.getResourcesButtonPage = async (req, res) => {
 };
 
 module.exports = controllers;
+*/
+
+const db = require('../database');
+
+async function getResourcesButtonPage(req, res) {
+    const links = await db.getSetMembers('resources:links');
+    res.render('resources-button', { links });
+}
+
+module.exports = {
+    getResourcesButtonPage,
+};
