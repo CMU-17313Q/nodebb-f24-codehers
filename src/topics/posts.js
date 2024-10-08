@@ -143,6 +143,7 @@ module.exports = function (Topics) {
 
 				console.log("postObj.isAnonymous:", postObj.isAnonymous);
 				if (postObj.isAnonymous === true) {
+					console.log("Inside the loop:", postObj.isAnonymous);
 					postObj.uid = 0;
 					postObj.user = {
 						username: 'Anonymous',
@@ -154,8 +155,8 @@ module.exports = function (Topics) {
 					postObj.uid = postObj.uid !== undefined ? postObj.uid : postObj.uid;
 					postObj.user = postObj.user || {};
 				}
-				console.log("Final postObj UID:", postObj.uid);
-				console.log("Final postObj User:", postObj.user);
+				//console.log("Final postObj UID:", postObj.uid);
+				//console.log("Final postObj User:", postObj.user);
 
 				// Username override for guests, if enabled
 				if (meta.config.allowGuestHandles && postObj.uid === 0 && postObj.handle) {
