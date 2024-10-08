@@ -153,7 +153,7 @@ module.exports = function (Topics) {
 					};
 				} else {
 					//attempting at not having uid overwritten as 0
-					postObj.uid = postObj.uid !== undefined ? postObj.uid : null;
+					postObj.uid = postObj.uid !== undefined ? postObj.uid : postObj.uid;
 					postObj.user = postObj.user || {};
 				}
 				console.log("Final postObj.uid:", postObj.uid);
