@@ -149,6 +149,7 @@ module.exports = function (Topics) {
 					  displayname: 'Anonymous',
 					  isAnonymous: true,
 					};
+					console.log("Type of postObj.isAnonymous:", typeof postObj.isAnonymous);
 				} else {
 					// Ensure we preserve the original user when it's not anonymous
 					// When anonymous is false, post.Obj remains 1
