@@ -142,17 +142,16 @@ module.exports = function (Topics) {
 				postObj.selfPost = parseInt(uid, 10) > 0 && parseInt(uid, 10) === postObj.uid;
 				console.log("Final postObj.uid:", postObj.uid);
 				console.log("postObj.isAnonymous:", postObj.isAnonymous);
-				if (postObj.isAnonymous === true) {
-					console.log("Inside the loop:", postObj.isAnonymous);
+				if (postObj.isAnonymous) {
 					postObj.uid = 0;
 					postObj.user = {
-						username: 'Anonymous',
-						displayname: 'Anonymous',
-						isAnonymous: true
+					  username: 'Anonymous',
+					  displayname: 'Anonymous',
+					  isAnonymous: true,
 					};
-				} 
-				postObj.uid = postObj.uid !== undefined ? postObj.uid : postObj.uid;
-				postObj.user = postObj.user || {};
+				  }
+				//postObj.uid = postObj.uid !== undefined ? postObj.uid : postObj.uid;
+				//postObj.user = postObj.user || {};
 				console.log("Final postObj.uid:", postObj.uid);
 				console.log("Final postObj.user:", postObj.user);
 
