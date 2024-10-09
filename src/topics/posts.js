@@ -140,7 +140,7 @@ module.exports = function (Topics) {
 				postObj.votes = postObj.votes || 0;
 				postObj.replies = replies[i];
 				postObj.selfPost = parseInt(uid, 10) > 0 && parseInt(uid, 10) === postObj.uid;
-
+				console.log("Final postObj.uid:", postObj.uid);
 				console.log("postObj.isAnonymous:", postObj.isAnonymous);
 				if (postObj.isAnonymous === true) {
 					console.log("Inside the loop:", postObj.isAnonymous);
@@ -148,14 +148,11 @@ module.exports = function (Topics) {
 					postObj.user = {
 						username: 'Anonymous',
 						displayname: 'Anonymous',
-						isAnonymous: true,
-						uid: 0
+						isAnonymous: true
 					};
-				} else {
-					//attempting at not having uid overwritten as 0
-					postObj.uid = postObj.uid !== undefined ? postObj.uid : postObj.uid;
-					postObj.user = postObj.user || {};
-				}
+				} 
+				postObj.uid = postObj.uid !== undefined ? postObj.uid : postObj.uid;
+				postObj.user = postObj.user || {};
 				console.log("Final postObj.uid:", postObj.uid);
 				console.log("Final postObj.user:", postObj.user);
 
