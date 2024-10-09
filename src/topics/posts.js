@@ -151,7 +151,8 @@ module.exports = function (Topics) {
 					};
 				} else {
 					// Ensure we preserve the original user when it's not anonymous
-					postObj.uid = postObj.uid !== undefined ? postObj.uid : postObj.uid;
+					// When anonymous is false, post.Obj remains 1
+					postObj.uid = postObj.uid !== undefined ? postObj.uid : 1; 
 					postObj.user = postObj.user || { username: userData[postObj.uid].username };
 				}
 				  
