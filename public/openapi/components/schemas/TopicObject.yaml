@@ -76,7 +76,7 @@ TopicObject:
             banned_until_readable:
               type: string
             isAnonymous: 
-              type: boolean 
+              type: string 
               description: Indicates whether the topic was posted anonymously
               example: false
           required:
