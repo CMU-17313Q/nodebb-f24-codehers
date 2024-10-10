@@ -140,8 +140,8 @@ module.exports = function (Topics) {
 				postObj.votes = postObj.votes || 0;
 				postObj.replies = replies[i];
 				postObj.selfPost = parseInt(uid, 10) > 0 && parseInt(uid, 10) === postObj.uid;
-				console.log("Final postObj.uid:", postObj.uid);
-				console.log("postObj.isAnonymous:", postObj.isAnonymous);
+				console.log('Final postObj.uid:', postObj.uid);
+				console.log('postObj.isAnonymous:', postObj.isAnonymous);
 				if (postObj.isAnonymous === 'true') {
 					postObj.uid = 0;
 					postObj.user = {
@@ -149,7 +149,7 @@ module.exports = function (Topics) {
 					  displayname: 'Anonymous',
 					  isAnonymous: true,
 					};
-					console.log("Type of postObj.isAnonymous:", typeof postObj.isAnonymous);
+					console.log('Type of postObj.isAnonymous:', typeof postObj.isAnonymous);
 				} else {
 					// Ensure we preserve the original user when it's not anonymous
 					// When anonymous is false, post.Obj remains 1
@@ -160,8 +160,8 @@ module.exports = function (Topics) {
 				  
 				//postObj.uid = postObj.uid !== undefined ? postObj.uid : postObj.uid;
 				//postObj.user = postObj.user || {};
-				console.log("Final postObj.uid:", postObj.uid);
-				console.log("Final postObj.user:", postObj.user);
+				console.log('Final postObj.uid:', postObj.uid);
+				console.log('Final postObj.user:', postObj.user);
 
 				// Username override for guests, if enabled
 				if (meta.config.allowGuestHandles && postObj.uid === 0 && postObj.handle) {
