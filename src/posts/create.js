@@ -17,7 +17,7 @@ module.exports = function (Posts) {
 		const { uid } = data;
 		const { tid } = data;
 		console.log("Raw data.isAnonymous:", data.isAnonymous);
-		const isAnonymous = data.isAnonymous === 'true';
+		const isAnonymous = Boolean(data.isAnonymous);
 		console.log("Is anonymous?", isAnonymous)
 		const content = data.content.toString();
 		const timestamp = data.timestamp || Date.now();

@@ -132,8 +132,9 @@ Topics.getTopicsByTids = async function (tids, options) {
 			topic.user = topic.uid ? result.usersMap[topic.uid] : { ...result.usersMap[topic.uid] };
 			if (result.tidToGuestHandle[topic.tid]) {
 				topic.user.username = validator.escape(result.tidToGuestHandle[topic.tid]);
-				topic.user.displayname = topic.user.username;
 			}
+			//made it out of the loop
+				topic.user.displayname = topic.user.username;
 			topic.teaser = result.teasers[i] || null;
 			topic.isOwner = topic.uid === parseInt(uid, 10);
 			topic.ignored = followData[i].ignoring;
