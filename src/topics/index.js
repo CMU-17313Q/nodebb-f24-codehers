@@ -135,6 +135,9 @@ Topics.getTopicsByTids = async function (tids, options) {
 			}
 			//made it out of the loop
 				topic.user.displayname = topic.user.username;
+				console.log('Username:', topic.user.username);
+				console.log('Displayname:', topic.user.displayname);
+
 			topic.teaser = result.teasers[i] || null;
 			topic.isOwner = topic.uid === parseInt(uid, 10);
 			topic.ignored = followData[i].ignoring;
