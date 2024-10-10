@@ -129,8 +129,10 @@ Topics.getTopicsByTids = async function (tids, options) {
 		if (topic) {
 			topic.thumbs = result.thumbs[i];
 			topic.category = result.categoriesMap[topic.cid];
-
+				console.log('checking if the code reaches here');
+				console.log("Type of topic.isAnonymous:", typeof topic.isAnonymous);
 			if (topic.isAnonymous === 'true') {
+				console.log('checking if the code reaches here444');
 				topic.user = {
 					username: 'Anonymous',
 					displayname: 'Anonymous',
