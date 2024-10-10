@@ -130,7 +130,7 @@ Topics.getTopicsByTids = async function (tids, options) {
 			topic.thumbs = result.thumbs[i];
 			topic.category = result.categoriesMap[topic.cid];
 			console.log('checking if the code reaches here');
-			console.log("Type of topic.isAnonymous:", typeof topic.isAnonymous);
+			console.log('Type of topic.isAnonymous:', typeof topic.isAnonymous);
 			if (topic.isAnonymous === 'true') {
 				console.log('checking if the code reaches here444');
 				topic.user = {
@@ -138,7 +138,7 @@ Topics.getTopicsByTids = async function (tids, options) {
 					displayname: 'Anonymous',
 					isAnonymous: true,
 				};
-				console.log("Type of topic.isAnonymous:", typeof topic.isAnonymous);
+				console.log('Type of topic.isAnonymous:', typeof topic.isAnonymous);
 				console.log('After condition:', topic.user.displayname);
 			} else {
 				topic.user = topic.uid ? result.usersMap[topic.uid] : { ...result.usersMap[topic.uid] };
