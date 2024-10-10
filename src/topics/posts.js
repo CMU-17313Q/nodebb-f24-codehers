@@ -145,21 +145,21 @@ module.exports = function (Topics) {
 				if (postObj.isAnonymous === 'true') {
 					postObj.uid = 0;
 					postObj.user = {
-					  username: 'Anonymous',
-					  displayname: 'Anonymous',
-					  isAnonymous: true,
+					username: 'Anonymous',
+					displayname: 'Anonymous',
+					isAnonymous: true,
 					};
 					console.log('Type of postObj.isAnonymous:', typeof postObj.isAnonymous);
 				} else {
 					// Ensure we preserve the original user when it's not anonymous
 					// When anonymous is false, post.Obj remains 1
-					postObj.uid = postObj.uid !== undefined ? postObj.uid : 1; 
+					postObj.uid = postObj.uid !== undefined ? postObj.uid : 1;
 					console.log('Incase is Anonymous is false', postObj.uid);
 					postObj.user = postObj.user || { username: userData[postObj.uid].username };
 				}
-				  
-				//postObj.uid = postObj.uid !== undefined ? postObj.uid : postObj.uid;
-				//postObj.user = postObj.user || {};
+			
+				// postObj.uid = postObj.uid !== undefined ? postObj.uid : postObj.uid;
+				// postObj.user = postObj.user || {};
 				console.log('Final postObj.uid:', postObj.uid);
 				console.log('Final postObj.user:', postObj.user);
 
