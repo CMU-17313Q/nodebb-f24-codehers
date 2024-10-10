@@ -129,12 +129,13 @@ Topics.getTopicsByTids = async function (tids, options) {
 		if (topic) {
 			topic.thumbs = result.thumbs[i];
 			topic.category = result.categoriesMap[topic.cid];
-			if (topic.isAnonymous) {
+			if (topic.isAnonymous === 'true') {
 				topic.user = {
 					username: 'Anonymous',
 					displayname: 'Anonymous',
 					isAnonymous: true,
 				};
+				console.log('After condition:', topic.user.displayname);
 			} else {
 				topic.user = topic.uid ? result.usersMap[topic.uid] : { ...result.usersMap[topic.uid] };
 			if (result.tidToGuestHandle[topic.tid]) {
