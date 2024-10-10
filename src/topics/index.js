@@ -148,7 +148,7 @@ Topics.getTopicsByTids = async function (tids, options) {
 				}
 			}
 			// made it out of the loop
-		
+
 			console.log('Username:', topic.user.username);
 			console.log('Displayname:', topic.user.displayname);
 			// console.log('Updating username to: ', postObj.user.username);
