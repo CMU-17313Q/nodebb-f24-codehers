@@ -10,6 +10,8 @@ const topics = require('../topics');
 const categories = require('../categories');
 const groups = require('../groups');
 const privileges = require('../privileges');
+const extractLinks = require('../utils/extractLinks');
+
 
 module.exports = function (Posts) {
 	Posts.create = async function (data) {
@@ -55,8 +57,8 @@ module.exports = function (Posts) {
 		postData.cid = topicData.cid;
 
 		// Extract links from post content
-		const links = postData.content.match(urlRegex);
-		if (links) {
+		const links = extractLinks(postData.content);
+		if (links.length > 0) {
 			console.log('Extracted links:', links);
     		await db.setAdd('resources:links', links);
 		}
