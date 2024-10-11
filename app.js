@@ -80,3 +80,44 @@ if (nconf.get('setup') || nconf.get('install')) {
 } else {
 	require('./src/start').start();
 }
+
+// app.js
+const express = require('express');
+const exphbs = require('express-handlebars');
+const http = require('http');
+const socketIo = require('socket.io');
+const app = express();
+const port = 4567;
+
+// Create HTTP server
+const server = http.createServer(app);
+
+// Create Socket.io server
+const io = socketIo(server);
+
+// Set up Handlebars
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+app.set('views', './views'); // Ensure this points to the correct directory
+
+// Import the controller
+const controllers = require('./src/controllers/resources-button');
+
+// Define routes and other middleware here
+app.get('/resources', controllers.getResourcesButtonPage);
+
+// Handle Socket.io connections
+io.on('connection', (socket) => {
+    console.log('New client connected');
+    socket.on('newPost', async (postContent) => {
+        await controllers.saveLinksFromPost(postContent);
+    });
+    socket.on('disconnect', () => {
+        console.log('Client disconnected');
+    });
+});
+
+// Start the server
+server.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
