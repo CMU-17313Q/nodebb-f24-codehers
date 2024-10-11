@@ -85,7 +85,7 @@ if (nconf.get('setup') || nconf.get('install')) {
 const express = require('express');
 const exphbs = require('express-handlebars');
 const app = express();
-const port = 3000;
+const port = 4567;
 
 // Set up Handlebars
 app.engine('handlebars', exphbs());
