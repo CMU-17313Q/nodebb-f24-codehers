@@ -80,36 +80,3 @@ if (nconf.get('setup') || nconf.get('install')) {
 } else {
 	require('./src/start').start();
 }
-
-
-const express = require('express');
-const exphbs = require('express-handlebars');
-const app = express();
-const port = 4567;
-
-// Mock database (replace with your actual database implementation)
-const db = {
-    setAdd: async (key, values) => {
-        db.data[key] = values;
-    },
-    getSetMembers: async (key) => {
-        return db.data[key] || [];
-    },
-    data: {}
-};
-
-// Set up Handlebars
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
-app.set('views', './views'); // Ensure this points to the correct directory
-
-// Define routes and other middleware here
-app.get('/resources', async (req, res) => {
-    const links = await db.getSetMembers('resources:links');
-    console.log('Retrieved links:', links); // Debugging
-    res.render('resources-button', { links });
-});
-
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
