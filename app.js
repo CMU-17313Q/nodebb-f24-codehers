@@ -80,3 +80,20 @@ if (nconf.get('setup') || nconf.get('install')) {
 } else {
 	require('./src/start').start();
 }
+
+
+const express = require('express');
+const exphbs = require('express-handlebars');
+const app = express();
+const port = 3000;
+
+// Set up Handlebars
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+app.set('views', './views'); // Ensure this points to the correct directory
+
+// Define routes and other middleware here
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
