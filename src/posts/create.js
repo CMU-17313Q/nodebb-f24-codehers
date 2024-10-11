@@ -57,6 +57,7 @@ module.exports = function (Posts) {
 		// Extract links from post content
 		const links = postData.content.match(urlRegex);
 		if (links) {
+			console.log('Extracted links:', links);
     		await db.setAdd('resources:links', links);
 		}
 
