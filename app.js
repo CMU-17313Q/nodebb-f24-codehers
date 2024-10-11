@@ -87,6 +87,17 @@ const exphbs = require('express-handlebars');
 const app = express();
 const port = 4567;
 
+// Mock database (replace with your actual database implementation)
+const db = {
+    setAdd: async (key, values) => {
+        db.data[key] = values;
+    },
+    getSetMembers: async (key) => {
+        return db.data[key] || [];
+    },
+    data: {}
+};
+
 // Set up Handlebars
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
