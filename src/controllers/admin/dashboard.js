@@ -395,7 +395,7 @@ dashboardController.getSearches = async (req, res) => {
 
 
 dashboardController.submitBug = async (req, res) => {
-    const { title, description } = req.body;
+    //const { title, description } = req.body;
 
     if (!title || !description) {
         return res.status(400).json({ message: 'Title and description are required' });
@@ -413,6 +413,7 @@ dashboardController.submitBug = async (req, res) => {
 
 
 dashboardController.getBugArchive = async (req, res) => {
+	console.log("im hereeeeeeeeeeee");
     try {
         // Retrieve all submitted bugs from the 'bug:archive' sorted set
         const archive = await db.getSortedSetRevRange('bug:archive', 0, -1);
