@@ -10,7 +10,6 @@ const topics = require('../topics');
 const categories = require('../categories');
 const groups = require('../groups');
 const privileges = require('../privileges');
-const extractLinks = require('../utils/extractLinks');
 
 
 module.exports = function (Posts) {
@@ -56,11 +55,17 @@ module.exports = function (Posts) {
 		const topicData = await topics.getTopicFields(tid, ['cid', 'pinned']);
 		postData.cid = topicData.cid;
 
+		// Define the link extraction logic
+		function extractLinks(text) {
+			const urlRegex = /(https?:\/\/[^\s]+)/g;
+			return text.match(urlRegex) || [];
+		}
+
 		// Extract links from post content
 		const links = extractLinks(postData.content);
 		if (links.length > 0) {
 			console.log('Extracted links:', links);
-    		await db.setAdd('resources:links', links);
+			await db.setAdd('resources:links', links);
 		}
 
 		await Promise.all([
