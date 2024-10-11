@@ -82,6 +82,7 @@ if (nconf.get('setup') || nconf.get('install')) {
 }
 
 // app.js
+// Ensure the server is started correctly
 const express = require('express');
 const exphbs = require('express-handlebars');
 const http = require('http');
