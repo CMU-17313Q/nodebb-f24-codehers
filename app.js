@@ -93,6 +93,11 @@ app.set('view engine', 'handlebars');
 app.set('views', './views'); // Ensure this points to the correct directory
 
 // Define routes and other middleware here
+app.get('/resources', async (req, res) => {
+    const links = await db.getSetMembers('resources:links');
+    console.log('Retrieved links:', links); // Debugging
+    res.render('resources-button', { links });
+});
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
