@@ -2,6 +2,18 @@
 
 const helpers = require('./helpers');
 
+const express = require('express');
+const router = express.Router();
+const controllers = require('../controllers/admin/dashboard');
+
+// Allow anyone to submit a bug
+router.post('/api/admin/submit-bug', controllers.submitBug);
+
+// Restrict access to bug archive to authenticated users
+router.get('/api/admin/get-bug-archive', middleware.ensureLoggedIn, controllers.getBugArchive);
+
+
+
 module.exports = function (app, name, middleware, controllers) {
 	const middlewares = [middleware.pluginHooks];
 
@@ -63,15 +75,22 @@ module.exports = function (app, name, middleware, controllers) {
 
 
 function apiRoutes(router, name, middleware, controllers) {
+
+	// Define the endpoint for fetching the bug archive
+	//router.get(`/api/${name}/get-bug-archive`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.dashboard.getBugArchive));
+
+	// Define the endpoint for submitting bugs
+	//router.post(`/api/${name}/submit-bug`, helpers.tryRoute(controllers.admin.dashboard.submitBug));
+
 	router.get(`/api/${name}/config`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.getConfig));
 	router.get(`/api/${name}/users/csv`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.users.getCSV));
 	router.get(`/api/${name}/groups/:groupname/csv`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.groups.getCSV));
 	router.get(`/api/${name}/analytics`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.dashboard.getAnalytics));
 	router.get(`/api/${name}/advanced/cache/dump`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.cache.dump));
 
-	router.get(`/api/${name}/get-bug-archive`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.dashboard.getBugArchive));
-	router.post(`/api/${name}/submit-bug`, helpers.tryRoute(controllers.admin.dashboard.submitBug));
-	router.get(`/api/${name}/submit-bug`,  helpers.tryRoute(controllers.admin.dashboard.submitBug));
+	//router.get(`/api/${name}/get-bug-archive`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.dashboard.getBugArchive));
+	//router.post(`/api/${name}/submit-bug`, helpers.tryRoute(controllers.admin.dashboard.submitBug));
+	//router.get(`/api/${name}/submit-bug`,  helpers.tryRoute(controllers.admin.dashboard.submitBug));
 
 	const multipart = require('connect-multiparty');
 	const multipartMiddleware = multipart();
