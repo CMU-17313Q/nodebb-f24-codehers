@@ -71,8 +71,6 @@ function apiRoutes(router, name, middleware, controllers) {
 
 	router.get(`/api/${name}/get-bug-archive`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.dashboard.getBugArchive));
 	router.post(`/api/${name}/submit-bug`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.dashboard.submitBug));
-	router.post(`/api/${name}/get-bug-archive`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.dashboard.getBugArchive));
-	router.get(`/api/${name}/submit-bug`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.dashboard.submitBug));
 
 	const multipart = require('connect-multiparty');
 	const multipartMiddleware = multipart();
@@ -89,14 +87,13 @@ function apiRoutes(router, name, middleware, controllers) {
 	router.post(`/api/${name}/uploadDefaultAvatar`, middlewares, helpers.tryRoute(controllers.admin.uploads.uploadDefaultAvatar));
 
 	// Define the endpoint for submitting bugs
-	//router.post(`/api/${name}/submit-bug`, middlewares, helpers.tryRoute(controllers.admin.dashboard.submitBug));
+	// router.post(`/api/${name}/submit-bug`, middlewares, helpers.tryRoute(controllers.admin.dashboard.submitBug));
 
-	//router.post(`/api/${name}/settings`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.settings.set));
+	// router.post(`/api/${name}/settings`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.settings.set));
 
 	// Define the endpoint for fetching the bug archive
-	//router.get(`/api/${name}/get-bug-archive`, middlewares, helpers.tryRoute(controllers.admin.dashboard.getBugArchive));
-	//router.get(`/api/${name}/get-bug-archive`, middlewares, helpers.tryRoute(controllers.admin.getConfig));
-};
+	// router.get(`/api/${name}/get-bug-archive`, middlewares, helpers.tryRoute(controllers.admin.dashboard.getBugArchive));
+	// router.get(`/api/${name}/get-bug-archive`, middlewares, helpers.tryRoute(controllers.admin.getConfig));
+}
 
 
- 
