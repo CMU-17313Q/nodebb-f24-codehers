@@ -1,0 +1,14 @@
+get:
+  summary: "Retrieve resources button data"
+  description: "Endpoint to get resources button information"
+  responses:
+    '200':
+      description: "Successful response"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Resources button data retrieved successfully"
