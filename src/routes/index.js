@@ -4,7 +4,7 @@ const nconf = require('nconf');
 const winston = require('winston');
 const path = require('path');
 const express = require('express');
-const resourcesButtonController = require('../controllers/resources-button');
+
 
 const meta = require('../meta');
 const controllers = require('../controllers');
@@ -14,6 +14,8 @@ const plugins = require('../plugins');
 const authRoutes = require('./authentication');
 const writeRoutes = require('./write');
 const helpers = require('./helpers');
+const resourcesRoute = require('./resources');
+
 
 const { setupPageRoute } = helpers;
 
@@ -81,7 +83,6 @@ _mounts.categories = (app, name, middleware, controllers) => {
 	setupPageRoute(app, '/recent', [], controllers.recent.get);
 	setupPageRoute(app, '/top', [], controllers.top.get);
 	setupPageRoute(app, '/unread', [middleware.ensureLoggedIn], controllers.unread.get);
-	setupPageRoute(app, '/resources-button', [], resourcesButtonController.getResourcesButtonPage);
 };
 
 _mounts.category = (app, name, middleware, controllers) => {
@@ -159,6 +160,8 @@ function addCoreRoutes(app, router, middleware, mounts) {
 	_mounts.main(router, middleware, controllers);
 	_mounts.mod(router, middleware, controllers);
 	_mounts.globalMod(router, middleware, controllers);
+
+	app.use('/', resourcesRoute); // Mount the resources route
 
 	addRemountableRoutes(app, router, middleware, mounts);
 
