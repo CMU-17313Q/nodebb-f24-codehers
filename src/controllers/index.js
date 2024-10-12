@@ -37,7 +37,7 @@ Controllers.osd = require('./osd');
 Controllers['404'] = require('./404');
 Controllers.errors = require('./errors');
 Controllers.composer = require('./composer');
-Controllers.resourcesButton = require('./resources.js');
+Controllers.resourcesButton = require('./resources');
 
 
 Controllers.write = require('./write');
