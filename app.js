@@ -81,4 +81,3 @@ if (nconf.get('setup') || nconf.get('install')) {
 	require('./src/start').start();
 }
 
-app.get('/resources', controllers.resources.getResourcesButtonPage); // Ensure this route is correct
