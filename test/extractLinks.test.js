@@ -1,35 +1,20 @@
-// test/extractLinks.test.js
-const assert = require('assert');
+// /Users/alanoudalkhulaifi/Desktop/Software-Engineering/nodebb-f24-codehers/test/extractLinks.test.js
 
-// Mock database
-const db = {
-    setAdd: async (key, values) => {
-        db.data[key] = values;
-    },
-    data: {}
-};
+'use strict';
 
-// Function to test
-async function extractLinks(postData) {
-    const urlRegex = /https?:\/\/[^\s]+/g; // Example regex for URLs
-    const links = postData.content.match(urlRegex);
-    if (links) {
-        await db.setAdd('resources:links', links);
-    }
-}
+const { expect } = require('chai');
+const extractLinks = require('../src/utils/extractLinks');
 
-// Test case
-(async () => {
-    // Arrange
-    const postData = {
-        content: 'Checkout this website: https://www.w3schools.com/html/'
-    };
-    const expectedLinks = ['https://www.w3schools.com/html/'];
+describe('extractLinks', () => {
+    it('should extract links from text', () => {
+        const text = 'Check out this link: https://example.com and this one: http://example.org';
+        const links = extractLinks(text);
+        expect(links).to.deep.equal(['https://example.com', 'http://example.org']);
+    });
 
-    // Act
-    await extractLinks(postData);
-
-    // Assert
-    assert.deepStrictEqual(db.data['resources:links'], expectedLinks);
-    console.log('Test passed!');
-})();
+    it('should return an empty array if no links are found', () => {
+        const text = 'No links here!';
+        const links = extractLinks(text);
+        expect(links).to.deep.equal([]);
+    });
+});
