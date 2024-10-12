@@ -8,7 +8,7 @@ controllers.getResourcesButtonPage = async (req, res) => {
 	try {
 		const links = await db.getSetMembers('resources:links');
 		console.log('Retrieved links:', links); // Debugging
-		res.render('resources', {
+		res.render('resources-button', {
 			title: 'Resources Page', // You can customize the title or add more data as needed
 			links,
 		});
