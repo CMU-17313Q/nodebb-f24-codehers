@@ -1,23 +1,21 @@
 'use strict';
 
-const express = require('express');
 const db = require('../database');
-// NodeBB's database module
-const router = express.Router();
 
-// Route handler for /resources page
-router.get('/resources', async (req, res) => {
-	try {
-		// Fetch the links from the Redis set
-		const links = await db.getSetMembers('resources:links');
-        console.log('Retrieved links:', links); // Debugging
+const controllers = {};
 
-		// Render the "Resources" page and pass the extracted links
-		res.render('resources', { links });
-	} catch (err) {
-		console.error('Error fetching resource links:', err);
-		res.status(500).send('An error occurred while fetching the resource links.');
-	}
-});
+controllers.getResourcesButtonPage = async (req, res) => {
+    try {
+        const links = await db.getSetMembers('resources:links');
+        console.log('Retrieved links:', links); // Log the retrieved links to the console
+        res.render('resources-button', {
+            title: 'Resources Page', // You can customize the title or add more data as needed
+            links,
+        });
+    } catch (err) {
+        console.error('Error retrieving links:', err);
+        res.status(500).send('Internal Server Error');
+    }
+};
 
-module.exports = router;
+module.exports = controllers;
