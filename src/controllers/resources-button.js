@@ -3,9 +3,9 @@
 const controllers = {};
 
 controllers.getResourcesButtonPage = async (req, res) => {
-	// Render the resources-button template
-	res.render('resources-button', {
-		title: 'Resources Page', // You can customize the title or add more data as needed
+	// Return a JSON response to match the API schema definition
+	res.status(200).json({
+		message: 'Resources button data retrieved successfully',
 	});
 };
 
