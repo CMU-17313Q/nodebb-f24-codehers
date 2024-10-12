@@ -10,6 +10,7 @@ router.get('/resources', async (req, res) => {
 	try {
 		// Fetch the links from the Redis set
 		const links = await db.getSetMembers('resources:links');
+        console.log('Retrieved links:', links); // Debugging
 
 		// Render the "Resources" page and pass the extracted links
 		res.render('resources', { links });
