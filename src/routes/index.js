@@ -15,9 +15,6 @@ const authRoutes = require('./authentication');
 const writeRoutes = require('./write');
 const helpers = require('./helpers');
 
-const router = express.Router();
-
-
 const { setupPageRoute } = helpers;
 
 const _mounts = {
