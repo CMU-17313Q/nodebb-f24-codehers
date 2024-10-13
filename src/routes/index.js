@@ -15,6 +15,8 @@ const authRoutes = require('./authentication');
 const writeRoutes = require('./write');
 const helpers = require('./helpers');
 
+const router = express.Router();
+
 
 const { setupPageRoute } = helpers;
 
@@ -224,3 +226,20 @@ function addRemountableRoutes(app, router, middleware, mounts) {
 		_mounts[original](router, mount, middleware, controllers);
 	});
 }
+
+// Define the route for the resources button page
+router.get('/resources', resourcesButtonController.getResourcesButtonPage);
+
+// Define the API endpoint for retrieving links
+router.get('/api/resources/links', async (req, res) => {
+    try {
+        const links = await resourcesButtonController.getLinks();
+        res.json({ links });
+    } catch (err) {
+        console.error('Error retrieving links:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+module.exports = router;
+
