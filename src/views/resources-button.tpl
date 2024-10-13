@@ -11,12 +11,35 @@
         <p>Welcome to the resources page! Here you can find various links and materials.</p>
 
         <h2>Useful Links</h2>
-        <ul>
-            <li><a href="https://example.com" target="_blank">Example Link 1</a></li>
-            <li><a href="https://example.com" target="_blank">Example Link 2</a></li>
-            <li><a href="https://example.com" target="_blank">Example Link 3</a></li>
+        <ul id="links-list">
+            {{#each links}}
+            <li><a href="{{this}}" target="_blank">{{this}}</a></li>
+            {{/each}}
         </ul>
-        <!-- Add more sections as needed -->
     </div>
+
+    <script>
+        async function fetchLinks() {
+            try {
+                const response = await fetch('/api/resources/links');
+                const data = await response.json();
+                const linksList = document.getElementById('links-list');
+                data.links.forEach(link => {
+                    const listItem = document.createElement('li');
+                    const linkElement = document.createElement('a');
+                    linkElement.href = link;
+                    linkElement.target = '_blank';
+                    linkElement.textContent = link;
+                    listItem.appendChild(linkElement);
+                    linksList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error fetching links:', error);
+            }
+        }
+
+        // Fetch links when the page loads
+        window.onload = fetchLinks;
+    </script>
 </body>
 </html>
