@@ -5,6 +5,8 @@ const winston = require('winston');
 const path = require('path');
 const express = require('express');
 
+const router = express.Router();
+
 const meta = require('../meta');
 const controllers = require('../controllers');
 const resourcesButtonController = require('../controllers/resources-button');
@@ -229,13 +231,13 @@ router.get('/resources', resourcesButtonController.getResourcesButtonPage);
 
 // Define the API endpoint for retrieving links
 router.get('/api/resources/links', async (req, res) => {
-    try {
-        const links = await resourcesButtonController.getLinks();
-        res.json({ links });
-    } catch (err) {
-        console.error('Error retrieving links:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
+	try {
+		const links = await resourcesButtonController.getLinks();
+		res.json({ links });
+	} catch (err) {
+		console.error('Error retrieving links:', err);
+		res.status(500).json({ error: 'Internal Server Error' });
+	}
 });
 
 module.exports = router;
