@@ -4,11 +4,13 @@ const nconf = require('nconf');
 const winston = require('winston');
 const path = require('path');
 const express = require('express');
-const resourcesButtonController = require('../controllers/resources-button');
+
+
 
 
 const meta = require('../meta');
 const controllers = require('../controllers');
+const resourcesButtonController = require('../controllers/resources-button');
 const controllerHelpers = require('../controllers/helpers');
 const plugins = require('../plugins');
 
