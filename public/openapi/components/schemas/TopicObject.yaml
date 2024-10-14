@@ -29,9 +29,6 @@ TopicObject:
               type: string
             disabled:
               type: number
-            isAnonymous: 
-              type: boolean
-              description: Indicates whether the user posted anonymously
         user:
           type: object
           properties:
@@ -137,6 +134,9 @@ TopicObject:
                     `icon:text` for the user's
                     auto-generated icon
                   example: "#f44336"
+                isAnonymous: 
+                  type: string
+                  description: Indicates whether the user posted anonymously
             index:
               type: number
           nullable: true
