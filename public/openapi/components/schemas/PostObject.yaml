@@ -12,6 +12,9 @@ PostObject:
     uid:
       type: number
       description: A user identifier
+    isAnonymous: 
+      type: boolean
+      description: Indicates whether the user posted anonymously
     timestamp:
       type: number
     deleted:
