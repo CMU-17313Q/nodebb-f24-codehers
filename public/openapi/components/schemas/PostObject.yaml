@@ -25,6 +25,9 @@ PostObject:
     timestampISO:
       type: string
       description: An ISO 8601 formatted date string (complementing `timestamp`)
+    isAnonymous:
+      type: boolean
+      description: Indicates whether the user posted anonymously
     user:
       type: object
       properties:
@@ -41,9 +44,6 @@ PostObject:
           type: string
           description: An URL-safe variant of the username (i.e. lower-cased, spaces
             removed, etc.)
-        isAnonymous: 
-          type: boolean
-          description: Indicates whether the user posted anonymously
         picture:
           type: string
           nullable: true
@@ -114,7 +114,6 @@ PostObject:
         - cid
         - title
         - slug
-        - isAnonymous
     category:
       type: object
       properties:
