@@ -12,9 +12,7 @@
 
         <h2>Useful Links</h2>
         <ul id="links-list">
-            {{#each links}}
-            <li><a href="{{this}}" target="_blank">{{this}}</a></li>
-            {{/each}}
+            {{{linksHtml}}}
         </ul>
     </div>
 </body>
