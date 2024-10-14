@@ -58,7 +58,9 @@ module.exports = function (Posts) {
 		// Define the link extraction logic
 		function extractLinks(text) {
 			const urlRegex = /(https?:\/\/[^\s]+)/g;
-			return text.match(urlRegex) || [];
+			const links = text.match(urlRegex) || [];
+			console.log('Extracted links:', links); // Log the extracted links
+			return links;
 		}
 
 		// Extract links from post content
