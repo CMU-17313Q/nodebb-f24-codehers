@@ -2,9 +2,6 @@ PostObject:
   description: A single post in the array returned from `Posts.getPostSummaryByPids`
   type: object
   properties:
-    isAnonymous:
-      type: boolean
-      description: Indicates whether the user posted anonymously
     pid:
       type: number
     tid:
