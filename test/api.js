@@ -678,7 +678,7 @@ describe('API', async () => {
 
 		// Compare the response to the schema
 		Object.keys(response).forEach((prop) => {
-			if (prop === "isAnonymous") {
+			if (prop === 'isAnonymous') {
 				return; // Skip the "isAnonymous" property
 			}
 
