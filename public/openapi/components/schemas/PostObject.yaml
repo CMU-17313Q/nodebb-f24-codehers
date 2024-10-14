@@ -58,9 +58,6 @@ PostObject:
             `icon:text` for the user's auto-generated
             icon
           example: "#f44336"
-        isAnonymous: 
-          type: boolean
-          description: Indicates whether the user posted anonymously
     topic:
       type: object
       properties:
@@ -108,6 +105,9 @@ PostObject:
           type: array
           items:
             $ref: ../../components/schemas/TagObject.yaml#/TagObject
+        isAnonymous: 
+          type: boolean
+          description: Indicates whether the user posted anonymously
       required:
         - uid
         - tid
