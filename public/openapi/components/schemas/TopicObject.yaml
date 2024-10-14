@@ -91,7 +91,7 @@ TopicObject:
             - icon:text
             - icon:bgColor
             - banned_until_readable
-            -isAnonymous
+            - isAnonymous
         teaser:
           type: object
           properties:
