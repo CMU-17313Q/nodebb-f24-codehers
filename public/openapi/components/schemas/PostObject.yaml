@@ -105,12 +105,16 @@ PostObject:
           type: array
           items:
             $ref: ../../components/schemas/TagObject.yaml#/TagObject
+        isAnonymous:  
+          type: boolean
+          description: Indicates if the user is anonymous
       required:
         - uid
         - tid
         - cid
         - title
         - slug
+        - isAnonymous
     category:
       type: object
       properties:
