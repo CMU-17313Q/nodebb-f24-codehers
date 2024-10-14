@@ -223,4 +223,12 @@ function addRemountableRoutes(app, router, middleware, mounts) {
 		_mounts[original](router, mount, middleware, controllers);
 	});
 }
+const router = express.Router();
 
+// Define the route for the resources button page
+router.get('/resources', resourcesButtonController.getResourcesButtonPage);
+
+// Define the API endpoint for retrieving links
+router.get('/api/resources/links', resourcesButtonController.getLinks);
+
+module.exports = router;
