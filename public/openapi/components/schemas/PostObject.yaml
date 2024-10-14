@@ -2,6 +2,9 @@ PostObject:
   description: A single post in the array returned from `Posts.getPostSummaryByPids`
   type: object
   properties:
+    isAnonymous:
+      type: boolean
+      description: Indicates whether the user posted anonymously
     pid:
       type: number
     tid:
@@ -25,9 +28,6 @@ PostObject:
     timestampISO:
       type: string
       description: An ISO 8601 formatted date string (complementing `timestamp`)
-    isAnonymous:
-      type: boolean
-      description: Indicates whether the user posted anonymously
     user:
       type: object
       properties:
