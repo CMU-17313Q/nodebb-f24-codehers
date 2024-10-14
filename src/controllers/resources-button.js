@@ -12,7 +12,7 @@ controllers.getResourcesButtonPage = async (req, res) => {
 		console.log('Cleaned links:', cleanedLinks); // Log the cleaned links to the console
 		res.render('resources-button', {
 			title: 'Resources Page', // You can customize the title or add more data as needed
-			links: JSON.stringify(cleanedLinks), // Pass links as a JSON string
+            escapedLinks: JSON.stringify(cleanedLinks).replace(/</g, '\\u003c'), // Escape JSON string
 		});
 	} catch (err) {
 		console.error('Error retrieving links:', err);
