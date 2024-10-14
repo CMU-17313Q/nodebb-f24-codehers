@@ -6,13 +6,14 @@ const db = require('../database');
 const controllers = {};
 
 controllers.getResourcesButtonPage = async (req, res) => {
-	try {
-		const links = await db.getSetMembers('resources:links');
-		console.log('Retrieved links:', links); // Log the retrieved links to the console
-		res.render('resources-button', {
-			title: 'Resources Page', // You can customize the title or add more data as needed
-			links,
-		});
+    try {
+        const links = await db.getSetMembers('resources:links');
+        const linksHtml = links.map(link => `<li><a href="${link}" target="_blank">${link}</a></li>`).join('');
+        console.log('Generated links HTML:', linksHtml); // Log the generated HTML to the console
+        res.render('resources-button', {
+            title: 'Resources Page', // You can customize the title or add more data as needed
+            linksHtml,
+        });
 	} catch (err) {
 		console.error('Error retrieving links:', err);
 		res.status(500).send('Internal Server Error');
