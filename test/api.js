@@ -583,11 +583,10 @@ describe('API', async () => {
 	}
 
 	function compare(schema, response, method, path, context) {
-
 		if (path === '/api/topics/'){
 			return;
 		}
-		
+
 		let required = [];
 		const additionalProperties = schema.hasOwnProperty('additionalProperties');
 
