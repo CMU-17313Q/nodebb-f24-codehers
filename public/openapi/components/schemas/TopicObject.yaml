@@ -75,9 +75,6 @@ TopicObject:
               example: "#f44336"
             banned_until_readable:
               type: string
-            isAnonymous: 
-              type: boolean
-              description: Indicates whether the user posted anonymously
           required:
             - uid
             - username
@@ -91,7 +88,6 @@ TopicObject:
             - icon:text
             - icon:bgColor
             - banned_until_readable
-            - isAnonymous
         teaser:
           type: object
           properties:
