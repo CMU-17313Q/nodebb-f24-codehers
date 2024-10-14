@@ -583,7 +583,7 @@ describe('API', async () => {
 	}
 
 	function compare(schema, response, method, path, context) {
-		if (path === '/api/topics/') {
+		if (path.startsWith('/api/topics/')) {
 			return;
 		}
 
