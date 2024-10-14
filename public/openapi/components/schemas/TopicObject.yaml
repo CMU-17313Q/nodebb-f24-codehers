@@ -47,6 +47,9 @@ TopicObject:
               type: string
               description: An URL-safe variant of the username (i.e. lower-cased, spaces
                 removed, etc.)
+            isAnonymous: 
+              type: string
+              description: Indicates whether the user posted anonymously
             reputation:
               type: number
             postcount:
@@ -134,9 +137,6 @@ TopicObject:
                     `icon:text` for the user's
                     auto-generated icon
                   example: "#f44336"
-                isAnonymous: 
-                  type: string
-                  description: Indicates whether the user posted anonymously
             index:
               type: number
           nullable: true
