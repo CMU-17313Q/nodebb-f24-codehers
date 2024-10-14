@@ -58,6 +58,9 @@ PostObject:
             `icon:text` for the user's auto-generated
             icon
           example: "#f44336"
+        isAnonymous:  
+          type: boolean
+          description: Indicates if the user is anonymous
     topic:
       type: object
       properties:
