@@ -25,6 +25,9 @@ PostObject:
     timestampISO:
       type: string
       description: An ISO 8601 formatted date string (complementing `timestamp`)
+    isAnonymous:  
+      type: boolean
+      description: Indicates if the user is anonymous
     user:
       type: object
       properties:
@@ -58,9 +61,6 @@ PostObject:
             `icon:text` for the user's auto-generated
             icon
           example: "#f44336"
-        isAnonymous:  
-          type: boolean
-          description: Indicates if the user is anonymous
     topic:
       type: object
       properties:
