@@ -17,29 +17,5 @@
             {{/each}}
         </ul>
     </div>
-
-    <script>
-        async function fetchLinks() {
-            try {
-                const response = await fetch('/api/resources/links');
-                const data = await response.json();
-                const linksList = document.getElementById('links-list');
-                data.links.forEach(link => {
-                    const listItem = document.createElement('li');
-                    const linkElement = document.createElement('a');
-                    linkElement.href = link;
-                    linkElement.target = '_blank';
-                    linkElement.textContent = link;
-                    listItem.appendChild(linkElement);
-                    linksList.appendChild(listItem);
-                });
-            } catch (error) {
-                console.error('Error fetching links:', error);
-            }
-        }
-
-        // Fetch links when the page loads
-        window.onload = fetchLinks;
-    </script>
 </body>
 </html>
