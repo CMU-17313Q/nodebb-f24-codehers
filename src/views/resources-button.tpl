@@ -13,7 +13,7 @@
     </div>
     <script>
         // Parse the links JSON string
-        const links = JSON.parse('{{{links}}}');
+        const links = JSON.parse('{{{escapedLinks}}}');
         const linksList = document.getElementById('links-list');
         
         // Generate the HTML for the links
