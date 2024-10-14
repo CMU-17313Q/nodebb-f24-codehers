@@ -12,9 +12,6 @@ PostObject:
     uid:
       type: number
       description: A user identifier
-    isAnonymous: 
-      type: boolean
-      description: Indicates whether the user posted anonymously
     timestamp:
       type: number
     deleted:
@@ -61,6 +58,9 @@ PostObject:
             `icon:text` for the user's auto-generated
             icon
           example: "#f44336"
+        isAnonymous: 
+          type: boolean
+          description: Indicates whether the user posted anonymously
     topic:
       type: object
       properties:
