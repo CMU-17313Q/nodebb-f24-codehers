@@ -5,6 +5,7 @@ const querystring = require('querystring');
 const posts = require('../posts');
 const privileges = require('../privileges');
 const helpers = require('./helpers');
+const api = require('../api');
 
 const postsController = module.exports;
 
@@ -36,4 +37,18 @@ postsController.getRecentPosts = async function (req, res) {
 	const stop = start + postsPerPage - 1;
 	const data = await posts.getRecentPosts(req.uid, start, stop, req.params.term);
 	res.json(data);
+};
+
+postsController.search = async function (req, res) {
+	console.log('got it');
+	console.log('entered src/controllers/posts.js');
+	// console.log(req);
+	const searchData = await api.posts.search(req, req.query);
+
+	const section = req.query.section || 'joindate';
+
+	searchData.pagination = pagination.create(req.query.page, searchData.pageCount, req.query);
+	searchData[`section_${section}`] = true;
+	searchData.displayUserSearch = true;
+	await render(req, res, searchData);
 };

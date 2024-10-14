@@ -39,6 +39,9 @@ module.exports = function () {
 
 	setupApiRoute(router, 'get', '/:pid/replies', [middleware.assert.post], controllers.write.posts.getReplies);
 
+	setupApiRoute(router, 'get', '/:title', [middleware.ensureLoggedIn], controllers.posts.search);
+
+
 	// Shorthand route to access post routes by topic index
 	router.all('/+byIndex/:index*?', [middleware.checkRequired.bind(null, ['tid'])], controllers.write.posts.redirectByIndex);
 
