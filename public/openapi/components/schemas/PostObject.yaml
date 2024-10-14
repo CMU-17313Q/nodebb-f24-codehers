@@ -4,6 +4,10 @@ PostObject:
   properties:
     pid:
       type: number
+    isAnonymous: 
+      type: boolean
+      description: Indicates whether the user posted anonymously
+      example: true
     tid:
       type: number
       description: A topic identifier
