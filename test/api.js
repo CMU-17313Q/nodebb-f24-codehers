@@ -619,7 +619,7 @@ describe('API', async () => {
 					// Skip this property if it's not present and not required
 					return;
 				}
-								
+
 				assert(response.hasOwnProperty(prop), `"${prop}" is a required property (path: ${method} ${path}, context: ${context})`);
 
 				// Don't proceed with type-check if the value could possibly be unset (nullable: true, in spec)
