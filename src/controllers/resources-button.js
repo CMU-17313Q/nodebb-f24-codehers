@@ -6,14 +6,14 @@ const db = require('../database');
 const controllers = {};
 
 controllers.getResourcesButtonPage = async (req, res) => {
-    try {
-        const links = await db.getSetMembers('resources:links');
-        const cleanedLinks = links.map(link => link.replace(/\]\(.*?\)/g, ''));
-        console.log('Cleaned links:', cleanedLinks); // Log the cleaned links to the console
-        res.render('resources-button', {
-            title: 'Resources Page', // You can customize the title or add more data as needed
-            links: JSON.stringify(cleanedLinks), // Pass links as a JSON string
-        });
+	try {
+		const links = await db.getSetMembers('resources:links');
+		const cleanedLinks = links.map(link => link.replace(/\]\(.*?\)/g, ''));
+		console.log('Cleaned links:', cleanedLinks); // Log the cleaned links to the console
+		res.render('resources-button', {
+			title: 'Resources Page', // You can customize the title or add more data as needed
+			links: JSON.stringify(cleanedLinks), // Pass links as a JSON string
+		});
 	} catch (err) {
 		console.error('Error retrieving links:', err);
 		res.status(500).send('Internal Server Error');
