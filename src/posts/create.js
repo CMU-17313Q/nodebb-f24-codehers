@@ -60,7 +60,7 @@ module.exports = function (Posts) {
 			const urlRegex = /(https?:\/\/[^\s]+)/g;
 			const links = text.match(urlRegex) || [];
 			console.log('Extracted links:', links); // Log the extracted links
-			return links;
+			return [...new Set(links)]; // Remove duplicates
 		}
 
 		// Extract links from post content
