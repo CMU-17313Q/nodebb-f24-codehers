@@ -69,7 +69,7 @@ module.exports = function (Posts) {
 			console.log('Extracted links:', links);
 			await db.setAdd(`post:${postData.pid}:links`, links);
 			// await db.setAdd('resources:links', links);
-		}                 
+		}
 
 		await Promise.all([
 			db.sortedSetAdd('posts:pid', timestamp, postData.pid),
