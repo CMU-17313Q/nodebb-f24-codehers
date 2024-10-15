@@ -1203,53 +1203,62 @@ describe('Post\'s', () => {
 
 	describe('Link Extraction', () => {
 		let userId;
-		let categoryId;
+        let categoryId;
+        let originalSetAdd;
 
-		before(async () => {
-			// Create a test user
-			userId = await user.create({ username: 'testUser' });
+        before(async () => {
+            // Create a test user
+            userId = await user.create({ username: 'testUser' });
 
-			// Set up a test category
-			const category = await categories.create({
-				name: 'Test Category',
-				description: 'Category created for link extraction testing',
-			});
-			categoryId = category.cid;
-		});
+            // Set up a test category
+            const category = await categories.create({
+                name: 'Test Category',
+                description: 'Category created for link extraction testing',
+            });
+            categoryId = category.cid;
 
-		it('should extract links from post content and store them in the database', async () => {
-			const postData = {
-				uid: userId,
-				cid: categoryId,
-				title: 'Post with Links',
-				content: 'Check out this link: https://example.com and this one: http://example.org',
-			};
+            // Save the original db.setAdd method
+            originalSetAdd = db.setAdd;
+        });
 
-			// Mock the db.setAdd method
-			db.setAdd = async (key, links) => {
-				console.log(`Stored links in ${key}:`, links);
-				assert.deepStrictEqual(links, ['https://example.com', 'http://example.org']);
-			};
+        afterEach(() => {
+            // Restore the original db.setAdd method after each test
+            db.setAdd = originalSetAdd;
+        });
 
-			await posts.create(postData);
-		});
+        it('should extract links from post content and store them in the database', async () => {
+            const postData = {
+                uid: userId,
+                cid: categoryId,
+                title: 'Post with Links',
+                content: 'Check out this link: https://example.com and this one: http://example.org',
+            };
 
-		it('should not store duplicated links multiple times', async () => {
-			const postData = {
-				uid: userId,
-				cid: categoryId,
-				title: 'Post with Duplicate Links',
-				content: 'Duplicate link: https://example.com and again https://example.com',
-			};
+            // Mock the db.setAdd method
+            db.setAdd = async (key, links) => {
+                console.log(`Stored links in ${key}:`, links);
+                assert.deepStrictEqual(links, ['https://example.com', 'http://example.org']);
+            };
 
-			// Mock the db.setAdd method
-			db.setAdd = async (key, links) => {
-				console.log(`Stored links in ${key}:`, links);
-				assert.deepStrictEqual(links, ['https://example.com']);
-			};
+            await posts.create(postData);
+        });
 
-			await posts.create(postData);
-		});
+        it('should not store duplicated links multiple times', async () => {
+            const postData = {
+                uid: userId,
+                cid: categoryId,
+                title: 'Post with Duplicate Links',
+                content: 'Duplicate link: https://example.com and again https://example.com',
+            };
+
+            // Mock the db.setAdd method
+            db.setAdd = async (key, links) => {
+                console.log(`Stored links in ${key}:`, links);
+                assert.deepStrictEqual(links, ['https://example.com']);
+            };
+
+            await posts.create(postData);
+        });
 	});
 
 	describe('Posts\'', async () => {
