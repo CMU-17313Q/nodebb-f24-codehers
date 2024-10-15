@@ -1207,6 +1207,15 @@ describe('Post\'s', () => {
 				This is a post with a link to [NodeBB](https://nodebb.org)
 				And another link to [Google](https://google.com)
 			`;
+			// Add your link extraction logic and assertions here
+			const links = await posts.extractLinks(content);
+			assert(links);
+			assert.strictEqual(links.length, 2);
+			assert.strictEqual(links[0].url, 'https://nodebb.org');
+			assert.strictEqual(links[0].text, 'NodeBB');
+			assert.strictEqual(links[1].url, 'https://google.com');
+			assert.strictEqual(links[1].text, 'Google');
+		});
 	});
 
 	describe('Posts\'', async () => {
