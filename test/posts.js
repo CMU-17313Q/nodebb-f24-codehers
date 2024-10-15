@@ -1254,28 +1254,28 @@ describe('Anonymous Post Creation', () => {
 
 	it('should create a post without anonymity when specified', async () => {
 		newPost = await topics.post({
-			uid: userId,
-			cid: categoryId,
+			uid: uid,
+			cid: cid,
 			title: 'Non-Anonymous Post Example',
 			content: 'This is a regular post',
 			isAnonymous: false,
 		});
 
 		assert(newPost);
-		assert.strictEqual(newPost.postData.anonymous, false, 'Expected the post to be marked as non-anonymous');
-		// Removed check for uid === 0
+		assert.strictEqual(newPost.postData.isAnonymous, false, 'Expected the post to be marked as non-anonymous');
+		
 	});
 
 	it('should create a post as non-anonymous by default', async () => {
 		newPost = await topics.post({
-			uid: userId,
-			cid: categoryId,
+			uid: uid,
+			cid: cid,
 			title: 'Default Post Example',
 			content: 'This post does not specify anonymity',
 		});
 
 		assert(newPost);
-		assert.strictEqual(newPost.postData.anonymous, false, 'Expected the post to default to non-anonymous');
+		assert.strictEqual(newPost.postData.isAnonymous, false, 'Expected the post to default to non-anonymous');
 	});
 });
 
