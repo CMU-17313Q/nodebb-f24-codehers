@@ -1,3 +1,8 @@
+'use strict';
+
+const assert = require('assert');
+
+
 // Define the link extraction logic
 function extractLinks(text) {
 	const urlRegex = /(https?:\/\/[^\s]+)/g;
