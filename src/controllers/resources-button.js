@@ -21,15 +21,6 @@ controllers.getResourcesButtonPage = async (req, res) => {
 };
 
 
-// Add the new method to get links for the API
-controllers.getLinks = async (req, res) => {
-	try {
-		const links = await db.getSetMembers('resources:links');
-		res.json({ links });
-	} catch (err) {
-		console.error('Error retrieving links:', err);
-		res.status(500).json({ error: 'Internal Server Error' });
-	}
-};
+
 
 module.exports = controllers;
