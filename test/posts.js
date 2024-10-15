@@ -1218,26 +1218,26 @@ describe('Posts\'', async () => {
 });
 
 describe('Anonymous Post Creation', () => {
-	let userId;
-	let categoryId;
+	let uid;
+	let cid;
 	let newPost;
 
 	before(async () => {
 		// Create a test user
-		userId = await user.create({ username: 'testAnonUser' });
+		uid = await user.create({ username: 'testAnonUser' });
 
 		// Set up a test category
 		const category = await categories.create({
 			name: 'Test Anonymous Category',
 			description: 'Category created for anonymous post testing',
 		});
-		categoryId = category.cid;
+		cid = category.cid;
 	});
 
 	it('should allow a post to be created with anonymity enabled', async () => {
 		newPost = await topics.post({
-			uid: userId,
-			cid: categoryId,
+			uid: uid,
+			cid: cid,
 			title: 'Anonymous Post Example',
 			content: 'Content for an anonymous post',
 			isAnonymous: true,
@@ -1245,9 +1245,11 @@ describe('Anonymous Post Creation', () => {
 
 		console.log('Post result:', newPost.postData); // Debugging statement
 
+		console.log('Checking somethingg:', newPost.postData.isAnonymous)
+
 		assert(newPost);
-		assert.strictEqual(newPost.postData.anonymous, true, 'Expected the post to be marked as anonymous');
-		// Removed check for uid === 0
+		assert.strictEqual(newPost.postData.isAnonymous, true, 'Expected the post to be marked as anonymous');
+
 	});
 
 	it('should create a post without anonymity when specified', async () => {
