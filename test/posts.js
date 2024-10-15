@@ -1202,7 +1202,7 @@ describe('Post\'s', () => {
 	});
 
 	describe('Link Extraction', () => {
-		const linkExtractor = require('../posts/create.js'); // Adjust the path to your link extraction module
+		const linkExtractor = require('../posts/create'); // Adjust the path to your link extraction module
 
 		it('should extract a single link from a post', () => {
 			const postContent = 'Check this out: http://example.com';
