@@ -116,6 +116,21 @@ describe('Post\'s', () => {
 		}
 	});
 
+	it('should handle isAnonymous correctly when creating a post', async () => {
+		const anonymousUserUid = await user.create({ username: 'anonymousUser' });
+	  
+		// Create a post with isAnonymous set to true
+		const postResult = await posts.create({
+		  uid: anonymousUserUid,
+		  tid: topicData.tid,  // Assuming `topicData` is already initialized
+		  content: 'This is an anonymous post',
+		  isAnonymous: true,   // Setting isAnonymous
+		});
+	  
+		// Assert the post was created with isAnonymous set to true
+		assert.strictEqual(postResult.isAnonymous, true);
+	  });	  
+
 	it('should fail to change owner if user is not authorized', async () => {
 		try {
 			await socketPosts.changeOwner({ uid: voterUid }, { pids: [1, 2], toUid: voterUid });
@@ -131,19 +146,6 @@ describe('Post\'s', () => {
 			done();
 		});
 	});
-
-	it('should handle isAnonymous correctly when creating a post', async () => {
-		const anonymousUserUid = await user.create({ username: 'anonymousUser' });
-		
-		// Create a post with isAnonymous set to true
-		const postResult = await posts.create({
-			uid: anonymousUserUid,
-			tid: topicData.tid,
-			content: 'This is an anonymous post',
-			isAnonymous: true,
-		});
-	});
-	
 
 	describe('voting', () => {
 		it('should fail to upvote post if group does not have upvote permission', async () => {
