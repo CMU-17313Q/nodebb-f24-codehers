@@ -1202,7 +1202,7 @@ describe('Post\'s', () => {
 	});
 
 	describe('Link Extraction', () => {
-		const linkExtractor = require('../path/to/linkExtractor'); // Adjust the path to your link extraction module
+		const linkExtractor = require('../posts/create.js'); // Adjust the path to your link extraction module
 
 		it('should extract a single link from a post', () => {
 			const postContent = 'Check this out: http://example.com';
@@ -1210,21 +1210,21 @@ describe('Post\'s', () => {
 			const extractedLinks = linkExtractor.extract(postContent);
 			assert.deepStrictEqual(extractedLinks, expectedLinks);
 		});
-	
+
 		it('should extract multiple links from a post', () => {
 			const postContent = 'Visit http://example.com and http://test.com';
 			const expectedLinks = ['http://example.com', 'http://test.com'];
 			const extractedLinks = linkExtractor.extract(postContent);
 			assert.deepStrictEqual(extractedLinks, expectedLinks);
 		});
-	
+
 		it('should return an empty array when no links are present', () => {
 			const postContent = 'This post has no links.';
 			const expectedLinks = [];
 			const extractedLinks = linkExtractor.extract(postContent);
 			assert.deepStrictEqual(extractedLinks, expectedLinks);
 		});
-	
+
 		it('should not extract malformed links', () => {
 			const postContent = 'This is not a link: htt://example.com';
 			const expectedLinks = [];
