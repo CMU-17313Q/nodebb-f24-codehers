@@ -1216,3 +1216,62 @@ describe('Posts\'', async () => {
 		});
 	});
 });
+
+describe('Anonymous Post Creation', () => {
+	let userId;
+	let categoryId;
+	let newPost;
+
+	before(async () => {
+		// Create a test user
+		userId = await user.create({ username: 'testAnonUser' });
+
+		// Set up a test category
+		const category = await categories.create({
+			name: 'Test Anonymous Category',
+			description: 'Category created for anonymous post testing',
+		});
+		categoryId = category.cid;
+	});
+
+	it('should allow a post to be created with anonymity enabled', async () => {
+		newPost = await topics.post({
+			uid: userId,
+			cid: categoryId,
+			title: 'Anonymous Post Example',
+			content: 'Content for an anonymous post',
+			isAnonymous: true,
+		});
+
+		assert(newPost);
+		assert.strictEqual(newPost.postData.anonymous, true, 'Expected the post to be marked as anonymous');
+		// Removed check for uid === 0
+	});
+
+	it('should create a post without anonymity when specified', async () => {
+		newPost = await topics.post({
+			uid: userId,
+			cid: categoryId,
+			title: 'Non-Anonymous Post Example',
+			content: 'This is a regular post',
+			isAnonymous: false,
+		});
+
+		assert(newPost);
+		assert.strictEqual(newPost.postData.anonymous, false, 'Expected the post to be marked as non-anonymous');
+		// Removed check for uid === 0
+	});
+
+	it('should create a post as non-anonymous by default', async () => {
+		newPost = await topics.post({
+			uid: userId,
+			cid: categoryId,
+			title: 'Default Post Example',
+			content: 'This post does not specify anonymity',
+		});
+
+		assert(newPost);
+		assert.strictEqual(newPost.postData.anonymous, false, 'Expected the post to default to non-anonymous');
+	});
+});
+
