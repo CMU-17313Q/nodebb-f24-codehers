@@ -132,6 +132,19 @@ describe('Post\'s', () => {
 		});
 	});
 
+	it('should handle isAnonymous correctly when creating a post', async () => {
+		const anonymousUserUid = await user.create({ username: 'anonymousUser' });
+		
+		// Create a post with isAnonymous set to true
+		const postResult = await posts.create({
+			uid: anonymousUserUid,
+			tid: topicData.tid,
+			content: 'This is an anonymous post',
+			isAnonymous: true,
+		});
+	});
+	
+
 	describe('voting', () => {
 		it('should fail to upvote post if group does not have upvote permission', async () => {
 			await privileges.categories.rescind(['groups:posts:upvote', 'groups:posts:downvote'], cid, 'registered-users');
