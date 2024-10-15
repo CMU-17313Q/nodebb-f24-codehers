@@ -1245,11 +1245,10 @@ describe('Anonymous Post Creation', () => {
 
 		console.log('Post result:', newPost.postData); // Debugging statement
 
-		console.log('Checking somethingg:', newPost.postData.isAnonymous)
+		console.log('Checking somethingg:', newPost.postData.isAnonymous);
 
 		assert(newPost);
 		assert.strictEqual(newPost.postData.isAnonymous, true, 'Expected the post to be marked as anonymous');
-
 	});
 
 	it('should create a post without anonymity when specified', async () => {
@@ -1263,7 +1262,6 @@ describe('Anonymous Post Creation', () => {
 
 		assert(newPost);
 		assert.strictEqual(newPost.postData.isAnonymous, false, 'Expected the post to be marked as non-anonymous');
-		
 	});
 
 	it('should create a post as non-anonymous by default', async () => {
