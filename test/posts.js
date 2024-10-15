@@ -1202,19 +1202,34 @@ describe('Post\'s', () => {
 	});
 
 	describe('Link Extraction', () => {
-		it('should extract links from a post', async () => {
-			const content = `
-				This is a post with a link to [NodeBB](https://nodebb.org)
-				And another link to [Google](https://google.com)
-			`;
-			// Add your link extraction logic and assertions here
-			const links = await posts.extractLinks(content);
-			assert(links);
-			assert.strictEqual(links.length, 2);
-			assert.strictEqual(links[0].url, 'https://nodebb.org');
-			assert.strictEqual(links[0].text, 'NodeBB');
-			assert.strictEqual(links[1].url, 'https://google.com');
-			assert.strictEqual(links[1].text, 'Google');
+		const linkExtractor = require('../path/to/linkExtractor'); // Adjust the path to your link extraction module
+
+		it('should extract a single link from a post', () => {
+			const postContent = 'Check this out: http://example.com';
+			const expectedLinks = ['http://example.com'];
+			const extractedLinks = linkExtractor.extract(postContent);
+			assert.deepStrictEqual(extractedLinks, expectedLinks);
+		});
+	
+		it('should extract multiple links from a post', () => {
+			const postContent = 'Visit http://example.com and http://test.com';
+			const expectedLinks = ['http://example.com', 'http://test.com'];
+			const extractedLinks = linkExtractor.extract(postContent);
+			assert.deepStrictEqual(extractedLinks, expectedLinks);
+		});
+	
+		it('should return an empty array when no links are present', () => {
+			const postContent = 'This post has no links.';
+			const expectedLinks = [];
+			const extractedLinks = linkExtractor.extract(postContent);
+			assert.deepStrictEqual(extractedLinks, expectedLinks);
+		});
+	
+		it('should not extract malformed links', () => {
+			const postContent = 'This is not a link: htt://example.com';
+			const expectedLinks = [];
+			const extractedLinks = linkExtractor.extract(postContent);
+			assert.deepStrictEqual(extractedLinks, expectedLinks);
 		});
 	});
 
