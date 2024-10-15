@@ -1243,6 +1243,8 @@ describe('Anonymous Post Creation', () => {
 			isAnonymous: true,
 		});
 
+		console.log('Post result:', newPost.postData); // Debugging statement
+
 		assert(newPost);
 		assert.strictEqual(newPost.postData.anonymous, true, 'Expected the post to be marked as anonymous');
 		// Removed check for uid === 0
