@@ -13,7 +13,7 @@ function extractLinks(text) {
 
 describe('Link Extraction', () => {
 	it('should extract a single link from a post', () => {
-        console.log("Test 1");
+		console.log('Test 1');
 		const postContent = 'Check this out: http://example.com';
 		const expectedLinks = ['http://example.com'];
 		const extractedLinks = extractLinks(postContent);
@@ -21,7 +21,7 @@ describe('Link Extraction', () => {
 	});
 
 	it('should extract multiple links from a post', () => {
-        console.log("Test 2");
+		console.log('Test 2');
 		const postContent = 'Visit http://example.com and http://test.com';
 		const expectedLinks = ['http://example.com', 'http://test.com'];
 		const extractedLinks = extractLinks(postContent);
@@ -29,7 +29,7 @@ describe('Link Extraction', () => {
 	});
 
 	it('should return an empty array when no links are present', () => {
-        console.log("Test 3")
+		console.log('Test 3');
 		const postContent = 'This post has no links.';
 		const expectedLinks = [];
 		const extractedLinks = extractLinks(postContent);
@@ -37,7 +37,7 @@ describe('Link Extraction', () => {
 	});
 
 	it('should not extract malformed links', () => {
-        console.log("Test 4");
+		console.log('Test 4');
 		const postContent = 'This is not a link: htt://example.com';
 		const expectedLinks = [];
 		const extractedLinks = extractLinks(postContent);
