@@ -2519,3 +2519,21 @@ describe('Topics\'', async () => {
 		});
 	});
 });
+
+describe('Anonymous Topic Creation', () => {
+    let uid;
+    let cid;
+    let newTopic;
+
+    before(async () => {
+        // Create a test user
+        uid = await user.create({ username: 'testAnonTopicUser' });
+
+        // Set up a test category
+        const category = await categories.create({
+            name: 'Test Anonymous Topic Category',
+            description: 'Category created for anonymous topic testing',
+        });
+        cid = category.cid;
+    });
+});
