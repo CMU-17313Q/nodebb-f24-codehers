@@ -2521,59 +2521,59 @@ describe('Topics\'', async () => {
 });
 
 describe('Anonymous Topic Creation', () => {
-    let uid;
-    let cid;
-    let newTopic;
+	let uid;
+	let cid;
+	let newTopic;
 
-    before(async () => {
-        // Create a test user
-        uid = await user.create({ username: 'testAnonTopicUser' });
+	before(async () => {
+		// Create a test user
+		uid = await User.create({ username: 'testAnonTopicUser' });
 
-        // Set up a test category
-        const category = await categories.create({
-            name: 'Test Anonymous Topic Category',
-            description: 'Category created for anonymous topic testing',
-        });
-        cid = category.cid;
-    });
+		// Set up a test category
+		const category = await categories.create({
+			name: 'Test Anonymous Topic Category',
+			description: 'Category created for anonymous topic testing',
+		});
+		cid = category.cid;
+	});
 	it('should allow a topic to be created with anonymity enabled', async () => {
-        newTopic = await topics.post({
-            uid: uid,
-            cid: cid,
-            title: 'Anonymous Topic Example',
-            content: 'Content for an anonymous topic',
-            isAnonymous: true,
-        });
+		newTopic = await topics.post({
+			uid: uid,
+			cid: cid,
+			title: 'Anonymous Topic Example',
+			content: 'Content for an anonymous topic',
+			isAnonymous: true,
+		});
 
-        console.log('Topic result:', newTopic.topicData); // Debugging statement
-        console.log('Checking isAnonymous:', newTopic.topicData.isAnonymous);
+		console.log('Topic result:', newTopic.topicData); // Debugging statement
+		console.log('Checking isAnonymous:', newTopic.topicData.isAnonymous);
 
-        assert(newTopic);
-        assert.strictEqual(newTopic.topicData.isAnonymous, true, 'Expected the topic to be marked as anonymous');
-    });
+		assert(newTopic);
+		assert.strictEqual(newTopic.topicData.isAnonymous, true, 'Expected the topic to be marked as anonymous');
+	});
 
-    it('should create a topic without anonymity when specified', async () => {
-        newTopic = await topics.post({
-            uid: uid,
-            cid: cid,
-            title: 'Non-Anonymous Topic Example',
-            content: 'This is a regular topic',
-            isAnonymous: false,
-        });
+	it('should create a topic without anonymity when specified', async () => {
+		newTopic = await topics.post({
+			uid: uid,
+			cid: cid,
+			title: 'Non-Anonymous Topic Example',
+			content: 'This is a regular topic',
+			isAnonymous: false,
+		});
 
-        assert(newTopic);
-        assert.strictEqual(newTopic.topicData.isAnonymous, false, 'Expected the topic to be marked as non-anonymous');
-    });
+		assert(newTopic);
+		assert.strictEqual(newTopic.topicData.isAnonymous, false, 'Expected the topic to be marked as non-anonymous');
+	});
 
-    it('should create a topic as non-anonymous by default', async () => {
-        newTopic = await topics.post({
-            uid: uid,
-            cid: cid,
-            title: 'Default Topic Example',
-            content: 'This topic does not specify anonymity',
-        });
+	it('should create a topic as non-anonymous by default', async () => {
+		newTopic = await topics.post({
+			uid: uid,
+			cid: cid,
+			title: 'Default Topic Example',
+			content: 'This topic does not specify anonymity',
+		});
 
-        assert(newTopic);
-        assert.strictEqual(newTopic.topicData.isAnonymous, false, 'Expected the topic to default to non-anonymous');
-    });
+		assert(newTopic);
+		assert.strictEqual(newTopic.topicData.isAnonymous, false, 'Expected the topic to default to non-anonymous');
+	});
 });
