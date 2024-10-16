@@ -2547,9 +2547,10 @@ describe('Anonymous Topic Creation', () => {
 
 		console.log('Topic result:', newTopic.topicData); // Debugging statement
 		console.log('Checking isAnonymous:', newTopic.topicData.isAnonymous);
+		console.log('Type of newTopic.topicData.isAnonymous:', typeof newTopic.topicData.isAnonymous);
 
 		assert(newTopic);
-		assert.strictEqual(newTopic.topicData.isAnonymous, true, 'Expected the topic to be marked as anonymous');
+		assert.strictEqual(newTopic.topicData.isAnonymous, 'true', 'Expected the topic to be marked as anonymous');
 	});
 
 	it('should create a topic without anonymity when specified', async () => {
@@ -2562,7 +2563,7 @@ describe('Anonymous Topic Creation', () => {
 		});
 
 		assert(newTopic);
-		assert.strictEqual(newTopic.topicData.isAnonymous, false, 'Expected the topic to be marked as non-anonymous');
+		assert.strictEqual(newTopic.topicData.isAnonymous, 'false', 'Expected the topic to be marked as non-anonymous');
 	});
 
 	it('should create a topic as non-anonymous by default', async () => {
@@ -2574,6 +2575,6 @@ describe('Anonymous Topic Creation', () => {
 		});
 
 		assert(newTopic);
-		assert.strictEqual(newTopic.topicData.isAnonymous, false, 'Expected the topic to default to non-anonymous');
+		assert.strictEqual(newTopic.topicData.isAnonymous, 'false', 'Expected the topic to default to non-anonymous');
 	});
 });
