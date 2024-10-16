@@ -56,4 +56,4 @@ Now onto why I, the developer, believe these tests are comprehensive. The tests 
 - The anonymous option is correctly applied when selected.
 - The default behavior (non-anonymous posting) works as expected when the checkbox is not selected.
 - Schema and database fields related to anonymity are properly aligned.
-- These automated tests ensure the feature is robust and functions correctly under various conditions, reducing the risk of issues after deployment.
+- These automated tests ensure the feature is implemented as expected and functions correctly under various conditions, reducing the risk of issues after deployment.
