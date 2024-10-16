@@ -3,6 +3,7 @@ const assert = require('assert');
 
 // Simulate the Resources page
 const server = http.createServer((req, res) => {
+    console.log(`Received request for ${req.url}`);
     if (req.url === '/resources') {
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(`
@@ -36,6 +37,7 @@ server.listen(3000, async () => {
 
         // Verify the response
         res.on('end', () => {
+            console.log('Response received');
             assert.strictEqual(res.statusCode, 200, 'Expected status code 200');
             assert(data.includes('<h1>Resources</h1>'), 'Resources page not rendered correctly');
             assert(data.includes('http://example.com'), 'Example link not found');
