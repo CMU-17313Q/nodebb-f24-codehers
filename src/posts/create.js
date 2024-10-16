@@ -57,7 +57,8 @@ module.exports = function (Posts) {
 
 		// Define the link extraction logic
 		function extractLinks(text) {
-			const urlRegex = /(https?:\/\/[^\s]+)/g;
+			//const urlRegex = /(https?:\/\/[^\s]+)/g;
+			const urlRegex = /\[.*?\]\((https?:\/\/[^\s)]+)\)|\bhttps?:\/\/[^\s)]+/g;
 			const links = text.match(urlRegex) || [];
 			console.log('Raw Extracted links:', links); // Log the extracted links
 			return [...new Set(links)]; // Remove duplicates
