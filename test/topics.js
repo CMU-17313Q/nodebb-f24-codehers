@@ -2573,6 +2573,8 @@ describe('Anonymous Topic Creation', () => {
 			title: 'Default Topic Example',
 			content: 'This topic does not specify anonymity',
 		});
+		
+		console.log('Checking isAnonymous by default:', newTopic.topicData.isAnonymous);
 
 		assert(newTopic);
 		assert.strictEqual(newTopic.topicData.isAnonymous, 'false', 'Expected the topic to default to non-anonymous');

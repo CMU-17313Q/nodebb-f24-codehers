@@ -35,7 +35,7 @@ module.exports = function (Topics) {
 			lastposttime: 0,
 			postcount: 0,
 			viewcount: 0,
-			isAnonymous: data.isAnonymous,
+			isAnonymous: data.isAnonymous || 'false',
 		};
 
 		if (Array.isArray(data.tags) && data.tags.length) {
