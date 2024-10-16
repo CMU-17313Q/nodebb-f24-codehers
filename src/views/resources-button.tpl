@@ -14,6 +14,7 @@
     <script>
         // Parse the links JSON string
         const links = JSON.parse('{{links}}');
+        links.sort();
         const linksList = document.getElementById('links-list');
         
         // Generate the HTML for the links
