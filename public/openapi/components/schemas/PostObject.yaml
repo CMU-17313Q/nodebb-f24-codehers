@@ -4,6 +4,10 @@ PostObject:
   properties:
     pid:
       type: number
+    isAnonymous: 
+      type: boolean
+      description: Indicates whether the user posted anonymously
+      example: true
     tid:
       type: number
       description: A topic identifier
@@ -58,6 +62,8 @@ PostObject:
             `icon:text` for the user's auto-generated
             icon
           example: "#f44336"
+        isAnonymous: 
+          type: boolean
     topic:
       type: object
       properties:
