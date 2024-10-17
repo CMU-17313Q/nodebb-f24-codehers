@@ -398,33 +398,33 @@ const bugArchive = [];
 
 // Submit Bug Handler
 exports.submitBug = async (req, res) => {
-    const { title, description } = req.body;
+	const { title, description } = req.body;
 
-    if (!title || !description) {
-        return res.status(400).json({ message: 'Title and description are required' });
-    }
+	if (!title || !description) {
+		return res.status(400).json({ message: 'Title and description are required' });
+	}
 
-    try {
-        const bug = { title, description, dateSubmitted: new Date().toISOString() };
-        bugArchive.push(bug);
-        res.status(200).json({ message: 'Bug submitted successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Failed to submit bug', error });
-    }
+	try {
+		const bug = { title, description, dateSubmitted: new Date().toISOString() };
+		bugArchive.push(bug);
+		res.status(200).json({ message: 'Bug submitted successfully' });
+	} catch (error) {
+		res.status(500).json({ message: 'Failed to submit bug', error });
+	}
 };
 
 // Get Bug Archive Handler
 exports.getBugArchive = async (req, res) => {
-    console.log('im hereeeeeeeeeeee');
-    try {
-        // Render the 'bug-archive' template with the in-memory bug data
-        res.render('admin/dashboard/bug-archive', {
-            archive: bugArchive,
-        });
-    } catch (err) {
-        // Handle any errors that occur during the retrieval process
-        res.status(500).send(err.message);
-    }
+	console.log('im hereeeeeeeeeeee');
+	try {
+		// Render the 'bug-archive' template with the in-memory bug data
+		res.render('admin/dashboard/bug-archive', {
+			archive: bugArchive,
+		});
+	} catch (err) {
+		// Handle any errors that occur during the retrieval process
+		res.status(500).send(err.message);
+	}
 };
 
 
