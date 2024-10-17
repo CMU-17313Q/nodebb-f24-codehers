@@ -96,6 +96,16 @@ module.exports = function (Posts) {
 			Posts.uploads.sync(postData.pid),
 		]);
 
+		// Assuming this code runs when a new post is successfully created
+		function onPostCreated() {
+    		// Dispatch the postCreated event
+    		const event = new Event('postCreated');
+    		document.dispatchEvent(event);
+		}
+
+		// Call this function when a new post is created
+		onPostCreated();
+
 		result = await plugins.hooks.fire('filter:post.get', { post: postData, uid: data.uid });
 		result.post.isMain = isMain;
 		plugins.hooks.fire('action:post.save', { post: _.clone(result.post) });
