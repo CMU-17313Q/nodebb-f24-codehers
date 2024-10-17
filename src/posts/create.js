@@ -60,8 +60,11 @@ module.exports = function (Posts) {
 			// const urlRegex = /(https?:\/\/[^\s]+)/g;
 			const urlRegex = /\[.*?\]\((https?:\/\/[^\s)]+)\)|\bhttps?:\/\/[^\s)]+/g;
 			const links = [];
-			let match;
-			while ((match = urlRegex.exec(text)) !== null) {
+			// let match;
+			let match = urlRegex.exec(text);
+
+			while (match !== null) {
+			// while ((match = urlRegex.exec(text)) !== null) {
 				if (match[1]) {
 					links.push(match[1]); // Extract URL from Markdown link
 				} else {
