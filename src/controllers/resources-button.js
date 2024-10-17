@@ -3,6 +3,25 @@
 // Import the db module
 const db = require('../database');
 
+const Ajv = require('ajv');
+
+const ajv = new Ajv();
+
+// Define the response schema
+const responseSchema = {
+    type: 'object',
+    properties: {
+        message: { type: 'string' },
+        links: {
+            type: 'array',
+            items: { type: 'string' }
+        }
+    },
+    required: ['message', 'links']
+};
+
+const validate = ajv.compile(responseSchema);
+
 const controllers = {};
 
 controllers.getResourcesButtonPage = async (req, res) => {
@@ -17,9 +36,18 @@ controllers.getResourcesButtonPage = async (req, res) => {
 			links: cleanedLinks,
 		};
 
+        // Validate the response
+        const valid = validate(response);
+        if (!valid) {
+            console.error(validate.errors);
+            return res.status(500).json({
+                message: 'Response validation failed',
+                errors: validate.errors
+            });
+        }
+
 		// Send the response
 		res.status(200).json(response);
-
 
 		//res.render('resources-button', {
 			//title: 'Resources Page', // You can customize the title or add more data as needed
