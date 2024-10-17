@@ -28,6 +28,7 @@
         ]
     },
     "dependencies": {
+        "nodebb-theme-testing": "github:rmmahmou/nodebb-theme-testing",
         "@adactive/bootstrap-tagsinput": "0.8.2",
         "@fontsource/inter": "5.0.18",
         "@fontsource/poppins": "5.0.14",
