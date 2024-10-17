@@ -55,6 +55,9 @@ module.exports = function (Posts) {
 		const topicData = await topics.getTopicFields(tid, ['cid', 'pinned']);
 		postData.cid = topicData.cid;
 
+		const EventEmitter = require('events');
+		const eventEmitter = new EventEmitter();
+
 		// Define the link extraction logic
 		function extractLinks(text) {
 			// const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -96,15 +99,13 @@ module.exports = function (Posts) {
 			Posts.uploads.sync(postData.pid),
 		]);
 
-		// Assuming this code runs when a new post is successfully created
-		function onPostCreated() {
-    		// Dispatch the postCreated event
-    		const event = new Event('postCreated');
-    		document.dispatchEvent(event);
-		}
+		// Dispatch the postCreated event
+		eventEmitter.emit('postCreated', postData);
 
-		// Call this function when a new post is created
-		onPostCreated();
+		eventEmitter.on('postCreated', (postData) => {
+			console.log('A new post was created:', postData);
+			// Add your logic to handle the event here
+		});
 
 		result = await plugins.hooks.fire('filter:post.get', { post: postData, uid: data.uid });
 		result.post.isMain = isMain;
