@@ -397,7 +397,7 @@ dashboardController.getSearches = async (req, res) => {
 const bugArchive = [];
 
 // Submit Bug Handler
-dashboardController.submitBug = async (req, res) => {
+exports.submitBug = async (req, res) => {
     const { title, description } = req.body;
 
     if (!title || !description) {
@@ -414,7 +414,7 @@ dashboardController.submitBug = async (req, res) => {
 };
 
 // Get Bug Archive Handler
-dashboardController.getBugArchive = async (req, res) => {
+exports.getBugArchive = async (req, res) => {
     console.log('im hereeeeeeeeeeee');
     try {
         // Render the 'bug-archive' template with the in-memory bug data
