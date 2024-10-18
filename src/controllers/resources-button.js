@@ -15,6 +15,7 @@ const responseSchema = {
 			type: 'array',
 			items: { type: 'string' },
 		},
+		title: { type: 'string' }, // Add the title property
 	},
 	required: ['message', 'links'],
 };
