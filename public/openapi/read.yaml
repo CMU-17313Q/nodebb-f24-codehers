@@ -328,3 +328,5 @@ paths:
     $ref: 'read/groups/slug/members.yaml'
   /api/outgoing:
     $ref: 'read/outgoing.yaml'
+  /api/resources-button:
+    $ref: 'read/resources-button.yaml'

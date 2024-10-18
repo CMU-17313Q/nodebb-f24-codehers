@@ -189,6 +189,7 @@ describe('Admin Controllers', () => {
 		}
 	});
 
+
 	it('should load /admin/extend/plugins', async function () {
 		this.timeout(50000);
 		const { body } = await request.get(`${nconf.get('url')}/api/admin/extend/plugins`, { jar: jar });
@@ -198,6 +199,7 @@ describe('Admin Controllers', () => {
 		assert(body.hasOwnProperty('download'));
 		assert(body.hasOwnProperty('incompatible'));
 	});
+
 
 	it('should load /admin/manage/users', async () => {
 		const { response, body } = await request.get(`${nconf.get('url')}/api/admin/manage/users`, { jar: jar, json: true });
