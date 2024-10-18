@@ -53,10 +53,10 @@ controllers.getResourcesButtonPage = async (req, res) => {
 		// links: JSON.stringify(cleanedLinks), // Convert the links array to a JSON string
 		// });
 
-		// res.render('resources-button', {
-		// title: 'Resources Page', // You can customize the title or add more data as needed
-		// links: JSON.stringify(cleanedLinks),
-		// });
+		res.render('resources-button', {
+			title: 'Resources Page', // You can customize the title or add more data as needed
+			links: JSON.stringify(cleanedLinks),
+		});
 	} catch (err) {
 		console.error('Error retrieving links:', err);
 		// Send error response
