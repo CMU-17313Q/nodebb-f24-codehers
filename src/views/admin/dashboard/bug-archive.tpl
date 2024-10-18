@@ -54,48 +54,55 @@
         </tbody>
     </table>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const refreshButton = document.getElementById('refresh-bug-archive');
-            const bugArchiveBody = document.getElementById('bug-archive-body');
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const refreshButton = document.getElementById('refresh-bug-archive');
+        const bugArchiveBody = document.getElementById('bug-archive-body');
 
-            if (refreshButton && bugArchiveBody) {
-                refreshButton.addEventListener('click', function() {
-                    console.log("clicked refresh button")
-                    fetch('/api/get-bug-archive')
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            bugArchiveBody.innerHTML = '';
-                            if (data.archive && data.archive.length > 0) {
-                                data.archive.forEach(bug => {
-                                    const row = document.createElement('tr');
-                                    row.innerHTML = `
-                                        <td>${bug.key}</td>
-                                        <td>${bug.description}</td>
-                                        <td>${bug.submittedBy}</td>
-                                        <td>${bug.dateSubmitted}</td>
-                                    `;
-                                    bugArchiveBody.appendChild(row);
-                                });
-                            } else {
-                                const row = document.createElement('tr');
-                                row.innerHTML = '<td colspan="4">No bugs found</td>';
-                                bugArchiveBody.appendChild(row);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error fetching bug archive:', error);
+        function fetchBugArchive() {
+            fetch('/api/admin/dashboard/bug-archive')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    bugArchiveBody.innerHTML = '';
+                    if (data.archive && data.archive.length > 0) {
+                        data.archive.forEach(bug => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${bug.title}</td>
+                                <td>${bug.description}</td>
+                                <td>${bug.submittedBy}</td>
+                                <td>${bug.dateSubmitted}</td>
+                            `;
+                            bugArchiveBody.appendChild(row);
                         });
+                    } else {
+                        const row = document.createElement('tr');
+                        row.innerHTML = '<td colspan="4">No bugs found</td>';
+                        bugArchiveBody.appendChild(row);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching bug archive:', error);
                 });
-            } else {
-                console.error('Required elements not found in the DOM');
-            }
-        });
-    </script>
+        }
+
+        if (refreshButton && bugArchiveBody) {
+            refreshButton.addEventListener('click', function() {
+                console.log("clicked refresh button");
+                fetchBugArchive();
+            });
+
+            // Fetch the bug archive when the page loads
+            fetchBugArchive();
+        } else {
+            console.error('Required elements not found in the DOM');
+        }
+    });
+</script>
 </body>
 </html>
