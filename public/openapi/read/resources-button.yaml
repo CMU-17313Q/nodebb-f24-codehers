@@ -8,7 +8,14 @@ get:
         application/json:
           schema:
             type: object
+            required:
+              - message
             properties:
               message:
                 type: string
-                example: "Resources button data retrieved successfully"
+                description: "A message indicating the result of the operation"
+              links:
+                type: array
+                items:
+                  type: string
+                description: "An array of links"
