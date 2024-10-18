@@ -1236,7 +1236,7 @@ describe('Topic\'s', () => {
 		});
 	});
 
-	describe('unread', () => {
+	describe('unread', function() {
 		this.timeout(50000); // Increase timeout to 50 seconds
 		const socketTopics = require('../src/socket.io/topics');
 		let tid;
@@ -1292,7 +1292,7 @@ describe('Topic\'s', () => {
 			});
 		});
 
-		it('should mark topic notifications read', async (done) => {
+		it('should mark topic notifications read', async function(done) {
 			try {
 				await apiTopics.follow({ uid: adminUid }, { tid: tid });
 				const data = await topics.reply({ uid: uid, timestamp: Date.now(), content: 'some content', tid: tid });
