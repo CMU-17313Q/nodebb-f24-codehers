@@ -15,7 +15,6 @@ controllers.getResourcesButtonPage = async (req, res) => {
 			title: 'Resources Page', // You can customize the title or add more data as needed
 			links: JSON.stringify(cleanedLinks),
 		});
-
 	} catch (err) {
 		console.error('Error retrieving links:', err);
 		// Send error response
