@@ -44,7 +44,6 @@ controllers.getResourcesButtonPage = async (req, res) => {
 				errors: validate.errors,
 			});
 		}
-		
 		res.render('resources-button', {
 			title: 'Resources Page', // You can customize the title or add more data as needed
 			links: JSON.stringify(cleanedLinks),
