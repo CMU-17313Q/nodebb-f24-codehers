@@ -10,12 +10,9 @@ get:
             type: object
             required:
               - message
+              - title
             properties:
               message:
                 type: string
                 description: "A message indicating the result of the operation"
-              links:
-                type: array
-                items:
-                  type: string
-                description: "An array of links"
+
