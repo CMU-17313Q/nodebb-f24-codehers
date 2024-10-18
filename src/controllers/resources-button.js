@@ -45,8 +45,11 @@ controllers.getResourcesButtonPage = async (req, res) => {
 			});
 		}
 
-		// Send the response
-		res.status(200).json(response);
+		// Render the resources-button page
+		res.render('resources-button', {
+    		title: 'Resources Page', // You can customize the title or add more data as needed
+    		links: cleanedLinks,
+		});
 
 		// res.render('resources-button', {
 		// title: 'Resources Page', // You can customize the title or add more data as needed
