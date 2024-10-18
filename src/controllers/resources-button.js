@@ -45,15 +45,15 @@ controllers.getResourcesButtonPage = async (req, res) => {
 			});
 		}
 		// Check the Accept header to determine the response type
-		if (req.accepts('json')) {
-			// Send JSON response
-			return res.json(response);
-		}
+		// if (req.accepts('json')) {
+		// Send JSON response
+		// return res.json(response);
+		// }
 		// Render the HTML page
 		return res.render('resources-button', {
 			title: 'Resources Page', // You can customize the title or add more data as needed
 			message: response.message, // Include the message in the rendered HTML
-			links: cleanedLinks, // Pass the cleaned links directly
+			links: JSON.stringify(cleanedLinks),
 		});
 
 
