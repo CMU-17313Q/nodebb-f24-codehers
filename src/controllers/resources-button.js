@@ -12,17 +12,15 @@ controllers.getResourcesButtonPage = async (req, res) => {
 		console.log('Extracted links:', cleanedLinks); // Log the cleaned links to the console
 
 		res.render('resources-button', {
-			title: 'Resources Page', // You can customize the title or add more data as needed
+			title: 'Resources Page',
 			links: JSON.stringify(cleanedLinks),
 		});
 	} catch (err) {
 		console.error('Error retrieving links:', err);
-		// Send error response
 		res.status(500).json({
 			message: 'An error occurred while fetching links',
 			error: err.message,
 		});
-		// res.status(500).send('Internal Server Error');
 	}
 };
 
