@@ -60,6 +60,7 @@
             const bugArchiveBody = document.getElementById('bug-archive-body');
 
             function fetchBugArchive() {
+                console.log('Fetching bug archive...');
                 fetch('/api/admin/dashboard/bug-archive')
                     .then(response => {
                         if (!response.ok) {
