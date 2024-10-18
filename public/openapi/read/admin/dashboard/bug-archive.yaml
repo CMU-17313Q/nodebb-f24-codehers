@@ -1,0 +1,31 @@
+openapi: 3.0.0
+info:
+  title: NodeBB API
+  version: 1.0.0
+paths:
+  /api/admin/dashboard/bug-archive:
+    get:
+      summary: Get Bug Archive
+      description: Retrieve the list of submitted bugs.
+      responses:
+        '200':
+          description: A list of submitted bugs.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  archive:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        description:
+                          type: string
+                        dateSubmitted:
+                          type: string
+                          format: date-time
+        '500':
+          description: Internal server error.
