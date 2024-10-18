@@ -15,7 +15,6 @@ const responseSchema = {
 			type: 'array',
 			items: { type: 'string' },
 		},
-		title: { type: 'string' }, // Add the title property
 	},
 	required: ['message', 'links'],
 };
@@ -45,17 +44,18 @@ controllers.getResourcesButtonPage = async (req, res) => {
 				errors: validate.errors,
 			});
 		}
-		// Check the Accept header to determine the response type
-		// if (req.accepts('json')) {
-		// Send JSON response
-		// return res.json(response);
-		// }
-		// Render the HTML page
-		return res.render('resources-button', {
-			title: 'Resources Page', // You can customize the title or add more data as needed
-			message: response.message, // Include the message in the rendered HTML
-			links: JSON.stringify(cleanedLinks),
-		});
+        // Check the Accept header to determine the response type
+        if (req.accepts('html')) {
+            // Render the HTML page
+            return res.render('resources-button', {
+                title: 'Resources Page', // Use title only for rendering HTML
+                message: response.message, // Include the message in the rendered HTML
+                links: cleanedLinks, // Pass the cleaned links directly for rendering
+            });
+        } else {
+            // Send JSON response
+            return res.json(response);
+        }
 
 
 		// res.render('resources-button', {
