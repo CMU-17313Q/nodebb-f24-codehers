@@ -57,21 +57,17 @@ module.exports = function (Posts) {
 
 		// Define the link extraction logic
 		function extractLinks(text) {
-			// const urlRegex = /(https?:\/\/[^\s]+)/g;
 			const urlRegex = /\[.*?\]\((https?:\/\/[^\s)]+)\)|\bhttps?:\/\/[^\s)]+/g;
 			const links = [];
-			// let match;
-			let match = urlRegex.exec(text);
+			let match;
 
-			while (match !== null) {
+			while ((match = urlRegex.exec(text)) !== null) {
 				if (match[1]) {
 					links.push(match[1]); // Extract URL from Markdown link
 				} else {
 					links.push(match[0]); // Extract plain URL
 				}
-				match = urlRegex.exec(text); // Move to the next match
 			}
-			// const links = text.match(urlRegex) || [];
 			console.log('Raw Extracted links:', links); // Log the extracted links
 			return [...new Set(links)]; // Remove duplicates
 		}
