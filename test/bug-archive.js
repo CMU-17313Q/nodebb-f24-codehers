@@ -21,6 +21,20 @@ global.document = {
                     this.innerHTML += child.outerHTML;
                 }
             };
+        } else if (selector === '#bug-report-title') {
+            return {
+                value: '',
+                addEventListener: function (event, handler) {
+                    this.handler = handler;
+                }
+            };
+        } else if (selector === '#bug-report-description') {
+            return {
+                value: '',
+                addEventListener: function (event, handler) {
+                    this.handler = handler;
+                }
+            };
         }
         return null;
     },
@@ -97,8 +111,23 @@ const $ = (selector) => {
             if (element) {
                 element.innerHTML = '';
             }
+        },
+        click: () => {
+            if (element && element.click) {
+                element.click();
+            }
         }
     };
+};
+
+// Mock the DOM structure
+global.document.body = {
+    innerHTML: `
+        <div id="bug-archive-body"></div>
+        <input id="bug-report-title" />
+        <textarea id="bug-report-description"></textarea>
+        <button id="submit-bug-feedback"></button>
+    `
 };
 
 // Your original code
@@ -151,17 +180,22 @@ function fetchBugArchive() {
 BugArchive.init();
 
 // Test cases
-function runTests() {
+async function runTests() {
     // Test fetchBugArchive
-    window.fetch('/api/admin/get-bug-archive').then(response => response.json()).then((data) => {
-        console.assert(data.archive.length === 2, 'fetchBugArchive test failed');
-        console.log('fetchBugArchive test passed');
-    });
+    const response = await window.fetch('/api/admin/get-bug-archive');
+    const data = await response.json();
+    console.assert(data.archive.length === 2, 'fetchBugArchive test failed');
+    console.log('fetchBugArchive test passed');
+
+    // Simulate adding data
+    $('#bug-report-title').val('Test Bug');
+    $('#bug-report-description').val('Test Description');
 
     // Test refresh button click
     $('#submit-bug-feedback').click();
     setTimeout(() => {
         const bugArchiveBody = document.querySelector('#bug-archive-body');
+        console.log('bugArchiveBody.innerHTML:', bugArchiveBody.innerHTML);
         console.assert(bugArchiveBody.innerHTML.includes('Bug1'), 'refresh button test failed');
         console.assert(bugArchiveBody.innerHTML.includes('Bug2'), 'refresh button test failed');
         console.log('refresh button test passed');
