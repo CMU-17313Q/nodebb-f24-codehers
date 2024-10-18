@@ -63,7 +63,7 @@ module.exports = function (Posts) {
 			// let match;
 			let match = urlRegex.exec(text);
 
-			while ((match = urlRegex.exec(text)) !== null) {
+			while (match !== null) {
 				if (match[1]) {
 					links.push(match[1]); // Extract URL from Markdown link
 				} else {
