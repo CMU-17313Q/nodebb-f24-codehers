@@ -12,7 +12,7 @@ controllers.getResourcesButtonPage = async (req, res) => {
 		console.log('Extracted links:', cleanedLinks); // Log the cleaned links to the console
 
 		res.render('resources-button', {
-			title: 'Resources Page',
+			message: 'Links retrieved successfully',
 			links: JSON.stringify(cleanedLinks),
 		});
 	} catch (err) {
