@@ -181,6 +181,15 @@ BugArchive.init();
 
 // Test cases
 async function runTests() {
+    console.log("Running tests...");
+    
+    // Ensure DOM element exists
+    const bugArchiveBody = document.querySelector('#bug-archive-body');
+    if (!bugArchiveBody) {
+        console.error("Error: #bug-archive-body element is missing");
+        return;
+    }
+
     // Test fetchBugArchive
     const response = await window.fetch('/api/admin/get-bug-archive');
     const data = await response.json();
@@ -192,14 +201,15 @@ async function runTests() {
     $('#bug-report-description').val('Test Description');
 
     // Test refresh button click
-    $('#submit-bug-feedback').click();
-    setTimeout(() => {
-        const bugArchiveBody = document.querySelector('#bug-archive-body');
-        console.log('bugArchiveBody.innerHTML:', bugArchiveBody.innerHTML);
-        console.assert(bugArchiveBody.innerHTML.includes('Bug1'), 'refresh button test failed');
-        console.assert(bugArchiveBody.innerHTML.includes('Bug2'), 'refresh button test failed');
-        console.log('refresh button test passed');
-    }, 1000);
+    await new Promise(resolve => {
+        $('#submit-bug-feedback').click();
+        setTimeout(resolve, 1000);  // Adjust the delay if necessary
+    });
+
+    console.log('bugArchiveBody.innerHTML:', bugArchiveBody.innerHTML);
+    console.assert(bugArchiveBody.innerHTML.includes('Bug1'), 'refresh button test failed');
+    console.assert(bugArchiveBody.innerHTML.includes('Bug2'), 'refresh button test failed');
+    console.log('refresh button test passed');
 }
 
 // Run tests
