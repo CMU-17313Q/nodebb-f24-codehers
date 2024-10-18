@@ -34,6 +34,7 @@ controllers.getResourcesButtonPage = async (req, res) => {
 			message: 'Links fetched successfully',
 			links: cleanedLinks,
 		};
+
 		// Validate the response
 		const valid = validate(response);
 		if (!valid) {
@@ -53,6 +54,7 @@ controllers.getResourcesButtonPage = async (req, res) => {
 		// });
 	} catch (err) {
 		console.error('Error retrieving links:', err);
+		
 		// Send error response
 		res.status(500).json({
 			message: 'An error occurred while fetching links',
