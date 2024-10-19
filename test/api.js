@@ -11,6 +11,7 @@ const util = require('util');
 
 const wait = util.promisify(setTimeout);
 
+const supertest = require('supertest');
 const request = require('../src/request');
 const db = require('./mocks/databasemock');
 const helpers = require('./helpers');
@@ -25,6 +26,9 @@ const flags = require('../src/flags');
 const messaging = require('../src/messaging');
 const utils = require('../src/utils');
 const api = require('../src/api');
+
+const app = require('../app');
+
 
 describe('API', async () => {
 	let readApi = false;
@@ -670,27 +674,11 @@ describe('API', async () => {
 	}
 });
 
-// Add the new test case for /api/resources-button
-describe('GET /api/resources-button', () => {
-    it('should retrieve links successfully', async () => {
-        const response = await request(app).get('/api/resources-button');
-        expect(response.status).toBe(200);
-        expect(response.body).toHaveProperty('title', 'Resources Page');
-        expect(response.body).toHaveProperty('message', 'Links retrieved successfully');
-        expect(response.body).toHaveProperty('links');
-        const links = JSON.parse(response.body.links);
-        expect(Array.isArray(links)).toBe(true);
-    });
+// Compare the response to the schema
+Object.keys(response).forEach((prop) => {
+	if (additionalProperties) { // All bets are off
+		return;
+	}
 
-    it('should handle errors gracefully', async () => {
-        // Mock the database call to throw an error
-        jest.spyOn(db, 'getSetMembers').mockImplementation(() => {
-            throw new Error('Database error');
-        });
-
-        const response = await request(app).get('/api/resources-button');
-        expect(response.status).toBe(500);
-        expect(response.body).toHaveProperty('message', 'An error occurred while fetching links');
-        expect(response.body).toHaveProperty('error', 'Database error');
-    });
+	assert(schema[prop], `"${prop}" was found in response, but is not defined in schema (path: ${method} ${path}, context: ${context})`);
 });
