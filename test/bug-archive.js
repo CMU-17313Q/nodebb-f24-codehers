@@ -1,3 +1,6 @@
+/* eslint-env mocha */
+/* global window, document */
+
 'use strict';
 
 // Mock document and window objects
@@ -44,17 +47,20 @@ global.document = {
 				this.className = className;
 			},
 		},
-		innerHTML: '',
-		appendChild: function (child) {
-			this.innerHTML += child.outerHTML;
-		},
-		outerHTML: '',
+		_outerHTML: '',
+		_innerHTML: '',
 		set innerHTML(value) {
 			this._innerHTML = value;
-			this.outerHTML = `<${tagName} class="${this.className}">${value}</${tagName}>`;
+			this._outerHTML = `<${tagName} class="${this.className}">${value}</${tagName}>`;
 		},
 		get innerHTML() {
 			return this._innerHTML;
+		},
+		get outerHTML() {
+			return this._outerHTML;
+		},
+		appendChild: function (child) {
+			this.innerHTML += child.outerHTML;
 		},
 	}),
 };
@@ -72,7 +78,7 @@ global.window = {
 				}),
 			});
 		} else {
-			reject('Invalid URL');
+			reject(new Error('Invalid URL')); // Use Error object
 		}
 	}),
 	alert: (message) => {
@@ -209,4 +215,3 @@ async function runTests() {
 
 // Run tests
 runTests();
-
