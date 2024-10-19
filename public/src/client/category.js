@@ -146,20 +146,6 @@ define('forum/category', [
 
 		query.query = title;
 		query.sortBy = getSortBy();
-		// const filters = [];
-		// if ($('.search .online-only').is(':checked') || (activeSection === 'online')) {
-		// 	filters.push('online');
-		// }
-		// if (activeSection === 'banned') {
-		// 	filters.push('banned');
-		// }
-		// if (activeSection === 'flagged') {
-		// 	filters.push('flagged');
-		// }
-		// if (filters.length) {
-		// 	query.filters = filters;
-		// }
-
 		loadPage(query);
 	}
 
@@ -213,23 +199,17 @@ define('forum/category', [
 		return utils.param('section') || '';
 	}
 
-	function renderSearchResults(data, options) {
-
-		console.log('data)');
-		console.log(data);
+	function renderSearchResults(data) {
 		Benchpress.render('partials/paginator', { pagination: data.pagination }).then(function (html) {
 			$('.pagination-container').replaceWith(html);
 		});
 
 		if (searchResultCount) {
-			data.posts = data.posts.slice(0, searchResultCount);
+			data.users = data.users.slice(0, searchResultCount);
 		}
 
 		data.isAdminOrGlobalMod = app.user.isAdmin || app.user.isGlobalMod;
-		app.parseAndTranslate(options.template, {
-			categoryItems: categories.slice(0, 200),
-			selectedCategory: ajaxify.data.selectedCategory,
-			allCategoriesUrl: ajaxify.data.allCategoriesUrl}, function (html) {
+		app.parseAndTranslate('post-queue', 'posts', data, function (html) {
 			$('#category-container').html(html);
 			html.find('.timeago').timeago();
 			$('[component="topic/search/icon"]').addClass('fa-search').removeClass('fa-spinner fa-spin');

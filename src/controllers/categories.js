@@ -28,7 +28,7 @@ categoriesController.search = async function (req, res) {
 async function render(req, res, data) {
 	console.log('render is called');
 	// res.append('X-Total-Count', data.pageCount);
-	res.render('post-queue', data);
+	res.render('category', data);
 }
 
 categoriesController.list = async function (req, res) {

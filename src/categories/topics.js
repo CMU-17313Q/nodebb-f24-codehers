@@ -15,15 +15,15 @@ module.exports = function (Categories) {
 	Categories.searchTopics = async function (data) {
 		console.log('was this called??/');
 		const query = data.query;
-		const searchFor = query.toLowerCase();
 		let results = await plugins.hooks.fire('filter:category.topics.prepare', data);
 		const tids = await Categories.getTopicIds(results);
-
-		console.log(tids);
-
 		let topicsData = await topics.getTopicsByTids(tids, data.uid);
+		if (!query || query.trim() === ''){
+			return topicsData;
+		}
+		const searchFor = query.toLowerCase();
 		const matchedTopics = topicsData.filter(topic => topic.title.toLowerCase().includes(searchFor));
-		console.log(matchedTopics);
+		// console.log(matchedTopics);
 		return matchedTopics;
 	}
 
