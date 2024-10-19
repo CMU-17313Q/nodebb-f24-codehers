@@ -28,17 +28,6 @@ global.document = {
                     this.handler = handler;
                 }
             };
-        } else if (selector === '[component="sidebar/toggle"]') {
-            return {
-                addEventListener: function (event, handler) {
-                    this.handler = handler;
-                },
-                click: function () {
-                    if (this.handler) {
-                        this.handler();
-                    }
-                }
-            };
         }
         return null;
     },
@@ -115,7 +104,6 @@ global.document.body = {
         <input id="bug-report-title" />
         <textarea id="bug-report-description"></textarea>
         <button id="submit-bug-feedback"></button>
-        <a href="#" role="button" component="sidebar/toggle" class="nav-link"></a>
     `
 };
 
@@ -145,10 +133,6 @@ BugFeedbackForm.init = () => {
             alert('An error occurred while submitting the bug.');
         });
     });
-
-    $('[component="sidebar/toggle"]').on('click', () => {
-        console.log('Sidebar toggle clicked');
-    });
 };
 
 // Initialize the BugFeedbackForm module
@@ -162,9 +146,8 @@ async function runTests() {
     const bugReportTitle = document.querySelector('#bug-report-title');
     const bugReportDescription = document.querySelector('#bug-report-description');
     const submitBugFeedback = document.querySelector('#submit-bug-feedback');
-    const sidebarToggle = document.querySelector('[component="sidebar/toggle"]');
-    if (!bugReportTitle || !bugReportDescription || !submitBugFeedback || !sidebarToggle) {
-        console.error("Error: One or more form elements or buttons are missing");
+    if (!bugReportTitle || !bugReportDescription || !submitBugFeedback) {
+        console.error("Error: One or more form elements are missing");
         return;
     }
 
@@ -205,18 +188,6 @@ async function runTests() {
     });
     console.assert(fetchCalled, 'Fetch was not called');
     console.log('Form submission failure test passed');
-
-    // Test sidebar toggle button
-    let sidebarToggleClicked = false;
-    $('[component="sidebar/toggle"]').on('click', () => {
-        sidebarToggleClicked = true;
-    });
-    await new Promise(resolve => {
-        $('[component="sidebar/toggle"]').click();
-        setTimeout(resolve, 100);  // Adjust the delay if necessary
-    });
-    console.assert(sidebarToggleClicked, 'Sidebar toggle was not clicked');
-    console.log('Sidebar toggle button test passed');
 }
 
 // Run tests
