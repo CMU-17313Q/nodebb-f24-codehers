@@ -22,6 +22,8 @@ const relative_path = nconf.get('relative_path');
 const upload_url = nconf.get('upload_url');
 const validSorts = ['oldest_to_newest', 'newest_to_oldest', 'most_votes'];
 
+const api = require('../api');
+
 topicsController.get = async function getTopic(req, res, next) {
 	const tid = req.params.topic_id;
 	if (
@@ -418,3 +420,9 @@ topicsController.search = async function (req, res) {
 	searchData.displayUserSearch = true;
 	await render(req, res, searchData);
 };
+
+async function render(req, res, data) {
+	console.log('render is called');
+	// res.append('X-Total-Count', data.pageCount);
+	res.render('post-queue', data);
+}

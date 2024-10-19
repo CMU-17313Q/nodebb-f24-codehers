@@ -298,16 +298,17 @@ Topics.isLocked = async function (tid) {
 	return locked === 1;
 };
 
-Topics.search = async function (tid, term) {
-	if (!tid || !term) {
-		throw new Error('[[error:invalid-data]]');
-	}
-	const result = await plugins.hooks.fire('filter:topic.search', {
-		tid: tid,
-		term: term,
-		ids: [],
-	});
-	return Array.isArray(result) ? result : result.ids;
-};
+// Topics.search = async function (tid, term) {
+// 	if (!tid || !term) {
+// 		throw new Error('[[error:invalid-data]]');
+// 	}
+
+// 	const result = await plugins.hooks.fire('filter:topic.search', {
+// 		tid: tid,
+// 		term: term,
+// 		ids: [],
+// 	});
+// 	return Array.isArray(result) ? result : result.ids;
+// };
 
 require('../promisify')(Topics);

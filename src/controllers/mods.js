@@ -211,6 +211,8 @@ modsController.flags.detail = async function (req, res, next) {
 };
 
 modsController.postQueue = async function (req, res, next) {
+
+	console.log('um is this mods called');
 	if (!req.loggedIn) {
 		return next();
 	}

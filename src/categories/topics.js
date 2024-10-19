@@ -12,7 +12,11 @@ const batch = require('../batch');
 
 module.exports = function (Categories) {
 	Categories.getCategoryTopics = async function (data) {
+		console.log('data');
+		console.log(data);
 		let results = await plugins.hooks.fire('filter:category.topics.prepare', data);
+		console.log('results');
+		console.log(results);
 		const tids = await Categories.getTopicIds(results);
 		let topicsData = await topics.getTopicsByTids(tids, data.uid);
 		topicsData = await user.blocks.filter(data.uid, topicsData);

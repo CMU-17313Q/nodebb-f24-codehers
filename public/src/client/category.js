@@ -180,8 +180,8 @@ define('forum/category', [
 		console.log('entered load page');
 		console.log(query);
 		api.get('/api/posts', query)
-			.then(renderSearchResults)
-			.catch(alerts.error);
+		.then(renderSearchResults)
+		.catch(alerts.error);
 	}
 
 	Category.toTop = function () {
@@ -214,12 +214,15 @@ define('forum/category', [
 	}
 
 	function renderSearchResults(data, options) {
+
+		console.log('data)');
+		console.log(data);
 		Benchpress.render('partials/paginator', { pagination: data.pagination }).then(function (html) {
 			$('.pagination-container').replaceWith(html);
 		});
 
 		if (searchResultCount) {
-			data.users = data.users.slice(0, searchResultCount);
+			data.posts = data.posts.slice(0, searchResultCount);
 		}
 
 		data.isAdminOrGlobalMod = app.user.isAdmin || app.user.isGlobalMod;
