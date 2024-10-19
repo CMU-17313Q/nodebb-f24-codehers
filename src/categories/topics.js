@@ -12,16 +12,21 @@ const batch = require('../batch');
 
 module.exports = function (Categories) {
 
-	Categories.search = async function (data) {
+	Categories.searchTopics = async function (data) {
+		console.log('was this called??/');
 		const query = data.query;
 		const searchFor = query.toLowerCase();
 		let results = await plugins.hooks.fire('filter:category.topics.prepare', data);
 		const tids = await Categories.getTopicIds(results);
+
+		console.log(tids);
+
 		let topicsData = await topics.getTopicsByTids(tids, data.uid);
 		const matchedTopics = topicsData.filter(topic => topic.title.toLowerCase().includes(searchFor));
+		console.log(matchedTopics);
 		return matchedTopics;
 	}
-	
+
 	Categories.getCategoryTopics = async function (data) {
 		// console.log('data');
 		// console.log(data);
@@ -30,7 +35,7 @@ module.exports = function (Categories) {
 		// console.log(results);
 		const tids = await Categories.getTopicIds(results);
 
-		console.log(tids);
+		// console.log(tids);
 
 
 		let topicsData = await topics.getTopicsByTids(tids, data.uid);

@@ -179,7 +179,7 @@ define('forum/category', [
 	function loadPage(query) {
 		console.log('entered load page');
 		console.log(query);
-		api.get('/api/topics', query)
+		api.get('/api/categories', query)
 		.then(renderSearchResults)
 		.catch(alerts.error);
 	}

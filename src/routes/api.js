@@ -25,6 +25,7 @@ module.exports = function (app, middleware, controllers) {
 
 	router.get('/topics', [...middlewares], helpers.tryRoute(controllers.topics.search));
 	router.get('/posts', [...middlewares], helpers.tryRoute(controllers.posts.search));
+	router.get('/categories', [...middlewares], helpers.tryRoute(controllers.categories.search));
 
 	const multipart = require('connect-multiparty');
 	const multipartMiddleware = multipart();

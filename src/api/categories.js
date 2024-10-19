@@ -45,6 +45,111 @@ categoriesAPI.get = async function (caller, data) {
 	return category;
 };
 
+categoriesAPI.search = async function (caller, data) {
+	console.log('entered src/api/categories.js');
+	// console.log(caller);
+	// console.log(data);
+	if (!data) {
+		throw new Error('[[error:invalid-data]]');
+	}
+	const [allowed, isPrivileged] = await Promise.all([
+		privileges.global.can('search:users', caller.uid),
+		user.isPrivileged(caller.uid),
+	]);
+	let filters = data.filters || [];
+	filters = Array.isArray(filters) ? filters : [filters];
+	if (!allowed ||
+		((
+			data.searchBy === 'ip' ||
+			data.searchBy === 'email' ||
+			filters.includes('banned') ||
+			filters.includes('flagged')
+		) && !isPrivileged)
+	) {
+		throw new Error('[[error:no-privileges]]');
+	}
+	return await categories.searchTopics({
+		uid: caller.uid,
+		cid: '2',
+		start: 0,
+		stop: 19,
+		sort: data.sortBy,
+		settings: {
+		  uid: 1,
+		  showemail: false,
+		  showfullname: false,
+		  openOutgoingLinksInNewTab: false,
+		  dailyDigestFreq: 'off',
+		  usePagination: false,
+		  topicsPerPage: 20,
+		  postsPerPage: 20,
+		  userLang: 'en-GB',
+		  acpLang: 'en-GB',
+		  topicPostSort: 'oldest_to_newest',
+		  categoryTopicSort: 'recently_replied',
+		  followTopicsOnCreate: true,
+		  followTopicsOnReply: false,
+		  upvoteNotifFreq: 'all',
+		  restrictChat: false,
+		  topicSearchEnabled: false,
+		  updateUrlWithPostIndex: true,
+		  bootswatchSkin: '',
+		  homePageRoute: '',
+		  scrollToMyPost: true,
+		  categoryWatchState: 'tracking',
+		  notificationType_upvote: 'notification',
+		  'notificationType_new-topic': 'notification',
+		  'notificationType_new-topic-with-tag': 'notification',
+		  'notificationType_new-topic-in-category': 'notification',
+		  'notificationType_new-reply': 'notification',
+		  'notificationType_post-edit': 'notification',
+		  notificationType_follow: 'notification',
+		  'notificationType_new-chat': 'notification',
+		  'notificationType_new-group-chat': 'notification',
+		  'notificationType_new-public-chat': 'notification',
+		  'notificationType_group-invite': 'notification',
+		  'notificationType_group-leave': 'notification',
+		  'notificationType_group-request-membership': 'notification',
+		  'notificationType_new-reward': 'notification',
+		  notificationType_mention: 'notification',
+		  'notificationType_new-register': 'notification',
+		  'notificationType_post-queue': 'notification',
+		  'notificationType_new-post-flag': 'notification',
+		  'notificationType_new-user-flag': 'notification'
+		},
+		query: data.query,
+		tag: undefined,
+		targetUid: 0,
+		category: {
+		  cid: 2,
+		  name: 'General Discussion',
+		  description: 'A place to talk about whatever you want',
+		  descriptionParsed: '<p>A place to talk about whatever you want</p>\n',
+		  icon: 'fa-comments-o',
+		  bgColor: '#59b3d0',
+		  color: '#ffffff',
+		  slug: '2/general-discussion',
+		  parentCid: 0,
+		  topic_count: 5,
+		  post_count: 7,
+		  disabled: 0,
+		  order: 2,
+		  link: '',
+		  numRecentReplies: 1,
+		  class: 'col-md-3 col-6',
+		  imageClass: 'cover',
+		  isSection: 0,
+		  subCategoriesPerPage: 10,
+		  minTags: 0,
+		  maxTags: 5,
+		  postQueue: 0,
+		  totalPostCount: 7,
+		  totalTopicCount: 5,
+		  tagWhitelist: []
+		}
+	  })
+};
+
 categoriesAPI.create = async function (caller, data) {
 	await hasAdminPrivilege(caller.uid);
 
