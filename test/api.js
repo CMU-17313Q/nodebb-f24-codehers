@@ -11,7 +11,6 @@ const util = require('util');
 
 const wait = util.promisify(setTimeout);
 
-const supertest = require('supertest');
 const request = require('../src/request');
 const db = require('./mocks/databasemock');
 const helpers = require('./helpers');
@@ -26,9 +25,6 @@ const flags = require('../src/flags');
 const messaging = require('../src/messaging');
 const utils = require('../src/utils');
 const api = require('../src/api');
-
-const app = require('../app');
-
 
 describe('API', async () => {
 	let readApi = false;
@@ -672,13 +668,4 @@ describe('API', async () => {
 			assert(schema[prop], `"${prop}" was found in response, but is not defined in schema (path: ${method} ${path}, context: ${context})`);
 		});
 	}
-});
-
-// Compare the response to the schema
-Object.keys(response).forEach((prop) => {
-	if (additionalProperties) { // All bets are off
-		return;
-	}
-
-	assert(schema[prop], `"${prop}" was found in response, but is not defined in schema (path: ${method} ${path}, context: ${context})`);
 });
