@@ -5,8 +5,10 @@ const meta = require('../meta');
 const plugins = require('../plugins');
 const db = require('../database');
 const utils = require('../utils');
+const { search } = require('../api/users');
+const categories = require ('../categories');
 
-module.exports = function (Topic) {
+module.exports = function (Topics) {
 
 	// Topics.search = async function (tid, term) {
 	// 	if (!tid || !term) {
@@ -33,20 +35,7 @@ module.exports = function (Topic) {
 	
 	// 	return Array.isArray(result) ? result : result.ids;
 	// };
-		
-	const filterFnMap = {
-		pinned: topic => topic.pinned > 0,
-		locked: topic => topic.locked > 0,
-		// Add other filters as needed
-	};
-
-	const filterFieldMap = {
-		pinned: ['pinned'],
-		locked: ['locked'],
-		// Map other relevant fields
-	};
-
-	Topic.search = async function (data) {
+	Topics.search = async function (data) {
 		console.log('hit it');
 
 		const query = data.query || '';
@@ -56,11 +45,16 @@ module.exports = function (Topic) {
 
 		const startTime = process.hrtime();
 
-		let tids = [];
+		const tids = await categories.getTopicIds(data);
+		let topicsData = await Topics.getTopicsByTids(tids, data.uid);
+		console.log('testing;;g');
+		console.log(tids);
+		console.log(topicsData);
+
 		if (searchBy === 'tid') {
 			tids = [query]; // Searching by topic ID
 		} else {
-			tids = await findTids(query, searchBy);
+			tids = await findTids(query, searchBy, data.hardCap);
 		}
 
 		tids = await filterAndSortTids(tids, data);
@@ -88,18 +82,18 @@ module.exports = function (Topic) {
 		return searchResult;
 	};
 
-	async function findTids(query, searchBy) {
+	async function findTids(query, searchBy, hardCap) {
 		if (!query) {
 			return [];
 		}
 		query = String(query).toLowerCase();
 		const min = query;
 		const max = query.substr(0, query.length - 1) + String.fromCharCode(query.charCodeAt(query.length - 1) + 1);
-
-		const data = await db.getSortedSetRangeByLex(`${searchBy}:sorted`, min, max, 0, meta.config.topicSearchResultsPerPage * 10);
+		console.log(searchBy);
+		const data = await db.getSortedSetRangeByLex(`${searchBy}:sorted`, min, max, 0, hardCap);
 		const tids = data.map(data => data.split(':').pop());
-		console.log('dataaa');
-		console.log(searchResult);
+		console.log('dataaa tids');
+		console.log(tids);
 		return tids;
 	}
 
