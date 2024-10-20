@@ -22,6 +22,8 @@ const relative_path = nconf.get('relative_path');
 const upload_url = nconf.get('upload_url');
 const validSorts = ['oldest_to_newest', 'newest_to_oldest', 'most_votes'];
 
+const api = require('../api');
+
 topicsController.get = async function getTopic(req, res, next) {
 	const tid = req.params.topic_id;
 	if (
@@ -405,3 +407,18 @@ topicsController.pagination = async function (req, res, next) {
 
 	res.json({ pagination: paginationData });
 };
+
+topicsController.search = async function (req, res) {
+	const searchData = await api.topics.search(req, req.query);
+
+	const section = req.query.section || 'joindate';
+
+	searchData.pagination = pagination.create(req.query.page, searchData.pageCount, req.query);
+	searchData[`section_${section}`] = true;
+	searchData.displayUserSearch = true;
+	await render(req, res, searchData);
+};
+
+async function render(req, res, data) {
+	res.render('post-queue', data);
+}

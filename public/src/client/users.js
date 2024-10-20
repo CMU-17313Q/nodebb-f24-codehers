@@ -26,12 +26,14 @@ define('forum/users', [
 	};
 
 	Users.handleSearch = function (params) {
+		// console.log('entered public/src/client/users handleSearch');
 		searchResultCount = params && params.resultCount;
 		$('#search-user').on('keyup', utils.debounce(doSearch, 250));
 		$('.search select, .search input[type="checkbox"]').on('change', doSearch);
 	};
 
 	function doSearch() {
+		// console.log('entered public/src/client/users doSearch');
 		if (!ajaxify.data.template.users) {
 			return;
 		}
@@ -82,6 +84,7 @@ define('forum/users', [
 
 
 	function loadPage(query) {
+		// console.log('user load page then api?');
 		api.get('/api/users', query)
 			.then(renderSearchResults)
 			.catch(alerts.error);

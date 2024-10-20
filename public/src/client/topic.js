@@ -38,6 +38,7 @@ define('forum/topic', [
 	});
 
 	Topic.init = async function () {
+		// console.log('public src client topic');
 		const tidChanged = !tid || parseInt(tid, 10) !== parseInt(ajaxify.data.tid, 10);
 		tid = ajaxify.data.tid;
 		currentUrl = ajaxify.currentPage;
@@ -73,6 +74,7 @@ define('forum/topic', [
 		$(window).on('scroll', utils.debounce(updateTopicTitle, 250));
 
 		handleTopicSearch();
+		Topic.handleSearch();
 
 		hooks.fire('action:topic.loaded', ajaxify.data);
 	};

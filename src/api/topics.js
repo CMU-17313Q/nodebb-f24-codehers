@@ -17,6 +17,7 @@ const socketHelpers = require('../socket.io/helpers');
 
 const topicsAPI = module.exports;
 
+
 topicsAPI._checkThumbPrivileges = async function ({ tid, uid }) {
 	// req.params.tid could be either a tid (pushing a new thumb to an existing topic)
 	// or a post UUID (a new topic being composed)
@@ -298,5 +299,3 @@ topicsAPI.bump = async (caller, { tid }) => {
 	await topics.markAsUnreadForAll(tid);
 	topics.pushUnreadCount(caller.uid);
 };
-
-

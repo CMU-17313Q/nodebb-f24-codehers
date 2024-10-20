@@ -68,6 +68,11 @@ Events._types = {
 		icon: 'fa-code-fork',
 		translation: async (event, language) => translateEventArgs(event, language, 'topic:user-forked-topic', renderUser(event), `${relative_path}${event.href}`, renderTimeago(event)),
 	},
+	search: {
+		search: 'fa-fa-search',
+		translation: async (event, language) => translateEventArgs(event, language, 'topic:user-forked-topic', renderUser(event), `${relative_path}${event.href}`, renderTimeago(event)),
+	},
+
 };
 
 Events.init = async () => {

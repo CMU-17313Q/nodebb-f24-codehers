@@ -7,9 +7,26 @@ const categories = require('../categories');
 const meta = require('../meta');
 const pagination = require('../pagination');
 const helpers = require('./helpers');
+const api = require('../api');
 const privileges = require('../privileges');
 
 const categoriesController = module.exports;
+
+categoriesController.search = async function (req, res) {
+	const searchData = await api.categories.search(req, req.query);
+	const section = req.query.section || 'joindate';
+
+	searchData.pagination = pagination.create(req.query.page, searchData.pageCount, req.query);
+	searchData[`section_${section}`] = true;
+	searchData.displayUserSearch = true;
+	await render(req, res, searchData);
+};
+
+async function render(req, res, data) {
+	console.log('render is called');
+	// res.append('X-Total-Count', data.pageCount);
+	res.render('category', data);
+}
 
 categoriesController.list = async function (req, res) {
 	res.locals.metaTags = [{

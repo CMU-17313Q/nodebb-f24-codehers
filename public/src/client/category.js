@@ -10,7 +10,8 @@ define('forum/category', [
 	'hooks',
 	'alerts',
 	'api',
-], function (infinitescroll, share, navigator, topicList, sort, categorySelector, hooks, alerts, api) {
+	'benchpress',
+], function (infinitescroll, share, navigator, topicList, sort, categorySelector, hooks, alerts, api, Benchpress) {
 	const Category = {};
 
 	$(window).on('action:ajaxify.start', function (ev, data) {
@@ -19,7 +20,10 @@ define('forum/category', [
 		}
 	});
 
+	let searchResultCount = 0;
+
 	Category.init = function () {
+		// console.log('entered category public client');
 		const cid = ajaxify.data.cid;
 
 		app.enterRoom('category_' + cid);
@@ -41,6 +45,8 @@ define('forum/category', [
 		handleIgnoreWatch(cid);
 
 		handleLoadMoreSubcategories();
+
+		Category.handleSearch();
 
 		categorySelector.init($('[component="category-selector"]'), {
 			privilege: 'find',
@@ -112,6 +118,56 @@ define('forum/category', [
 		});
 	}
 
+	Category.handleSearch = function (params) {
+		// console.log('entered public/src/client/category handleSearch');
+		searchResultCount = params && params.resultCount;
+		$('#search-topic').on('keyup', utils.debounce(doSearch, 250));
+		$('.search select, .search input[type="checkbox"]').on('change', doSearch);
+	};
+
+	function doSearch() {
+		// console.log('entered public/src/client/category doSearch');
+		if (!ajaxify.data.template.category) {
+			return;
+		}
+		$('[component="topic/search/icon"]').removeClass('fa-search').addClass('fa-spinner fa-spin');
+		const title = $('#search-topic').val();
+		// console.log(title);
+		const activeSection = getActiveSection();
+
+		const query = {
+			section: activeSection,
+			page: 1,
+		};
+
+		if (!title) {
+			return loadPage(query);
+		}
+
+		query.query = title;
+		query.sortBy = getSortBy();
+		loadPage(query);
+	}
+
+	function getSortBy() {
+		let sortBy;
+		const activeSection = getActiveSection();
+		if (activeSection === 'sort-posts') {
+			sortBy = 'postcount';
+		} else if (activeSection === 'sort-reputation') {
+			sortBy = 'reputation';
+		} else if (activeSection === 'users') {
+			sortBy = 'joindate';
+		}
+		return sortBy;
+	}
+
+	function loadPage(query) {
+		api.get('/api/categoriesss', query)
+			.then(renderSearchResults)
+			.catch(alerts.error);
+	}
+
 	Category.toTop = function () {
 		navigator.scrollTop(0);
 	};
@@ -134,6 +190,27 @@ define('forum/category', [
 		}, function (data, done) {
 			hooks.fire('action:topics.loaded', { topics: data.topics });
 			callback(data, done);
+		});
+	}
+
+	function getActiveSection() {
+		return utils.param('section') || '';
+	}
+
+	function renderSearchResults(data) {
+		Benchpress.render('partials/paginator', { pagination: data.pagination }).then(function (html) {
+			$('.pagination-container').replaceWith(html);
+		});
+
+		if (searchResultCount) {
+			data.users = data.users.slice(0, searchResultCount);
+		}
+
+		data.isAdminOrGlobalMod = app.user.isAdmin || app.user.isGlobalMod;
+		app.parseAndTranslate('post-queue', 'posts', data, function (html) {
+			$('#category-container').html(html);
+			html.find('.timeago').timeago();
+			$('[component="topic/search/icon"]').addClass('fa-search').removeClass('fa-spinner fa-spin');
 		});
 	}
 

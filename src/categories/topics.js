@@ -11,9 +11,24 @@ const translator = require('../translator');
 const batch = require('../batch');
 
 module.exports = function (Categories) {
+	Categories.searchTopics = async function (data) {
+		const { query } = data;
+		const results = await plugins.hooks.fire('filter:category.topics.prepare', data);
+		const tids = await Categories.getTopicIds(results);
+		const topicsData = await topics.getTopicsByTids(tids, data.uid);
+		if (!query || query.trim() === '') {
+			return topicsData;
+		}
+		const searchFor = query.toLowerCase();
+		const matchedTopics = topicsData.filter(topic => topic.title.toLowerCase().includes(searchFor));
+		const finalTopics = matchedTopics.map(topic => topic.title);
+		return finalTopics;
+	};
+
 	Categories.getCategoryTopics = async function (data) {
 		let results = await plugins.hooks.fire('filter:category.topics.prepare', data);
 		const tids = await Categories.getTopicIds(results);
+
 		let topicsData = await topics.getTopicsByTids(tids, data.uid);
 		topicsData = await user.blocks.filter(data.uid, topicsData);
 

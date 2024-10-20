@@ -20,6 +20,8 @@ const socketHelpers = require('../socket.io/helpers');
 
 const postsAPI = module.exports;
 
+console.log('posts api gets called');
+
 postsAPI.get = async function (caller, data) {
 	const [userPrivileges, post, voted] = await Promise.all([
 		privileges.posts.get([data.pid], caller.uid),
@@ -511,4 +513,37 @@ postsAPI.getReplies = async (caller, { pid }) => {
 	postData = await user.blocks.filter(uid, postData);
 
 	return postData;
+};
+
+postsAPI.search = async function (caller, data) {
+	console.log('entered src/api/posts.js');
+	// console.log(caller);
+	// console.log(data);
+	if (!data) {
+		throw new Error('[[error:invalid-data]]');
+	}
+	const [allowed, isPrivileged] = await Promise.all([
+		privileges.global.can('search:users', caller.uid),
+		user.isPrivileged(caller.uid),
+	]);
+	let filters = data.filters || [];
+	filters = Array.isArray(filters) ? filters : [filters];
+	if (!allowed ||
+		((
+			data.searchBy === 'ip' ||
+			data.searchBy === 'email' ||
+			filters.includes('banned') ||
+			filters.includes('flagged')
+		) && !isPrivileged)
+	) {
+		throw new Error('[[error:no-privileges]]');
+	}
+	return await posts.search({
+		uid: caller.uid,
+		query: data.query,
+		searchBy: data.searchBy || 'title',
+		page: data.page || 1,
+		sortBy: data.sortBy || 'lastonline',
+		filters: filters,
+	});
 };

@@ -62,6 +62,9 @@ define('forum/groups/list', [
 		const queryEl = $('#search-text');
 		const sortEl = $('#search-sort');
 
+		// console.log('entered public/src/client/groups/list groups.search');
+		// console.log(queryEl);
+
 		socket.emit('groups.search', {
 			query: queryEl.val(),
 			options: {

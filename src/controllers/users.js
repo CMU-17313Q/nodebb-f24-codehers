@@ -33,6 +33,7 @@ usersController.index = async function (req, res, next) {
 };
 
 usersController.search = async function (req, res) {
+	// console.log(req);
 	const searchData = await api.users.search(req, req.query);
 
 	const section = req.query.section || 'joindate';
@@ -189,6 +190,7 @@ usersController.getUsersAndCount = async function (set, uid, start, stop) {
 };
 
 async function render(req, res, data) {
+	// console.log(data);
 	const { registrationType } = meta.config;
 
 	data.maximumInvites = meta.config.maximumInvites;

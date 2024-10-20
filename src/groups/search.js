@@ -5,6 +5,7 @@ const db = require('../database');
 
 module.exports = function (Groups) {
 	Groups.search = async function (query, options) {
+		// console.log(query);
 		if (!query) {
 			return [];
 		}

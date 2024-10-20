@@ -103,6 +103,7 @@ Groups.getNonPrivilegeGroups = async function (set, start, stop, flags) {
 };
 
 Groups.getGroups = async function (set, start, stop) {
+	// console.log('entered src/groups/index getGroups');
 	return await db.getSortedSetRevRange(set, start, stop);
 };
 

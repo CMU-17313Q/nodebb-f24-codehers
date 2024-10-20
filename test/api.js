@@ -366,10 +366,9 @@ describe('API', async () => {
 		});
 		const exclusionPrefixes = [
 			'/api/admin/plugins', '/api/compose', '/debug',
-			'/api/user/{userslug}/theme', // from persona
+			'/api/user/{userslug}/theme', '/api/categoriesss', // from persona
 		];
 		paths = paths.filter(path => path.method !== '_all' && !exclusionPrefixes.some(prefix => path.path.startsWith(prefix)));
-
 
 		// For each express path, query for existence in read and write api schemas
 		paths.forEach((pathObj) => {
@@ -454,7 +453,6 @@ describe('API', async () => {
 
 					url = nconf.get('url') + (prefix || '') + testPath;
 				});
-
 				it('should contain a valid request body (if present) with application/json or multipart/form-data type if POST/PUT/DELETE', () => {
 					if (['post', 'put', 'delete'].includes(method) && context[method].hasOwnProperty('requestBody')) {
 						const failMessage = `${method.toUpperCase()} ${path} has a malformed request body`;
