@@ -16,7 +16,6 @@ SocketRooms.getTotalGuestCount = async function () {
 };
 
 SocketRooms.getAll = async function () {
-	console.log('GhalyaRefactoredCode');
 	const sockets = await io.server.fetchSockets();
 
 	totals.onlineGuestCount = 0;
@@ -52,7 +51,6 @@ SocketRooms.getAll = async function () {
 };
 
 function processSocket(s, totals, userRooms, topicData) {
-	console.log('GhalyaRefactoredCode1');
 	for (const key of s.rooms) {
 		if (key === 'online_guests') {
 			totals.onlineGuestCount += 1;
@@ -73,7 +71,6 @@ function processSocket(s, totals, userRooms, topicData) {
 }
 
 function processTopicKey(key, totals, topicData) {
-	console.log('GhalyaRefactoredCode2');
 	const tid = key.match(/^topic_(\d+)/);
 	if (tid) {
 		totals.users.topics += 1;
@@ -83,7 +80,6 @@ function processTopicKey(key, totals, topicData) {
 }
 
 function getTopTenTopics(topicData) {
-	console.log('GhalyaRefactoredCode3');
 	const topTenTopics = [];
 	Object.keys(topicData).forEach((tid) => {
 		topTenTopics.push({ tid: tid, count: topicData[tid].count });

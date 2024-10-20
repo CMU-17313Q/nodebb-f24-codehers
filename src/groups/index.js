@@ -122,8 +122,6 @@ Groups.getGroupsAndMembers = async function (groupNames) {
 };
 
 Groups.get = async function (groupName, options) {
-	console.log('hi');
-	// console.log(options);
 	if (!groupName) {
 		throw new Error('[[error:invalid-group]]');
 	}

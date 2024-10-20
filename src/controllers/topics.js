@@ -409,8 +409,6 @@ topicsController.pagination = async function (req, res, next) {
 };
 
 topicsController.search = async function (req, res) {
-	console.log('entered src/controllers/topics.js');
-	// console.log(req);
 	const searchData = await api.topics.search(req, req.query);
 
 	const section = req.query.section || 'joindate';
@@ -422,7 +420,5 @@ topicsController.search = async function (req, res) {
 };
 
 async function render(req, res, data) {
-	console.log('render is called');
-	// res.append('X-Total-Count', data.pageCount);
 	res.render('post-queue', data);
 }

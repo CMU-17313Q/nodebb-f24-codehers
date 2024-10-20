@@ -46,9 +46,6 @@ categoriesAPI.get = async function (caller, data) {
 };
 
 categoriesAPI.search = async function (caller, data) {
-	console.log('entered src/api/categories.js');
-	// console.log(caller);
-	// console.log(data);
 	if (!data) {
 		throw new Error('[[error:invalid-data]]');
 	}

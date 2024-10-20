@@ -114,7 +114,6 @@ define('forum/search', [
 	}
 
 	function getSearchDataFromDOM() {
-		console.log('testing');
 		const form = $('#advanced-search');
 		const searchData = {
 			in: $('#search-in').val(),
@@ -333,7 +332,6 @@ define('forum/search', [
 		}
 
 		async function doSearch() {
-			// console.log('mercy');
 			let result = { tags: [] };
 			const query = el.find('[component="tag/filter/search"]').val();
 			if (query && query.length > 1) {

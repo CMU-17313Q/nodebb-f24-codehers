@@ -369,8 +369,6 @@ describe('API', async () => {
 			'/api/user/{userslug}/theme', '/api/categoriesss', // from persona
 		];
 		paths = paths.filter(path => path.method !== '_all' && !exclusionPrefixes.some(prefix => path.path.startsWith(prefix)));
-		console.log('patjs');
-		process.stdout.write(JSON.stringify(paths.filter(path => path.method === 'get')) + '\n');
 
 		// For each express path, query for existence in read and write api schemas
 		paths.forEach((pathObj) => {
@@ -615,10 +613,6 @@ describe('API', async () => {
 		// Compare the schema to the response
 		required.forEach((prop) => {
 			if (schema.hasOwnProperty(prop)) {
-				// console.log(response);
-				// console.log('schema');
-				// console.log(schema);
-				// console.log(response);
 				assert(response.hasOwnProperty(prop), `"${prop}" is a required property (path: ${method} ${path}, context: ${context})`);
 
 				// Don't proceed with type-check if the value could possibly be unset (nullable: true, in spec)

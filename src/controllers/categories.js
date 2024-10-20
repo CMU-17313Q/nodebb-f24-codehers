@@ -13,17 +13,12 @@ const privileges = require('../privileges');
 const categoriesController = module.exports;
 
 categoriesController.search = async function (req, res) {
-	console.log('entered src/controllers/categories.js');
-	// console.log(req);
 	const searchData = await api.categories.search(req, req.query);
-	console.log('searching data');
-	console.log(searchData);
-	// return searchData
-	// const section = req.query.section || 'joindate';
+	const section = req.query.section || 'joindate';
 
-	// searchData.pagination = pagination.create(req.query.page, searchData.pageCount, req.query);
-	// searchData[`section_${section}`] = true;
-	// searchData.displayUserSearch = true;
+	searchData.pagination = pagination.create(req.query.page, searchData.pageCount, req.query);
+	searchData[`section_${section}`] = true;
+	searchData.displayUserSearch = true;
 	await render(req, res, searchData);
 };
 

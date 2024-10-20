@@ -27,7 +27,6 @@ const Events = module.exports;
  * the user avatar/username will be rendered as part of the event text
  * see https://github.com/NodeBB/nodebb-plugin-question-and-answer/blob/master/library.js#L288-L306
  */
-console.log('entered topic events');
 Events._types = {
 	pin: {
 		icon: 'fa-thumb-tack',
