@@ -259,7 +259,7 @@ This file contains unit tests for the bug/feedback form submission feature. The 
 **Form Submission:** Tests ensure that the form data (title, description, CSRF token) is properly passed in the fetch request when the form is submitted.
 **Alerts:** The tests verify that appropriate success or failure alert messages are displayed based on the form submission result.
 
-Why the tests are sufficient:
+**Why the tests are sufficient:**
 - The tests cover key scenarios for the bug/feedback form:
   - Successful form submission when valid data is provided.
   - Validation checks to ensure all required fields are filled out.
@@ -275,7 +275,7 @@ This file contains unit tests for the bug archive feature. The tests simulate AP
 **Refresh Functionality:** Tests simulate adding a new bug and refreshing the archive page to check that the new entry appears in the archive.
 **Error Handling:** The tests verify that appropriate error messages are displayed when there is a failure to retrieve the bug archive due to API or network issues.
 
-**Why the tests are sufficient:***
+**Why the tests are sufficient:**
 - The tests cover the main functionalities of the bug archive page:
   - Simulating the retrieval of bugs and ensuring they are displayed accurately.
   - Handling both successful data retrieval and scenarios where an API call fails.
