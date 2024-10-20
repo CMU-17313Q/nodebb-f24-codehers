@@ -5,8 +5,6 @@ const winston = require('winston');
 const path = require('path');
 const express = require('express');
 
-
-
 const meta = require('../meta');
 const controllers = require('../controllers');
 const resourcesButtonController = require('../controllers/resources-button');
@@ -161,6 +159,7 @@ function addCoreRoutes(app, router, middleware, mounts) {
 	_mounts.main(router, middleware, controllers);
 	_mounts.mod(router, middleware, controllers);
 	_mounts.globalMod(router, middleware, controllers);
+
 
 	addRemountableRoutes(app, router, middleware, mounts);
 

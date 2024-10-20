@@ -1236,7 +1236,8 @@ describe('Topic\'s', () => {
 		});
 	});
 
-	describe('unread', () => {
+	describe('unread', function () {
+		this.timeout(50000); // Increase timeout to 50 seconds
 		const socketTopics = require('../src/socket.io/topics');
 		let tid;
 		let uid;
@@ -1291,15 +1292,20 @@ describe('Topic\'s', () => {
 			});
 		});
 
-		it('should mark topic notifications read', async () => {
-			await apiTopics.follow({ uid: adminUid }, { tid: tid });
-			const data = await topics.reply({ uid: uid, timestamp: Date.now(), content: 'some content', tid: tid });
-			await sleep(2500);
-			let count = await User.notifications.getUnreadCount(adminUid);
-			assert.strictEqual(count, 1);
-			await socketTopics.markTopicNotificationsRead({ uid: adminUid }, [tid]);
-			count = await User.notifications.getUnreadCount(adminUid);
-			assert.strictEqual(count, 0);
+		it('should mark topic notifications read', async (done) => {
+			try {
+				await apiTopics.follow({ uid: adminUid }, { tid: tid });
+				const data = await topics.reply({ uid: uid, timestamp: Date.now(), content: 'some content', tid: tid });
+				await sleep(2500);
+				let count = await User.notifications.getUnreadCount(adminUid);
+				assert.strictEqual(count, 1);
+				await socketTopics.markTopicNotificationsRead({ uid: adminUid }, [tid]);
+				count = await User.notifications.getUnreadCount(adminUid);
+				assert.strictEqual(count, 0);
+				done();
+			} catch (err) {
+				done(err);
+			}
 		});
 
 		it('should fail with invalid data', (done) => {

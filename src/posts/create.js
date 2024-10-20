@@ -11,6 +11,7 @@ const categories = require('../categories');
 const groups = require('../groups');
 const privileges = require('../privileges');
 
+
 module.exports = function (Posts) {
 	Posts.create = async function (data) {
 		// This is an internal method, consider using Topics.reply instead
@@ -61,6 +62,33 @@ module.exports = function (Posts) {
 
 		const topicData = await topics.getTopicFields(tid, ['cid', 'pinned']);
 		postData.cid = topicData.cid;
+
+		// Define the link extraction logic
+		function extractLinks(text) {
+			const urlRegex = /\[.*?\]\((https?:\/\/[^\s)]+)\)|\bhttps?:\/\/[^\s)]+/g;
+			const links = [];
+
+			let match = urlRegex.exec(text);
+			while (match !== null) {
+				if (match[1]) {
+					links.push(match[1]); // Extract URL from Markdown link
+				} else {
+					links.push(match[0]); // Extract plain URL
+				}
+				match = urlRegex.exec(text); // Re-execute regex for the next match
+			}
+
+			console.log('Raw Extracted links:', links); // Log the extracted links
+			return [...new Set(links)]; // Remove duplicates
+		}
+
+		// Extract links from post content
+		const links = extractLinks(postData.content);
+		if (links.length > 0) {
+			console.log('Extracted links:', links);
+			await db.setAdd(`post:${postData.pid}:links`, links);
+			await db.setAdd('resources:links', links);
+		}
 
 		await Promise.all([
 			db.sortedSetAdd('posts:pid', timestamp, postData.pid),
