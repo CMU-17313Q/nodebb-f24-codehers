@@ -405,7 +405,7 @@ exports.submitBug = async (req, res) => {
 	}
 
 	try {
-		const bug = { title, description, dateSubmitted: new Date().toISOString() };
+		const bug = { title, description, submittedBy: req.uid, dateSubmitted: new Date().toISOString() };
 		bugArchive.push(bug);
 		res.status(200).json({ message: 'Bug submitted successfully' });
 	} catch (error) {
@@ -416,6 +416,8 @@ exports.submitBug = async (req, res) => {
 // Get Bug Archive Handler
 exports.getBugArchive = async (req, res) => {
 	console.log('im hereeeeeeeeeeee');
+	console.log(bugArchive); // Log the bug archive before sending it
+	// res.json(bugArchive);
 	try {
 		// Render the 'bug-archive' template with the in-memory bug data
 		res.render('admin/dashboard/bug-archive', {

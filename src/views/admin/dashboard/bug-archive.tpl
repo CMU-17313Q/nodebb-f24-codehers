@@ -61,25 +61,22 @@
 
             function fetchBugArchive() {
                 console.log('Fetching bug archive...');
-                fetch('/api/admin/dashboard/bug-archive')
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        bugArchiveBody.innerHTML = '';
-                        if (data.archive && data.archive.length > 0) {
-                            data.archive.forEach(bug => {
-                                const row = document.createElement('tr');
-                                row.innerHTML = `
-                                    <td>${bug.title}</td>
-                                    <td>${bug.description}</td>
-                                    <td>${bug.submittedBy}</td>
-                                    <td>${bug.dateSubmitted}</td>
-                                `;
-                                bugArchiveBody.appendChild(row);
+                fetch('/api/admin/get-bug-archive') // Adjust endpoint as necessary
+        .then(response => response.json())
+        .then(data => {
+            const bugArchiveBody = document.getElementById('bug-archive-body');
+            bugArchiveBody.innerHTML = ''; // Clear existing data
+
+            if (data.archive && data.archive.length > 0) {
+                data.archive.forEach(bug => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${validator.escape(bug.title)}</td>
+                        <td>${validator.escape(bug.description)}</td>
+                        <td>${bug.submittedBy || 'Unknown'}</td> <!-- Display submittedBy -->
+                        <td>${new Date(bug.dateSubmitted).toLocaleString()}</td>
+                    `;
+                    bugArchiveBody.appendChild(row)
                             });
                         } else {
                             const row = document.createElement('tr');
