@@ -1201,18 +1201,18 @@ describe('Post\'s', () => {
 			});
 		});
 	});
-});
 
-describe('Posts\'', async () => {
-	let files;
+	describe('Posts\'', async () => {
+		let files;
 
-	before(async () => {
-		files = await file.walk(path.resolve(__dirname, './posts'));
-	});
+		before(async () => {
+			files = await file.walk(path.resolve(__dirname, './posts'));
+		});
 
-	it('subfolder tests', () => {
-		files.forEach((filePath) => {
-			require(filePath);
+		it('subfolder tests', () => {
+			files.forEach((filePath) => {
+				require(filePath);
+			});
 		});
 	});
 });
