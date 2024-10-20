@@ -152,3 +152,99 @@ Below are the files that contain automated tests for the resources page feature,
 **What is being tested:** This file tests the complete functionality of the search function, including regular cases and edge cases. It also tests for user permissions for searching and filtering. 
 
 **Why the tests are sufficient:** The tests cover the main use cases for the search function, the tests handle various edge cases for the queries, asserts are used to comapre the query results with the expected results, and console logging assists in displaying the functionality.
+
+
+### 3.User Guide for Bug/Feedback Form and Bug Archive Features
+
+---
+
+### Overview
+
+This guide will walk you through using the bug/feedback form submission and bug archive feature within the admin dashboard. These features allow you to submit feedback or bug reports and access an archive of all previously submitted bugs if you are an admin. The system ensures both functionalities work smoothly and provide meaningful feedback when errors occur.
+
+---
+
+### How to Use the Bug/Feedback Form Submission Feature
+
+The Bug/Feedback form is designed for all users to submit issues or feedback directly through a simple interface.
+
+#### **Steps to Submit a Bug/Feedback:**
+
+1. **Navigate to the Bug/Feedback Form:**
+   - On the left sidebar look for the "Submit Bug/Feedback" button.
+- Press the button and form will pop up
+   
+2. **Fill in the Required Fields:**
+   - **Title**: Enter a concise but descriptive title of the bug/feedback.
+   - **Description**: Provide detailed information about the issue or suggestion you're reporting.
+   - **CSRF Token**: This field is automatically populated for security purposes to prevent unauthorized submissions.
+
+3. **Submit the Form:**
+   - After filling out the form, click the green “Submit" button.
+   - On successful submission, a success message will be displayed.
+   - If an error occurs, such as missing fields or network issues, an appropriate error message will appear.
+
+4. **Close the Form:**
+- Or if you changed your mind about submitting bugs you can press the red “Close” button to close the form.
+
+#### **Key Features:**
+
+- **Validation**: The system ensures that all fields (title, description) are filled out correctly.
+- **Security**: The CSRF token ensures your form submissions are protected from cross-site request forgery.
+- **Alerts**: Success or failure alerts inform users of the submission result.
+
+---
+
+### How to Use the Bug Archive Page
+
+The Bug Archive Page allows administrators to view previously submitted bugs and feedback, providing an organized list of entries.
+
+#### **Steps to Access the Bug Archive:**
+
+1. **Navigate to the Bug Archive Page:**
+- First click the “Admin” button in the left sidebar, clilc it, and login if you are an admin.
+   - Then n the admin dashboard, locate and click on the "Bug Archive" button to view all previously submitted bugs and feedback.
+
+2. **Viewing the Archive:**
+   - The archive page displays a table with the following information:
+     - **Title**: The title of the bug or feedback.
+     - **Description**: The details provided by the user.
+     - **Submitted By**: The username or ID of the person who submitted the report.
+     - **Date Submitted**: The timestamp of when the bug/feedback was submitted.
+
+3. **Refresh the Archive:**
+   - To ensure you are viewing the latest submissions, click the "Refresh" button. This will update the page with any new entries.
+   
+4. **Handling Errors:**
+   - If the system fails to retrieve the archive (due to network issues or API errors), an error message will be displayed to notify you of the issue.
+
+---
+
+### 3. User Testing Guide
+
+Here’s how you, the user, can manually test these features:
+
+#### **Bug/Feedback Form Testing:**
+
+1. **Basic Form Submission:**
+   - Navigate to the bug form, enter valid input for all fields, and submit.
+   - Verify that the success alert is shown and that your entry is stored in the archive.
+   
+2. **Form Validation Test:**
+   - Try submitting the form with missing or invalid fields (e.g., leaving the title blank).
+   - Verify that the appropriate error message appears and prevents submission.
+
+
+#### **Bug Archive Page Testing:**
+
+1. **Viewing Archived Bugs:**
+   - Navigate to the bug archive page and verify that all previous entries are displayed correctly.
+
+2. **Refreshing the Page:**
+   - Submit a new bug, then refresh the archive page. Ensure that the new bug appears in the list.
+
+3. **Error Handling Test:**
+   - Simulate a network error or API failure (e.g., by disabling the network temporarily) and try to load the bug archive.
+   - Verify that an appropriate error message is displayed.
+
+---
