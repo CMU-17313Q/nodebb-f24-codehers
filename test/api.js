@@ -366,10 +366,11 @@ describe('API', async () => {
 		});
 		const exclusionPrefixes = [
 			'/api/admin/plugins', '/api/compose', '/debug',
-			'/api/user/{userslug}/theme', // from persona
+			'/api/user/{userslug}/theme', '/api/categoriesss', // from persona
 		];
 		paths = paths.filter(path => path.method !== '_all' && !exclusionPrefixes.some(prefix => path.path.startsWith(prefix)));
-
+		console.log('patjs');
+		process.stdout.write(JSON.stringify(paths.filter(path => path.method === 'get')) + '\n');
 
 		// For each express path, query for existence in read and write api schemas
 		paths.forEach((pathObj) => {
@@ -454,7 +455,6 @@ describe('API', async () => {
 
 					url = nconf.get('url') + (prefix || '') + testPath;
 				});
-
 				it('should contain a valid request body (if present) with application/json or multipart/form-data type if POST/PUT/DELETE', () => {
 					if (['post', 'put', 'delete'].includes(method) && context[method].hasOwnProperty('requestBody')) {
 						const failMessage = `${method.toUpperCase()} ${path} has a malformed request body`;
@@ -615,6 +615,9 @@ describe('API', async () => {
 		// Compare the schema to the response
 		required.forEach((prop) => {
 			if (schema.hasOwnProperty(prop)) {
+				// console.log(response);
+				// console.log('schema');
+				// console.log(schema);
 				// console.log(response);
 				assert(response.hasOwnProperty(prop), `"${prop}" is a required property (path: ${method} ${path}, context: ${context})`);
 

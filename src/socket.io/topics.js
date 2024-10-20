@@ -62,13 +62,6 @@ SocketTopics.createTopicFromPosts = async function (socket, data) {
 	return result;
 };
 
-SocketTopics.search = async (socket, data) => {
-	console.log('entered socket topics search');
-	data.options = data.options || {};
-	data.options.filterHidden = data.options.filterHidden || !await user.isAdministrator(socket.uid);
-	return await topics.search(data.query, data.options);
-};
-
 SocketTopics.isFollowed = async function (socket, tid) {
 	const isFollowing = await topics.isFollowing([tid], socket.uid);
 	return isFollowing[0];

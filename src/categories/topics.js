@@ -17,17 +17,41 @@ module.exports = function (Categories) {
 		const results = await plugins.hooks.fire('filter:category.topics.prepare', data);
 		const tids = await Categories.getTopicIds(results);
 		const topicsData = await topics.getTopicsByTids(tids, data.uid);
+		console.log('topics');
+		console.log(topicsData);
 		if (!query || query.trim() === '') {
-			return topicsData;
+			return modifyResults(topicsData);
 		}
-		const searchFor = query.toLowerCase();
+		const searchFor = query.toLowerCase(); 
 		const matchedTopics = topicsData.filter(topic => topic.title.toLowerCase().includes(searchFor));
 		const finalTopics = matchedTopics.map(topic => topic.title);
-		const finalResults = {
+		return modifyResults(finalTopics);
+	};
+
+	function modifyResults (results) {
+		const modified = {
 			title: '',
-			topics: finalTopics,
-		};
-		return finalResults;
+			selectCategoryLabel: '',
+			categories: results,
+			pagination: results.hasOwnProperty('paginate') ? results.paginate : true,
+			loggedIn: true,
+			relative_path: '',
+			template: 'undefined', 
+			url : '',
+			bodyClass: '',
+			_header: '',
+			widgets:[
+				{
+					widget: 'html',
+					data: {
+						html: 'test',
+						title: '',
+						container: '',
+					},
+				},
+			],
+		}
+		return modified;
 	};
 
 	Categories.getCategoryTopics = async function (data) {

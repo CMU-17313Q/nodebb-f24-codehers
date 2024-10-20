@@ -165,7 +165,7 @@ define('forum/category', [
 	function loadPage(query) {
 		console.log('entered load page');
 		console.log(query);
-		api.get('/api/categories', query)
+		api.get('/api/categoriesss', query)
 			.then(renderSearchResults)
 			.catch(alerts.error);
 	}
