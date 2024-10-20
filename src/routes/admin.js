@@ -1,6 +1,7 @@
 'use strict';
 
 const helpers = require('./helpers');
+// const { csrfSynchronisedProtection } = require('../middleware/csrf');
 
 module.exports = function (app, name, middleware, controllers) {
 	const middlewares = [middleware.pluginHooks];
@@ -12,6 +13,8 @@ module.exports = function (app, name, middleware, controllers) {
 	helpers.setupAdminPageRoute(app, `/${name}/dashboard/users`, middlewares, controllers.admin.dashboard.getUsers);
 	helpers.setupAdminPageRoute(app, `/${name}/dashboard/topics`, middlewares, controllers.admin.dashboard.getTopics);
 	helpers.setupAdminPageRoute(app, `/${name}/dashboard/searches`, middlewares, controllers.admin.dashboard.getSearches);
+	// route to the admin dashboard / bug archive button
+	helpers.setupAdminPageRoute(app, `/${name}/dashboard/bug-archive`, middlewares, controllers.admin.dashboard.getBugArchive);
 
 	helpers.setupAdminPageRoute(app, `/${name}/manage/categories`, middlewares, controllers.admin.categories.getAll);
 	helpers.setupAdminPageRoute(app, `/${name}/manage/categories/:category_id`, middlewares, controllers.admin.categories.get);
@@ -61,11 +64,24 @@ module.exports = function (app, name, middleware, controllers) {
 
 
 function apiRoutes(router, name, middleware, controllers) {
+	// Define the endpoint for fetching the bug archive
+	router.get(`/api/${name}/get-bug-archive`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.dashboard.getBugArchive));
+
+	// Define the endpoint for submitting bugs
+	router.post(`/api/${name}/submit-bug`, [], helpers.tryRoute(controllers.admin.dashboard.submitBug));
+	router.get(`/api/${name}/submit-bug`, [], helpers.tryRoute(controllers.admin.dashboard.submitBug));
+
+
 	router.get(`/api/${name}/config`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.getConfig));
 	router.get(`/api/${name}/users/csv`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.users.getCSV));
 	router.get(`/api/${name}/groups/:groupname/csv`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.groups.getCSV));
 	router.get(`/api/${name}/analytics`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.dashboard.getAnalytics));
 	router.get(`/api/${name}/advanced/cache/dump`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.cache.dump));
+
+	// router.get(`/api/${name}/get-bug-archive`, middleware.ensureLoggedIn,
+	// helpers.tryRoute(controllers.admin.dashboard.getBugArchive));
+	// router.post(`/api/${name}/submit-bug`, helpers.tryRoute(controllers.admin.dashboard.submitBug));
+	// router.get(`/api/${name}/submit-bug`,  helpers.tryRoute(controllers.admin.dashboard.submitBug));
 
 	const multipart = require('connect-multiparty');
 	const multipartMiddleware = multipart();
@@ -80,4 +96,16 @@ function apiRoutes(router, name, middleware, controllers) {
 	router.post(`/api/${name}/uploadOgImage`, middlewares, helpers.tryRoute(controllers.admin.uploads.uploadOgImage));
 	router.post(`/api/${name}/upload/file`, middlewares, helpers.tryRoute(controllers.admin.uploads.uploadFile));
 	router.post(`/api/${name}/uploadDefaultAvatar`, middlewares, helpers.tryRoute(controllers.admin.uploads.uploadDefaultAvatar));
+
+	// Define the endpoint for submitting bugs
+	// router.post(`/api/${name}/submit-bug`, middlewares, helpers.tryRoute(controllers.admin.dashboard.submitBug));
+
+	// router.post(`/api/${name}/settings`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.settings.set));
+
+	// Define the endpoint for fetching the bug archive
+	// router.get(`/api/${name}/get-bug-archive`,
+	// middlewares, helpers.tryRoute(controllers.admin.dashboard.getBugArchive));
+	// router.get(`/api/${name}/get-bug-archive`, middlewares, helpers.tryRoute(controllers.admin.getConfig));
 }
+
+
