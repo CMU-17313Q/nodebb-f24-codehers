@@ -68,8 +68,8 @@ function apiRoutes(router, name, middleware, controllers) {
 	router.get(`/api/${name}/get-bug-archive`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.dashboard.getBugArchive));
 
 	// Define the endpoint for submitting bugs
-	router.post(`/api/${name}/submit-bug`, csrfSynchronisedProtection, helpers.tryRoute(controllers.admin.dashboard.submitBug));
-	router.get(`/api/${name}/submit-bug`, middleware.applyCSRF, helpers.tryRoute(controllers.admin.dashboard.submitBug));
+	router.post(`/api/${name}/submit-bug`, [], helpers.tryRoute(controllers.admin.dashboard.submitBug));
+	router.get(`/api/${name}/submit-bug`, [], helpers.tryRoute(controllers.admin.dashboard.submitBug));
 
 
 	router.get(`/api/${name}/config`, middleware.ensureLoggedIn, helpers.tryRoute(controllers.admin.getConfig));
