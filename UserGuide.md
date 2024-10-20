@@ -154,21 +154,22 @@ Below are the files that contain automated tests for the resources page feature,
 **Why the tests are sufficient:** The tests cover the main use cases for the search function, the tests handle various edge cases for the queries, asserts are used to comapre the query results with the expected results, and console logging assists in displaying the functionality.
 
 
-### 3.User Guide for Bug/Feedback Form and Bug Archive Features
+
+## 3.User Guide for Bug/Feedback Form and Bug Archive Features
 
 ---
 
-### Overview
+## Overview
 
 This guide will walk you through using the bug/feedback form submission and bug archive feature within the admin dashboard. These features allow you to submit feedback or bug reports and access an archive of all previously submitted bugs if you are an admin. The system ensures both functionalities work smoothly and provide meaningful feedback when errors occur.
 
 ---
 
-### How to Use the Bug/Feedback Form Submission Feature
+## How to Use the Bug/Feedback Form Submission Feature
 
 The Bug/Feedback form is designed for all users to submit issues or feedback directly through a simple interface.
 
-#### **Steps to Submit a Bug/Feedback:**
+### **Steps to Submit a Bug/Feedback:**
 
 1. **Navigate to the Bug/Feedback Form:**
    - On the left sidebar look for the "Submit Bug/Feedback" button.
@@ -187,7 +188,7 @@ The Bug/Feedback form is designed for all users to submit issues or feedback dir
 4. **Close the Form:**
 - Or if you changed your mind about submitting bugs you can press the red “Close” button to close the form.
 
-#### **Key Features:**
+### **Key Features:**
 
 - **Validation**: The system ensures that all fields (title, description) are filled out correctly.
 - **Security**: The CSRF token ensures your form submissions are protected from cross-site request forgery.
@@ -195,11 +196,11 @@ The Bug/Feedback form is designed for all users to submit issues or feedback dir
 
 ---
 
-### How to Use the Bug Archive Page
+## How to Use the Bug Archive Page
 
 The Bug Archive Page allows administrators to view previously submitted bugs and feedback, providing an organized list of entries.
 
-#### **Steps to Access the Bug Archive:**
+### **Steps to Access the Bug Archive:**
 
 1. **Navigate to the Bug Archive Page:**
 - First click the “Admin” button in the left sidebar, clilc it, and login if you are an admin.
@@ -220,11 +221,11 @@ The Bug Archive Page allows administrators to view previously submitted bugs and
 
 ---
 
-### 3. User Testing Guide
+## 3. User Testing Guide
 
 Here’s how you, the user, can manually test these features:
 
-#### **Bug/Feedback Form Testing:**
+### **Bug/Feedback Form Testing:**
 
 1. **Basic Form Submission:**
    - Navigate to the bug form, enter valid input for all fields, and submit.
