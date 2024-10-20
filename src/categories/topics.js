@@ -19,22 +19,15 @@ module.exports = function (Categories) {
 		if (!query || query.trim() === '') {
 			return topicsData;
 		}
-		const searchFor = query.toLowerCase(); 
+		const searchFor = query.toLowerCase();
 		const matchedTopics = topicsData.filter(topic => topic.title.toLowerCase().includes(searchFor));
 		const finalTopics = matchedTopics.map(topic => topic.title);
 		return finalTopics;
 	};
 
 	Categories.getCategoryTopics = async function (data) {
-		// console.log('data');
-		// console.log(data);
 		let results = await plugins.hooks.fire('filter:category.topics.prepare', data);
-		// console.log('results');
-		// console.log(results);
 		const tids = await Categories.getTopicIds(results);
-
-		// console.log(tids);
-
 
 		let topicsData = await topics.getTopicsByTids(tids, data.uid);
 		topicsData = await user.blocks.filter(data.uid, topicsData);
