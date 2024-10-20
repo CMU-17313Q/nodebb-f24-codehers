@@ -16,9 +16,14 @@ module.exports = function (Posts) {
 		// This is an internal method, consider using Topics.reply instead
 		const { uid } = data;
 		const { tid } = data;
+		console.log('Raw data.isAnonymous:', data.isAnonymous);
+		const isAnonymous = Boolean(data.isAnonymous);
+		console.log('Is anonymous?', isAnonymous);
 		const content = data.content.toString();
 		const timestamp = data.timestamp || Date.now();
 		const isMain = data.isMain || false;
+
+		console.log('this is where drafts are formulated');
 
 		if (!uid && parseInt(uid, 10) !== 0) {
 			throw new Error('[[error:invalid-uid]]');
@@ -35,6 +40,7 @@ module.exports = function (Posts) {
 			tid: tid,
 			content: content,
 			timestamp: timestamp,
+			isAnonymous: isAnonymous || false,
 		};
 
 		if (data.toPid) {
@@ -46,6 +52,8 @@ module.exports = function (Posts) {
 		if (data.handle && !parseInt(uid, 10)) {
 			postData.handle = data.handle;
 		}
+
+		console.log('this is where drafts are formulated');
 
 		let result = await plugins.hooks.fire('filter:post.create', { post: postData, data: data });
 		postData = result.post;

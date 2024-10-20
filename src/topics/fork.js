@@ -8,6 +8,7 @@ const privileges = require('../privileges');
 const plugins = require('../plugins');
 const meta = require('../meta');
 
+
 module.exports = function (Topics) {
 	Topics.createTopicFromPosts = async function (uid, title, pids, fromTid, cid) {
 		if (title) {

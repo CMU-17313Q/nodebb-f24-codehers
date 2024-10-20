@@ -116,6 +116,7 @@ describe('Post\'s', () => {
 		}
 	});
 
+
 	it('should fail to change owner if user is not authorized', async () => {
 		try {
 			await socketPosts.changeOwner({ uid: voterUid }, { pids: [1, 2], toUid: voterUid });
@@ -1215,3 +1216,64 @@ describe('Posts\'', async () => {
 		});
 	});
 });
+
+describe('Anonymous Post Creation', () => {
+	let uid;
+	let cid;
+	let newPost;
+
+	before(async () => {
+		// Create a test user
+		uid = await user.create({ username: 'testAnonUser' });
+
+		// Set up a test category
+		const category = await categories.create({
+			name: 'Test Anonymous Category',
+			description: 'Category created for anonymous post testing',
+		});
+		cid = category.cid;
+	});
+
+	it('should allow a post to be created with anonymity enabled', async () => {
+		newPost = await topics.post({
+			uid: uid,
+			cid: cid,
+			title: 'Anonymous Post Example',
+			content: 'Content for an anonymous post',
+			isAnonymous: true,
+		});
+
+		console.log('Post result:', newPost.postData); // Debugging statement
+
+		console.log('Checking somethingg:', newPost.postData.isAnonymous);
+
+		assert(newPost);
+		assert.strictEqual(newPost.postData.isAnonymous, true, 'Expected the post to be marked as anonymous');
+	});
+
+	it('should create a post without anonymity when specified', async () => {
+		newPost = await topics.post({
+			uid: uid,
+			cid: cid,
+			title: 'Non-Anonymous Post Example',
+			content: 'This is a regular post',
+			isAnonymous: false,
+		});
+
+		assert(newPost);
+		assert.strictEqual(newPost.postData.isAnonymous, false, 'Expected the post to be marked as non-anonymous');
+	});
+
+	it('should create a post as non-anonymous by default', async () => {
+		newPost = await topics.post({
+			uid: uid,
+			cid: cid,
+			title: 'Default Post Example',
+			content: 'This post does not specify anonymity',
+		});
+
+		assert(newPost);
+		assert.strictEqual(newPost.postData.isAnonymous, false, 'Expected the post to default to non-anonymous');
+	});
+});
+
