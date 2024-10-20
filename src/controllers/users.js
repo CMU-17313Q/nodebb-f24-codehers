@@ -191,7 +191,7 @@ usersController.getUsersAndCount = async function (set, uid, start, stop) {
 };
 
 async function render(req, res, data) {
-	console.log(data);
+	// console.log(data);
 	const { registrationType } = meta.config;
 
 	data.maximumInvites = meta.config.maximumInvites;

@@ -5,10 +5,6 @@ const querystring = require('querystring');
 const posts = require('../posts');
 const privileges = require('../privileges');
 const helpers = require('./helpers');
-const api = require('../api');
-const pagination = require('../pagination');
-const user = require('../user');
-const meta = require('../meta');
 
 const postsController = module.exports;
 
@@ -41,60 +37,3 @@ postsController.getRecentPosts = async function (req, res) {
 	const data = await posts.getRecentPosts(req.uid, start, stop, req.params.term);
 	res.json(data);
 };
-
-postsController.search = async function (req, res) {
-	console.log('got it');
-	console.log('entered src/controllers/posts.js');
-	try {
-		// console.log(req);
-		const searchData = await api.posts.search(req, req.query);
-
-		console.log('search data');
-		console.log(searchData);
-
-		const section = req.query.section || 'joindate';
-
-		searchData.pagination = pagination.create(req.query.page, searchData.pageCount, req.query);
-		searchData[`section_${section}`] = true;
-		searchData.displayUserSearch = true;
-
-		const { id } = req.params;
-		const { cid } = req.query;
-		const page = parseInt(req.query.page, 10) || 1;
-
-		let [isAdmin, isGlobalMod, categoriesData, _privileges] = await Promise.all([
-			user.isAdministrator(req.uid),
-			user.isGlobalModerator(req.uid),
-			helpers.getSelectedCategory(cid),
-			Promise.all(['global', 'admin'].map(async type => privileges[type].get(req.uid))),
-		]);
-		_privileges = { ..._privileges[0], ..._privileges[1] };
-
-		const crumbs = [{ text: '[[pages:post-queue]]', url: id ? '/post-queue' : undefined }];
-
-		const tempData = {
-			title: '[[pages:post-queue]]',
-			posts: searchData.posts,
-			isAdmin: isAdmin,
-			canAccept: isAdmin || isGlobalMod,
-			...categoriesData,
-			allCategoriesUrl: `post-queue${helpers.buildQueryString(req.query, 'cid', '')}`,
-			pagination: pagination.create(page, searchData.pageCount),
-			breadcrumbs: helpers.buildBreadcrumbs(crumbs),
-			enabled: meta.config.postQueue,
-			singlePost: !!id,
-			privileges: _privileges,
-		}
-
-		await render(req, res, tempData); } catch (error) {
-			console.log('errored');
-			console.error('Error in search controller:', error);
-		}
-};
-
-
-async function render(req, res, data) {
-	console.log('render is called');
-	// res.append('X-Total-Count', data.pageCount);
-	res.render('post-queue', data);
-}

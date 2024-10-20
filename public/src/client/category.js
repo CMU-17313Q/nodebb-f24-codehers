@@ -166,8 +166,8 @@ define('forum/category', [
 		console.log('entered load page');
 		console.log(query);
 		api.get('/api/categories', query)
-		.then(renderSearchResults)
-		.catch(alerts.error);
+			.then(renderSearchResults)
+			.catch(alerts.error);
 	}
 
 	Category.toTop = function () {

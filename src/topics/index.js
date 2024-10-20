@@ -20,7 +20,6 @@ require('./create')(Topics);
 require('./delete')(Topics);
 require('./sorted')(Topics);
 require('./unread')(Topics);
-require('./search')(Topics);
 require('./recent')(Topics);
 require('./user')(Topics);
 require('./fork')(Topics);
@@ -297,18 +296,4 @@ Topics.isLocked = async function (tid) {
 	const locked = await Topics.getTopicField(tid, 'locked');
 	return locked === 1;
 };
-
-// Topics.search = async function (tid, term) {
-// 	if (!tid || !term) {
-// 		throw new Error('[[error:invalid-data]]');
-// 	}
-
-// 	const result = await plugins.hooks.fire('filter:topic.search', {
-// 		tid: tid,
-// 		term: term,
-// 		ids: [],
-// 	});
-// 	return Array.isArray(result) ? result : result.ids;
-// };
-
 require('../promisify')(Topics);

@@ -36,7 +36,7 @@ Posts.redirectByIndex = async (req, res, next) => {
 };
 
 Posts.get = async (req, res) => {
-	console.log('got here');
+	// console.log('got here');
 	const post = await api.posts.get(req, { pid: req.params.pid });
 	if (!post) {
 		return helpers.formatApiResponse(404, res, new Error('[[error:no-post]]'));

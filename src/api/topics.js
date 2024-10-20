@@ -330,5 +330,5 @@ topicsAPI.search = async function (caller, data) {
 		page: data.page || 1,
 		sortBy: data.sortBy || 'lastonline',
 		filters: filters,
-	})
+	});
 };

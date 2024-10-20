@@ -11,21 +11,20 @@ const translator = require('../translator');
 const batch = require('../batch');
 
 module.exports = function (Categories) {
-
 	Categories.searchTopics = async function (data) {
 		console.log('was this called??/');
-		const query = data.query;
-		let results = await plugins.hooks.fire('filter:category.topics.prepare', data);
+		const { query } = data;
+		const results = await plugins.hooks.fire('filter:category.topics.prepare', data);
 		const tids = await Categories.getTopicIds(results);
-		let topicsData = await topics.getTopicsByTids(tids, data.uid);
-		if (!query || query.trim() === ''){
+		const topicsData = await topics.getTopicsByTids(tids, data.uid);
+		if (!query || query.trim() === '') {
 			return topicsData;
 		}
 		const searchFor = query.toLowerCase();
 		const matchedTopics = topicsData.filter(topic => topic.title.toLowerCase().includes(searchFor));
 		// console.log(matchedTopics);
 		return matchedTopics;
-	}
+	};
 
 	Categories.getCategoryTopics = async function (data) {
 		// console.log('data');

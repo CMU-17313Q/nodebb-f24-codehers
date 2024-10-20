@@ -26,7 +26,6 @@ require('./bookmarks')(Posts);
 require('./queue')(Posts);
 require('./diffs')(Posts);
 require('./uploads')(Posts);
-require('./search')(Posts);
 
 Posts.exists = async function (pids) {
 	return await db.exists(
