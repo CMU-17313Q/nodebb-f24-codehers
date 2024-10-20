@@ -118,7 +118,7 @@ Below are the files that contain automated tests for the resources page feature,
 
 **Why the tests are sufficient:** The tests cover the main functionalities of the api endpoint, the tests use a mock function to simulate the API endpoint requests, assertions are used to validate outcomes using status codes assertions, and logging is used for debugging.
 
-## 2. User Guide for Searching Topics Feature
+## 3. User Guide for Searching Topics Feature
 
 ## Overview 
 This feature allows users to be able to search for posts with specific / similiar titles in the general discussions page. This is particularly useful for users to efficiently locate if specific topics that they are looking for exist.
@@ -155,7 +155,7 @@ Below are the files that contain automated tests for the resources page feature,
 
 
 
-## 3.User Guide for Bug/Feedback Form and Bug Archive Features
+## 4. User Guide for Bug/Feedback Form and Bug Archive Features
 
 ---
 
@@ -173,7 +173,7 @@ The Bug/Feedback form is designed for all users to submit issues or feedback dir
 
 1. **Navigate to the Bug/Feedback Form:**
    - On the left sidebar look for the "Submit Bug/Feedback" button.
-- Press the button and form will pop up
+   - Press the button and form will pop up
    
 2. **Fill in the Required Fields:**
    - **Title**: Enter a concise but descriptive title of the bug/feedback.
@@ -186,7 +186,7 @@ The Bug/Feedback form is designed for all users to submit issues or feedback dir
    - If an error occurs, such as missing fields or network issues, an appropriate error message will appear.
 
 4. **Close the Form:**
-- Or if you changed your mind about submitting bugs you can press the red “Close” button to close the form.
+   - Or if you changed your mind about submitting bugs you can press the red “Close” button to close the form.
 
 ### **Key Features:**
 
@@ -203,25 +203,25 @@ The Bug Archive Page allows administrators to view previously submitted bugs and
 ### **Steps to Access the Bug Archive:**
 
 1. **Navigate to the Bug Archive Page:**
-- First click the “Admin” button in the left sidebar, clilc it, and login if you are an admin.
+   - First click the “Admin” button in the left sidebar, clilc it, and login if you are an admin.
    - Then n the admin dashboard, locate and click on the "Bug Archive" button to view all previously submitted bugs and feedback.
 
-2. **Viewing the Archive:**
+3. **Viewing the Archive:**
    - The archive page displays a table with the following information:
      - **Title**: The title of the bug or feedback.
      - **Description**: The details provided by the user.
      - **Submitted By**: The username or ID of the person who submitted the report.
      - **Date Submitted**: The timestamp of when the bug/feedback was submitted.
 
-3. **Refresh the Archive:**
+4. **Refresh the Archive:**
    - To ensure you are viewing the latest submissions, click the "Refresh" button. This will update the page with any new entries.
    
-4. **Handling Errors:**
+5. **Handling Errors:**
    - If the system fails to retrieve the archive (due to network issues or API errors), an error message will be displayed to notify you of the issue.
 
 ---
 
-## 3. User Testing Guide
+## User Testing Guide
 
 Here’s how you, the user, can manually test these features:
 
@@ -249,3 +249,35 @@ Here’s how you, the user, can manually test these features:
    - Verify that an appropriate error message is displayed.
 
 ---
+## Automsated testing:
+
+###**test/bug-form.js:**
+**What is being tested:**
+This file contains unit tests for the bug/feedback form submission feature. The tests simulate user input for the form fields and check the correct execution of the form submission logic.
+
+**Simulate User Input:** The tests check if the user can input values for fields like title, description, and CSRF token.
+**Form Submission:** Tests ensure that the form data (title, description, CSRF token) is properly passed in the fetch request when the form is submitted.
+**Alerts:** The tests verify that appropriate success or failure alert messages are displayed based on the form submission result.
+
+Why the tests are sufficient:
+- The tests cover key scenarios for the bug/feedback form:
+  - Successful form submission when valid data is provided.
+  - Validation checks to ensure all required fields are filled out.
+  - Proper handling of the CSRF token for secure submissions.
+  - Alerts for both success and failure cases, providing clear feedback to users.
+
+###**test/bug-archive.js:**
+**What is being tested:**
+This file contains unit tests for the bug archive feature. The tests simulate API calls to retrieve bug data and verify that the data is correctly displayed in the UI.
+
+**Data Retrieval:** Tests simulate API calls to fetch the bug archive and verify that the retrieved data is displayed correctly in the bug archive page.
+**Rendering:** The tests ensure that the archived bugs are rendered properly in the UI, displaying the title, description, submittedBy, and dateSubmitted fields.
+**Refresh Functionality:** Tests simulate adding a new bug and refreshing the archive page to check that the new entry appears in the archive.
+**Error Handling:** The tests verify that appropriate error messages are displayed when there is a failure to retrieve the bug archive due to API or network issues.
+
+**Why the tests are sufficient:***
+- The tests cover the main functionalities of the bug archive page:
+  - Simulating the retrieval of bugs and ensuring they are displayed accurately.
+  - Handling both successful data retrieval and scenarios where an API call fails.
+  - Testing the refresh button functionality to ensure the page updates when new bugs are added.
+  - Logging is used for debugging purposes to identify any issues during data retrieval or rendering.
