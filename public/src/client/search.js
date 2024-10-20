@@ -333,7 +333,7 @@ define('forum/search', [
 		}
 
 		async function doSearch() {
-			console.log('mercy');
+			// console.log('mercy');
 			let result = { tags: [] };
 			const query = el.find('[component="tag/filter/search"]').val();
 			if (query && query.length > 1) {

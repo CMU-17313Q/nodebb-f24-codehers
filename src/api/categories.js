@@ -68,6 +68,10 @@ categoriesAPI.search = async function (caller, data) {
 	) {
 		throw new Error('[[error:no-privileges]]');
 	}
+
+	const testing = categories.getCategoryData(2);
+	// console.log('testingg');
+	// console.log(testing);
 	return await categories.searchTopics({
 		uid: caller.uid,
 		cid: '2',

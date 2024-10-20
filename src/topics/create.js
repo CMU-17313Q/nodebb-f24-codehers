@@ -15,7 +15,7 @@ const privileges = require('../privileges');
 const categories = require('../categories');
 const translator = require('../translator');
 
-console.log('Al Anoud');
+// console.log('Al Anoud');
 
 module.exports = function (Topics) {
 	Topics.create = async function (data) {
@@ -119,7 +119,7 @@ module.exports = function (Topics) {
 			throw new Error('[[error:no-privileges]]');
 		}
 
-		console.log('Al Anoud: Refactored code executed');
+		// console.log('Al Anoud: Refactored code executed');
 
 		await guestHandleValid(data);
 		if (!data.fromQueue) {

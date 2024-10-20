@@ -70,8 +70,8 @@ define('categorySearch', ['alerts', 'bootstrap', 'api'], function (alerts, boots
 		});
 
 		function loadList(search, callback) {
-			console.log('caategories loadlist');
-			console.log('did it call search??');
+			// console.log('caategories loadlist');
+			// console.log('did it call search??');
 			api.get('/search/categories', {
 				search: search,
 				query: utils.params(),

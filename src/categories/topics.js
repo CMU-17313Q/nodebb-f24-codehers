@@ -22,8 +22,12 @@ module.exports = function (Categories) {
 		}
 		const searchFor = query.toLowerCase();
 		const matchedTopics = topicsData.filter(topic => topic.title.toLowerCase().includes(searchFor));
-		// console.log(matchedTopics);
-		return matchedTopics;
+		const finalTopics = matchedTopics.map(topic => topic.title);
+		const finalResults = {
+			title: '',
+			topics: finalTopics,
+		};
+		return finalResults;
 	};
 
 	Categories.getCategoryTopics = async function (data) {

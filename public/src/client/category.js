@@ -23,7 +23,7 @@ define('forum/category', [
 	let searchResultCount = 0;
 
 	Category.init = function () {
-		console.log('entered category public client');
+		// console.log('entered category public client');
 		const cid = ajaxify.data.cid;
 
 		app.enterRoom('category_' + cid);
@@ -119,20 +119,20 @@ define('forum/category', [
 	}
 
 	Category.handleSearch = function (params) {
-		console.log('entered public/src/client/category handleSearch');
+		// console.log('entered public/src/client/category handleSearch');
 		searchResultCount = params && params.resultCount;
 		$('#search-topic').on('keyup', utils.debounce(doSearch, 250));
 		$('.search select, .search input[type="checkbox"]').on('change', doSearch);
 	};
 
 	function doSearch() {
-		console.log('entered public/src/client/category doSearch');
+		// console.log('entered public/src/client/category doSearch');
 		if (!ajaxify.data.template.category) {
 			return;
 		}
 		$('[component="topic/search/icon"]').removeClass('fa-search').addClass('fa-spinner fa-spin');
 		const title = $('#search-topic').val();
-		console.log(title);
+		// console.log(title);
 		const activeSection = getActiveSection();
 
 		const query = {

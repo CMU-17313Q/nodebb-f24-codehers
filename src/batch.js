@@ -23,7 +23,7 @@ function processIsFunction(process) {
 
 
 exports.processSortedSet = async function (setKey, process, options) {
-	console.log('Hakaabi: Refactored code is running!');
+	// console.log('Hakaabi: Refactored code is running!');
 	options = options || {};
 
 	processIsFunction(process);
@@ -79,7 +79,7 @@ exports.processSortedSet = async function (setKey, process, options) {
 		stop = start + options.batch - 1;
 	}
 };
-console.log('Hakaabi: Refactored code stopped running!');
+// console.log('Hakaabi: Refactored code stopped running!');
 
 exports.processArray = async function (array, process, options) {
 	options = options || {};
