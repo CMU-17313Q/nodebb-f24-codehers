@@ -1,7 +1,7 @@
 'use strict';
 
 const helpers = require('./helpers');
-const { csrfSynchronisedProtection } = require('../middleware/csrf');
+//const { csrfSynchronisedProtection } = require('../middleware/csrf');
 
 module.exports = function (app, name, middleware, controllers) {
 	const middlewares = [middleware.pluginHooks];
