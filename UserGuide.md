@@ -117,3 +117,38 @@ Below are the files that contain automated tests for the resources page feature,
 **What is being tested:** The test suit demonstrates the rendering of the resources page from the api/resources-button enpoint by simulating HTTP GET requests and verifying the responses. The test file tests the successful return response from the API, the return of the expected outcome in the response through assertions, and the handling of invalid requests.
 
 **Why the tests are sufficient:** The tests cover the main functionalities of the api endpoint, the tests use a mock function to simulate the API endpoint requests, assertions are used to validate outcomes using status codes assertions, and logging is used for debugging.
+
+## 2. User Guide for Searching Topics Feature
+
+## Overview 
+This feature allows users to be able to search for posts with specific / similiar titles in the general discussions page. This is particularly useful for users to efficiently locate if specific topics that they are looking for exist.
+
+## How to Use the Search Feature
+1. Navigate to the General Discussions categroy
+   - Upon navigating to the page, you will see the search bar interface
+2. Right click on the search bar to open the console to be able to see prints the program does to the console.
+3. In the search box simply enter the query or title.
+4. The results for the query should be printed in the console.
+   
+## User Testing
+### Here’s how you, the user, can manually test this awesome feature:
+
+Upon navigating to the category, perform a search:
+
+- **Basic Functionality Test - Test with a query (Topic):** 
+  - Create a new post with a title. Enter the same title in the search interface. Navigate to the console of the interface, and verify that the post created appeared in the query results.
+
+- **Query with multiple matching topics :** 
+  - Create multiple posts with titles that have the same first couple of characters. Enter that same matching segment in the search interface. Navigate to the console of the interface, and verify that all the posts created with the same segment appeared in the results.
+
+- **Test with Blank Query:** 
+  - Enter spaces in the search interface. Navigate to the console of the interface, and verify that no posts appeared in the query results.
+
+## Automated Testing
+
+Below are the files that contain automated tests for the resources page feature, along with explanations for each.
+
+### test/categories.js: 
+**What is being tested:** This file tests the complete functionality of the search function, including regular cases and edge cases. It also tests for user permissions for searching and filtering. 
+
+**Why the tests are sufficient:** The tests cover the main use cases for the search function, the tests handle various edge cases for the queries, asserts are used to comapre the query results with the expected results, and console logging assists in displaying the functionality.
