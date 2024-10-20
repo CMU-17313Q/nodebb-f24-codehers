@@ -251,7 +251,7 @@ Here’s how you, the user, can manually test these features:
 ---
 ## Automsated testing:
 
-###**test/bug-form.js:**
+### **test/bug-form.js:**
 **What is being tested:**
 This file contains unit tests for the bug/feedback form submission feature. The tests simulate user input for the form fields and check the correct execution of the form submission logic.
 
@@ -266,7 +266,7 @@ Why the tests are sufficient:
   - Proper handling of the CSRF token for secure submissions.
   - Alerts for both success and failure cases, providing clear feedback to users.
 
-###**test/bug-archive.js:**
+### **test/bug-archive.js:**
 **What is being tested:**
 This file contains unit tests for the bug archive feature. The tests simulate API calls to retrieve bug data and verify that the data is correctly displayed in the UI.
 
