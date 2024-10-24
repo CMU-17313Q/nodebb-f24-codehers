@@ -1,4 +1,4 @@
-# User Guide for New Features
+# User Guide for New Features 
 
 ## 1. User Guide for Anonymous Posting Feature
 
