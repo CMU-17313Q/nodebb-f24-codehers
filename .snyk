@@ -1,0 +1,22 @@
+version: v1.1293.1
+
+ignore:
+  SNYK-JS-BOOTBOX-174704:  # Potential XSS vulnerability in Bootbox
+    - '*':
+        reason: "Low risk for our current usage."
+        expires: '2025-12-31T00:00:00Z'
+
+  SNYK-JS-ELLIPTIC-8187303:  # Signature handling issue in Elliptic
+    - '*':
+        reason: "No available update; minimal security impact."
+        expires: '2025-12-31T00:00:00Z'
+
+  SNYK-JS-INFLIGHT-6095116:  # Resource release concern in Inflight
+    - '*':
+        reason: "Unlikely to affect our application."
+        expires: '2025-12-31T00:00:00Z'
+
+  SNYK-JS-REQUEST-3361831:  # SSRF potential in Request package
+    - '*':
+        reason: "Not relevant within our application's environment."
+        expires: '2025-12-31T00:00:00Z'
