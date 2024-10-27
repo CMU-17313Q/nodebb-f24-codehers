@@ -19,10 +19,11 @@ logs/
 test/files
 *.min.js
 install/docker/
+
 lib/categories/
 lib/api/
 lib/cli/
 lib/admin/
-lib/analytics.js/
-lib/batch.js/
+lib/analytics.js
+lib/batch.js
 lib/cache/
