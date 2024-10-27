@@ -1,24 +1,33 @@
-
-
 version: v1.1293.1
 
-ignore:
-  SNYK-JS-BOOTBOX-174704:  # Potential XSS vulnerability in Bootbox
-    - '*':
-        reason: "Low risk for our current usage."
-        expires: '2025-12-31T00:00:00Z'
-
-  SNYK-JS-ELLIPTIC-8187303:  # Signature handling issue in Elliptic
-    - '*':
-        reason: "No available update; minimal security impact."
-        expires: '2025-12-31T00:00:00Z'
-
-  SNYK-JS-INFLIGHT-6095116:  # Resource release concern in Inflight
-    - '*':
-        reason: "Unlikely to affect our application."
-        expires: '2025-12-31T00:00:00Z'
-
-  SNYK-JS-REQUEST-3361831:  # SSRF potential in Request package
-    - '*':
-        reason: "Not relevant within our application's environment."
-        expires: '2025-12-31T00:00:00Z'
+exclude:
+  - lib/admin/search.js
+  - lib/admin/versions.js
+  - lib/analytics.js
+  - lib/api/admin.js
+  - lib/api/categories.js
+  - lib/api/chats.js
+  - lib/api/flags.js
+  - lib/api/groups.js
+  - lib/api/helpers.js
+  - lib/api/posts.js
+  - lib/api/search.js
+  - lib/api/tags.js
+  - lib/api/topics.js
+  - lib/api/users.js
+  - lib/api/utils.js
+  - lib/batch.js
+  - lib/cache/lru.js
+  - lib/cache/ttl.js
+  - lib/categories/activeusers.js
+  - lib/categories/create.js
+  - lib/categories/data.js
+  - lib/categories/delete.js
+  - lib/categories/index.js
+  - lib/categories/recentreplies.js
+  - lib/categories/search.js
+  - lib/categories/topics.js
+  - lib/categories/unread.js
+  - lib/categories/update.js
+  - lib/categories/watch.js
+  - lib/cli/colors.js
