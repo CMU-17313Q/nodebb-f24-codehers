@@ -1,33 +1,7 @@
 version: v1.1293.1
 
 exclude:
-  - lib/admin/search.js
-  - lib/admin/versions.js
-  - lib/analytics.js
-  - lib/api/admin.js
-  - lib/api/categories.js
-  - lib/api/chats.js
-  - lib/api/flags.js
-  - lib/api/groups.js
-  - lib/api/helpers.js
-  - lib/api/posts.js
-  - lib/api/search.js
-  - lib/api/tags.js
-  - lib/api/topics.js
-  - lib/api/users.js
-  - lib/api/utils.js
-  - lib/batch.js
-  - lib/cache/lru.js
-  - lib/cache/ttl.js
-  - lib/categories/activeusers.js
-  - lib/categories/create.js
-  - lib/categories/data.js
-  - lib/categories/delete.js
-  - lib/categories/index.js
-  - lib/categories/recentreplies.js
-  - lib/categories/search.js
-  - lib/categories/topics.js
-  - lib/categories/unread.js
-  - lib/categories/update.js
-  - lib/categories/watch.js
-  - lib/cli/colors.js
+  - lib/categories/
+  - lib/api/
+  - lib/cli/
+
