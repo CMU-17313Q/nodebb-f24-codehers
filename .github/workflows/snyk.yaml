@@ -1,0 +1,49 @@
+name: Snyk Security Scan
+
+on:
+  pull_request:
+    branches:
+      - f24
+  workflow_call:
+
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  contents: read
+
+jobs:
+  snyk:
+    runs-on: ubuntu-latest
+    env:
+      SNYK_ENV: 'production'
+
+    steps:
+      # Step 1: Check out the repository code
+      - uses: actions/checkout@v4
+
+      # Step 2: Copy package.json from `.install` directory to root
+      - run: cp .install/package.json package.json
+
+      # Step 3: Set up Node.js environment
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Step 4: Install dependencies in `.install` directory
+      - name: Install dependencies
+        working-directory: .install
+        uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: false
+
+      # Step 5: Run Snyk security scan in `.install` directory
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_KEY }}
+        with:
+          args: test --all-projects
+        working-directory: .install
