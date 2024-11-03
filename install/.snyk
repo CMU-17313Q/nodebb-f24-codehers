@@ -20,3 +20,13 @@ ignore:
     - '*':
         reason: "Not relevant within our application's environment."
         expires: '2025-12-31T00:00:00Z'
+
+  SNYK-JS-JQUERYFORM-574783:  # XSS vulnerability in jquery-form
+    - '*':
+        reason: "No alternative available; limited exposure in current usage."
+        expires: '2025-12-31T00:00:00Z'
+
+  SNYK-JS-MARKDOWNIT-6483324:  # Infinite loop vulnerability in markdown-it
+    - '*':
+        reason: "Fixed in newer version, pending update in dependent library."
+        expires: '2025-12-31T00:00:00Z'
