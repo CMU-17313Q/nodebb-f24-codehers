@@ -20,7 +20,7 @@ Open any topics that interest you and click **'Reply'** at the top right. This w
 > - **Topic:** A topic is a new discussion thread that can contain multiple replies. It usually has a title and is used to introduce a new subject or ask a question.
 > 
 > - **Post:** A post is a bit different in the sense that a post can be a topic but a topic can't a post....meaning it can be a response to a topic but also the topic itself! you don't have to worry about it too much just know that it adds to the discussion initiated by the topic and can include replies from various users. Posts are often used to provide feedback, share opinions, or ask for clarifications on the topic.
-
+ 
 ## User Testing
 ### Here’s how you, the user, can manually test this awesome feature:
 
