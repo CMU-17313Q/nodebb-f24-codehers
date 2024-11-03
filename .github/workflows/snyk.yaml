@@ -11,9 +11,9 @@ defaults:
     shell: bash
 
 permissions:
-  contents: read
   checks: write
-
+  contents: read
+  
 jobs:
   snyk:
     runs-on: ubuntu-latest
@@ -28,11 +28,11 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
-        working-directory: .install
+      - name: NPM Install
         uses: bahmutov/npm-install@v1
         with:
           useLockFile: false
+          working-directory: ./install
 
       - name: Run Snyk Test
         run: npx snyk test --severity-threshold=high
