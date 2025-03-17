@@ -175,6 +175,90 @@ describe('Categories', () => {
 		});
 	});
 
+	describe('.searchTopics()', () => {
+		let adminUid;
+		let uid;
+		before(async () => {
+			adminUid = await User.create({ username: 'noteadmin' });
+			await groups.join('administrators', adminUid);
+		});
+
+		it('should return array of topics whose titles being with a', (done) => {
+			Categories.searchTopics({ query: 'a' }, (err, searchData) => {
+				assert.ifError(err);
+				assert.equal(Array.isArray(searchData.users) && searchData.users.length > 0, true);
+				assert.equal(searchData[0], 'africa');
+				done();
+			});
+		});
+
+		it('should search topic', async () => {
+			const searchData = await apiCat.search({ uid: testUid }, { query: 'alrightyyy' });
+			assert.equal(searchData[0], 'alrightyyy');
+		});
+
+		it('should error for guest', async () => {
+			try {
+				await apiCat.search({ uid: 0 }, { query: 'john' });
+				assert(false);
+			} catch (err) {
+				assert.equal(err.message, '[[error:no-privileges]]');
+			}
+		});
+
+		it('should error with invalid data', async () => {
+			try {
+				await apiCat.search({ uid: testUid }, null);
+				assert(false);
+			} catch (err) {
+				assert.equal(err.message, '[[error:invalid-data]]');
+			}
+		});
+
+		it('should error for unprivileged user', async () => {
+			try {
+				await apiCat.search({ uid: testUid }, { searchBy: 'ip', query: '123' });
+				assert(false);
+			} catch (err) {
+				assert.equal(err.message, '[[error:no-privileges]]');
+			}
+		});
+
+		it('should error for unprivileged user', async () => {
+			try {
+				await apiCat.search({ uid: testUid }, { filters: ['banned'], query: '123' });
+				assert(false);
+			} catch (err) {
+				assert.equal(err.message, '[[error:no-privileges]]');
+			}
+		});
+
+		it('should error for unprivileged user', async () => {
+			try {
+				await apiCat.search({ uid: testUid }, { filters: ['flagged'], query: '123' });
+				assert(false);
+			} catch (err) {
+				assert.equal(err.message, '[[error:no-privileges]]');
+			}
+		});
+		
+		it('should return all topics if query is empty', async () => {
+			const data = await apiCat.search({ uid: testUid }, { query: '' });
+			assert.isAbove(data.length, 0);
+		});
+
+		it('should sort results by username', async () => {
+			const data = await Categories.searchTopics({
+				uid: testUid,
+				query: 'b',
+				sortBy: 'title',
+				paginate: false,
+			});
+			assert.equal(data[0], 'africa');
+			assert.equal(data[1], 'alrightyyy');
+		});
+	});
+
 	describe('api/socket methods', () => {
 		const socketCategories = require('../src/socket.io/categories');
 		const apiCategories = require('../src/api/categories');
